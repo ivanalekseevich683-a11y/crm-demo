@@ -464,6 +464,26 @@ body.printing #print-root { display: block !important; }
   .pf-stock .card-head { padding: 12px 14px 0; }
 }
 
+/* ---------- закупки ---------- */
+.ok-text { color: var(--ok); font-weight: 600; }
+.tbl .neg, span.neg { color: var(--danger); font-weight: 600; }
+.pur-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 640px) {
+  .pur-kpis { gap: 8px; }
+  .pur-kpis .kpi { padding: 10px 12px; }
+  .pur-kpis .kpi .label { font-size: 12px; }
+  .pur-kpis .kpi .sub { display: none; }
+}
+.pur-list { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 10px; }
+.pur-title { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 4px; }
+.pur-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px 16px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.pur-row:last-child { border-bottom: 0; }
+.pur-when { font-size: 13px; white-space: nowrap; }
+.pf-add-checks { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.pf-add-checks .check { align-items: flex-start; }
+.pf-add-checks input[type="checkbox"] { margin-top: 2px; flex: none; }
+.pf-add-checks input:disabled + * , .pf-add-checks .check:has(input:disabled) { color: var(--muted); }
+
 /* ---------- демо-режим ---------- */
 .demo-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin: 16px 24px 0; padding: 10px 14px; border-radius: var(--radius); background: var(--warn-soft); color: var(--text); font-size: 13.5px; }
 .demo-bar b { color: var(--warn); }
@@ -520,6 +540,13 @@ body.printing #print-root { display: block !important; }
   .st-stock .a-name { grid-area: name; } .st-stock .a-qty { grid-area: qty; }
   .st-stock .a-sku { grid-area: sku; } .st-stock .a-price { grid-area: price; }
   .st-stock .a-act { grid-area: act; text-align: left; margin-top: 4px; }
+  .st-pur tr { grid-template-areas: "name sum" "sup when" "for act"; }
+  .st-pur .a-name { grid-area: name; } .st-pur .a-sum { grid-area: sum; }
+  .st-pur .a-sup { grid-area: sup; } .st-pur .a-when { grid-area: when; text-align: right; }
+  .st-pur .a-for { grid-area: for; } .st-pur .a-act { grid-area: act; }
+  .pur-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .pur-row .pur-when { grid-column: 1; white-space: normal; }
+  .pur-row .pur-act { grid-column: 2; grid-row: 1 / span 2; }
 }
 
 </style>
@@ -533,6 +560,7 @@ body.printing #print-root { display: block !important; }
         <a href="#/calendar" data-nav="/calendar"><span data-icon="calendar"></span>Запись</a>
         <a href="#/orders" data-nav="/orders"><span data-icon="clipboard"></span>Заказ-наряды</a>
         <a href="#/parts" data-nav="/parts"><span data-icon="tag"></span>Подбор запчастей</a>
+        <a href="#/purchases" data-nav="/purchases"><span data-icon="truck"></span>Закупки</a>
         <a href="#/clients" data-nav="/clients"><span data-icon="users"></span>Клиенты</a>
         <a href="#/stock" data-nav="/stock"><span data-icon="box"></span>Склад</a>
         <a href="#/services" data-nav="/services"><span data-icon="list"></span>Услуги и цены</a>
@@ -624,7 +652,7 @@ body.printing #print-root { display: block !important; }
   const requireName = (data) => { if ('name' in data && !data.name) throw new ApiError(400, 'Заполните обязательные поля'); };
 
   /* ---------- хранилище ---------- */
-  const TABLES = ['users', 'employees', 'posts', 'clients', 'cars', 'services', 'parts', 'orders', 'order_works', 'order_parts', 'payments', 'appointments'];
+  const TABLES = ['users', 'employees', 'posts', 'clients', 'cars', 'services', 'parts', 'orders', 'order_works', 'order_parts', 'payments', 'appointments', 'purchases'];
   const DEFAULT_SETTINGS = {
     company_name: 'МК Сервис', company_address: '', company_phone: '', company_inn: '', company_requisites: '',
     hour_price: '2000', parts_markup: '30', parts_demo_catalog: '1', work_start: '09:00', work_end: '20:00',
@@ -642,6 +670,7 @@ body.printing #print-root { display: block !important; }
     order_works: () => ({ service_id: null, qty: 1, price: 0, employee_id: null, sort: 0 }),
     order_parts: () => ({ part_id: null, sku: '', qty: 1, price: 0, buy_price: 0, sort: 0 }),
     payments: () => ({ method: 'cash', note: '', created_at: now(), user_id: null }),
+    purchases: () => ({ brand: '', article: '', qty: 1, price: 0, expected_date: null, status: 'ordered', order_id: null, note: '', created_at: now(), received_at: null, created_by: null }),
     appointments: () => ({ duration: 60, post_id: null, client_id: null, car_id: null, description: '', status: 'planned', order_id: null, created_at: now() }),
   };
   let S = null;
@@ -662,7 +691,7 @@ body.printing #print-root { display: block !important; }
     S[table] = S[table].filter((r) => r.id !== id);
     const nullify = {
       services: [['order_works', 'service_id']], parts: [['order_parts', 'part_id']], posts: [['appointments', 'post_id']],
-      cars: [['appointments', 'car_id']], orders: [['appointments', 'order_id']], employees: [['orders', 'master_id'], ['order_works', 'employee_id']],
+      cars: [['appointments', 'car_id']], orders: [['appointments', 'order_id'], ['purchases', 'order_id']], employees: [['orders', 'master_id'], ['order_works', 'employee_id']],
     }[table] || [];
     for (const [t, col] of nullify) S[t].forEach((r) => { if (r[col] === id) r[col] = null; });
     if (table === 'clients') {
@@ -677,7 +706,10 @@ body.printing #print-root { display: block !important; }
       const raw = localStorage.getItem(KEY);
       if (!raw) return null;
       const s = JSON.parse(raw);
-      if (s.v === 1 && Date.now() - s.seededAt < MAX_AGE && TABLES.every((t) => Array.isArray(s[t]))) return s;
+      if (s.v === 1 && Date.now() - s.seededAt < MAX_AGE && Array.isArray(s.orders)) {
+        for (const t of TABLES) if (!Array.isArray(s[t])) s[t] = []; // таблицы, появившиеся в новой версии
+        return s;
+      }
     } catch { /* повреждённые данные: создадим заново */ }
     return null;
   }
@@ -979,6 +1011,7 @@ body.printing #print-root { display: block !important; }
     r.client = find('clients', o.client_id);
     r.car = find('cars', o.car_id);
     r.client_cars = carsOf(o.client_id).map(({ id: cid, make, model, plate, year }) => ({ id: cid, make, model, plate, year }));
+    r.purchases = purchasesQuery((p) => p.order_id === id);
     return r;
   }
   function raiseMileage(carId, mileage) {
@@ -1092,6 +1125,84 @@ body.printing #print-root { display: block !important; }
     return paymentsOf(p.order_id);
   });
 
+  /* ----- закупки у поставщиков ----- */
+  const PURCHASE = { supplier: 'str', name: 'str', brand: 'str', article: 'str', qty: 'num', price: 'num', expected_date: 'date', order_id: 'int', note: 'str' };
+  function purchaseRow(p) {
+    const o = find('orders', p.order_id);
+    const c = o ? find('clients', o.client_id) : null;
+    const car = o ? find('cars', o.car_id) : null;
+    return { ...p, order_status: o?.status ?? null, client_name: c?.name ?? null, make: car?.make ?? null, model: car?.model ?? null, plate: car?.plate ?? null };
+  }
+  function purchasesQuery(pred = () => true) {
+    const rank = (p) => (p.status === 'ordered' ? 0 : 1);
+    return S.purchases.filter(pred).map(purchaseRow).sort((a, b) => rank(a) - rank(b)
+      || (a.status === 'ordered' ? ru(a.expected_date, b.expected_date) : 0) || b.id - a.id);
+  }
+  function checkPurchase(data) {
+    requireName(data);
+    if ('supplier' in data && !data.supplier) throw new ApiError(400, 'Заполните обязательные поля');
+    if ('qty' in data && data.qty <= 0) throw new ApiError(400, 'Количество должно быть больше нуля');
+    if (data.order_id) get('orders', data.order_id, 'Заказ-наряд');
+  }
+  route('GET', '/purchases', 'staff', (req) => {
+    const status = req.q('status');
+    const orderId = Number(req.q('order_id')) || null;
+    const items = purchasesQuery((p) => (!['ordered', 'received', 'cancelled'].includes(status) || p.status === status) && (!orderId || p.order_id === orderId));
+    const counts = {};
+    for (const p of S.purchases) counts[p.status] = (counts[p.status] || 0) + 1;
+    return { items, counts };
+  });
+  route('POST', '/purchases', 'staff', (req) => {
+    const d = req.body;
+    const data = conv(d, PURCHASE);
+    if (!data.supplier || !data.name) throw new ApiError(400, 'Укажите поставщика и деталь');
+    if (data.qty === undefined) data.qty = 1;
+    checkPurchase(data);
+    if (!data.expected_date && d.days !== undefined && d.days !== '') data.expected_date = addDays(today(), Math.trunc(toNumber(d.days, 'Срок') || 0));
+    const p = ins('purchases', { ...data, status: 'ordered', created_by: req.user.id });
+    const o = find('orders', data.order_id);
+    if (o && d.set_waiting && ['new', 'in_progress'].includes(o.status)) o.status = 'waiting_parts';
+    return purchaseRow(p);
+  });
+  route('PUT', '/purchases/(\\d+)', 'staff', (req, id) => {
+    const p = get('purchases', id, 'Заказ поставщику');
+    const d = req.body;
+    const data = conv(d, PURCHASE);
+    checkPurchase(data);
+    if ('status' in d) {
+      if (!['ordered', 'cancelled'].includes(d.status)) throw new ApiError(400, 'Получение отмечается кнопкой «Получено»');
+      if (p.status === 'received') throw new ApiError(400, 'Заказ уже получен, его статус не меняется');
+      data.status = d.status;
+    }
+    Object.assign(p, data);
+    return purchaseRow(p);
+  });
+  route('POST', '/purchases/(\\d+)/receive', 'staff', (req, id) => {
+    const p = get('purchases', id, 'Заказ поставщику');
+    if (p.status !== 'ordered') throw new ApiError(400, 'Этот заказ уже закрыт');
+    Object.assign(p, { status: 'received', received_at: now() });
+    const result = { order_resumed: false, part_id: null };
+    if (p.order_id) {
+      const o = find('orders', p.order_id);
+      if (o && o.status === 'waiting_parts' && !S.purchases.some((x) => x.order_id === p.order_id && x.status === 'ordered')) {
+        o.status = 'in_progress';
+        result.order_resumed = true;
+      }
+    } else {
+      const art = String(p.article || '').replace(/\s/g, '').toUpperCase();
+      let part = art ? S.parts.find((x) => String(x.sku).replace(/\s/g, '').toUpperCase() === art) : null;
+      if (!part) part = S.parts.find((x) => lower(x.name) === lower(p.name));
+      if (part) Object.assign(part, { qty: part.qty + p.qty, buy_price: p.price });
+      else {
+        const markup = toNumber(S.settings.parts_markup, 'Наценка') || 0;
+        part = ins('parts', { name: p.name, sku: p.article, brand: p.brand, qty: p.qty, buy_price: p.price, price: Math.round(p.price * (1 + markup / 100) / 10) * 10 });
+      }
+      result.part_id = part.id;
+    }
+    result.purchase = purchaseRow(p);
+    return result;
+  });
+
   /* ----- запись ----- */
   const toMin = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
   function parseStart(v) {
@@ -1187,6 +1298,9 @@ body.printing #print-root { display: block !important; }
       }),
       low_stock: S.parts.filter((p) => p.min_qty > 0 && p.qty <= p.min_qty).sort((a, b) => (a.qty - a.min_qty) - (b.qty - b.min_qty)).slice(0, 15),
       debt_count: debts.length,
+      purchases_open: S.purchases.filter((p) => p.status === 'ordered').length,
+      purchases_today: S.purchases.filter((p) => p.status === 'ordered' && p.expected_date === t).length,
+      purchases_overdue: S.purchases.filter((p) => p.status === 'ordered' && p.expected_date && p.expected_date < t).length,
     };
     if (req.user.role === 'admin') {
       const paidSince = (since) => round2(sum(S.payments.filter((p) => p.created_at >= since), (p) => p.amount));
@@ -1324,6 +1438,10 @@ body.printing #print-root { display: block !important; }
       }
     });
     for (const p of S.parts) if (['GDB1551', '64210'].includes(p.sku)) p.qty = 1;
+    // Заказы у поставщиков: колодки для заказ-наряда, который ждёт запчасти, и лампы на склад.
+    const waiting = S.orders.find((o) => o.status === 'waiting_parts');
+    ins('purchases', { supplier: 'ДетальОпт', name: 'Колодки тормозные задние TRW', brand: 'TRW', article: 'GDB1551', qty: 1, price: 1900, order_id: waiting?.id ?? null, expected_date: addDays(today(), 1), created_by: admin.id });
+    ins('purchases', { supplier: 'ПартсМаркет', name: 'Лампа H7', brand: 'Osram', article: '64210', qty: 10, price: 280, expected_date: today(), created_by: admin.id });
     find('cars', cars[1][1]).next_service_date = addDays(today(), 5);
     find('cars', cars[4][1]).next_service_date = addDays(today(), -3);
 
@@ -1734,7 +1852,7 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
       ${st.stock.map((p, i) => `<div class="pf-offer"><div class="pf-sup"><div class="t">${esc(p.name)}</div><div class="s">${esc([p.brand, p.sku].filter(Boolean).join(' · '))}${p.location ? ` · место ${esc(p.location)}` : ''}</div></div>
         <div class="pf-meta"><span class="pf-days today">сегодня</span><span class="muted small">${fmtNum(p.qty)} ${esc(p.unit)}</span></div>
         <div class="pf-price"><div class="v">${money(p.price)}</div><div class="s">закупка ${money(p.buy_price)}</div></div>
-        <button type="button" class="btn sm primary" data-stock="${i}">${inOrder ? 'В заказ' : 'Добавить'}</button></div>`).join('')}</section>` : '';
+        <button type="button" class="btn sm primary" data-stock="${i}">Взять</button></div>`).join('')}</section>` : '';
 
     if (!st.type && !st.article && !st.stock.length) {
       res.innerHTML = `<div class="card pf-empty"><h2>Не поняли, какая деталь нужна</h2>
@@ -1745,7 +1863,9 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
       res.innerHTML = `${relatedHtml}${stockHtml}
         <section class="card pf-connect"><h2>Цены поставщиков</h2>
           <p class="muted">Здесь будут предложения ваших поставщиков по «${esc(label)}»${carTitle ? ` для ${esc(carTitle)}` : ''}: цены, сроки и наличие, отсортированные от дешёвых к дорогим.
-          Для этого подключаются API поставщиков, с которыми вы работаете (Армтек, Росско, Автопитер, магазины на платформе ABCP и другие).</p></section>${linksHtml}`;
+          Для этого подключаются API поставщиков, с которыми вы работаете (Армтек, Росско, Автопитер, магазины на платформе ABCP и другие).</p>
+          <p class="muted">Заказали по телефону или на сайте? Запишите заказ — CRM напомнит, когда деталь должна приехать.</p>
+          <button type="button" class="btn" data-manual-order>${icon('plus')} Записать заказ у поставщика</button></section>${linksHtml}`;
       return;
     }
 
@@ -1767,7 +1887,7 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
     const keyOf = (p, o) => `${p.article}|${o.supplier}`;
     const bestCard = (title, cls, x) => (x ? `<div class="pf-best ${cls}"><div class="lbl">${title}</div>
       <div class="val">${money(x.o.price)}</div><div class="small">${esc(x.p.brand)} · ${esc(x.o.supplier)} · ${pfDays(x.o.days)}</div>
-      <button type="button" class="btn sm" data-offer="${esc(keyOf(x.p, x.o))}">${inOrder ? 'В заказ' : 'Добавить'}</button></div>` : '');
+      <button type="button" class="btn sm" data-offer="${esc(keyOf(x.p, x.o))}">Заказать</button></div>` : '');
 
     res.innerHTML = `
       <section class="card pf-summary">
@@ -1800,7 +1920,7 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
           <div class="pf-sup"><div class="t">${esc(o.supplier)} <span class="pf-rating">★ ${o.rating.toFixed(1)}</span></div><div class="s">${esc(o.note)}</div></div>
           <div class="pf-meta"><span class="pf-days ${o.days <= 1 ? 'today' : ''}">${pfDays(o.days)}</span><span class="muted small">в наличии ${o.qty} шт</span></div>
           <div class="pf-price"><div class="v">${money(o.price)}</div><div class="s">клиенту ${money(pfRetail(o.price))}</div></div>
-          <button type="button" class="btn sm ${cheapest && o === cheapest.o ? 'primary' : ''}" data-offer="${esc(keyOf(p, o))}">${inOrder ? 'В заказ' : 'Добавить'}</button>
+          <button type="button" class="btn sm ${cheapest && o === cheapest.o ? 'primary' : ''}" data-offer="${esc(keyOf(p, o))}">Заказать</button>
         </div>`).join('')}
       </section>`).join('') : '<div class="card empty">Нет предложений с такими фильтрами</div>'}
       ${linksHtml}
@@ -1818,7 +1938,12 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
       title: `${st.type.name} ${x.p.brand}${x.p.kind === 'restored' ? ' (восстановленная)' : ''}`,
       sku: x.p.article, buy: x.o.price, retail: pfRetail(x.o.price), partId: null,
       source: `${x.o.supplier} · ${pfDays(x.o.days)}`, type: st.type, st, onAdd, orderId,
+      brand: x.p.brand, supplier: x.o.supplier, days: x.o.days, canOrder: true,
     });
+  });
+  on(host, 'click', '[data-manual-order]', () => {
+    const name = [st.type?.name || st.query, st.car.make, st.car.model].filter(Boolean).join(' ');
+    purchaseDialog(null, { name, order_id: orderId || null }, () => {});
   });
   on(host, 'click', '[data-stock]', (e, el) => {
     const p = st.stock[+el.dataset.stock];
@@ -1839,56 +1964,211 @@ async function partsFinder(host, { car = null, clientId = null, carId = null, qu
   }
 }
 
-/** Окно «Добавить в заказ-наряд»: количество, цена клиенту, работа по замене из прайса. */
-async function pfAddDialog({ title, sku, buy, retail, partId, unit, source, type, st, onAdd, orderId }) {
+/**
+ * Окно заказа детали: количество, цена клиенту, куда (заказ-наряд или склад),
+ * заказ у поставщика, работа по замене из прайса и статус «Ждёт запчасти».
+ */
+async function pfAddDialog({ title, brand = '', sku, buy, retail, partId, unit, source, type, st, onAdd, orderId, supplier = '', days = 0, canOrder = false }) {
   const services = type?.work ? await api('/services', { query: { q: type.work, limit: 3 } }).catch(() => []) : [];
   const service = services.find((s) => pfNorm(s.name).startsWith('замен')) || services[0] || null;
+  const expected = addDays(isoDate(), days);
+  const when = days === 0 ? 'сегодня' : days === 1 ? 'завтра' : fmtDate(expected);
   let orders = [];
   if (!onAdd) {
     const r = await api('/orders', { query: { status: 'active' } });
     orders = r.items;
     if (st.carId) orders.sort((a, b) => (b.car_id === st.carId) - (a.car_id === st.carId));
   }
-  const orderOpts = [
-    ...orders.map((o) => [o.id, `№${o.id} · ${carLine(o) || '—'} · ${o.client_name}`]),
-    ...(st.clientId ? [['new', `+ Новый заказ-наряд для ${st.client?.name || 'клиента'}`]] : []),
+  const targets = [
+    ...orders.map((o) => [o.id, `Заказ-наряд №${o.id} · ${carLine(o) || '—'} · ${o.client_name}`]),
+    ...(st.clientId ? [['new', `Новый заказ-наряд для ${st.client?.name || 'клиента'}`]] : []),
+    ...(canOrder ? [['stock', 'На склад, без заказ-наряда']] : []),
   ];
-  if (!onAdd && !orderOpts.length) {
+  if (!onAdd && !targets.length) {
     toast('Нет открытых заказ-нарядов. Выберите машину клиента, чтобы создать новый.', 'error');
     return;
   }
-  const preferred = orders.find((o) => o.car_id && o.car_id === st.carId)?.id ?? (st.clientId ? 'new' : orderOpts[0][0]);
-  openModal({
-    title: onAdd ? 'Добавить в заказ-наряд' : 'Добавить в заказ-наряд',
-    submit: 'Добавить',
+  const preferred = orders.find((o) => o.car_id && o.car_id === st.carId)?.id ?? (st.clientId ? 'new' : targets[0][0]);
+  const m = openModal({
+    title: canOrder ? 'Заказ детали' : 'Взять со склада',
+    submit: canOrder ? 'Заказать' : 'Добавить в заказ-наряд',
     body: `<div class="pf-add-head"><div class="t">${esc(title)}</div><div class="muted small">${esc(sku || '')}${sku ? ' · ' : ''}${esc(source)} · закупка ${money(buy)}</div></div>
       <div class="form-grid">
-        ${onAdd ? '' : fSelect('Заказ-наряд', 'order', orderOpts, preferred, { cls: 'wide' })}
+        ${onAdd ? '' : fSelect('Куда', 'order', targets, preferred, { cls: 'wide' })}
         ${fNum('Количество', 'qty', 1)}
-        ${fNum('Цена клиенту, ₽', 'price', retail)}
-        ${service ? `<div class="wide">${fCheck(`Добавить работу «${service.name}» — ${money(service.price)}`, 'with_work', true)}</div>` : ''}
+        ${fNum('Цена клиенту за шт, ₽', 'price', retail)}
+        <div class="wide pf-add-checks">
+          ${canOrder ? fCheck(`Заказать у «${supplier}» — приедет ${when}`, 'do_order', true) : ''}
+          ${service ? fCheck(`Добавить работу «${service.name}» — ${money(service.price)}`, 'with_work', true) : ''}
+          ${canOrder && days > 0 ? fCheck('Перевести заказ-наряд в «Ждёт запчасти»', 'set_waiting', true) : ''}
+        </div>
+        ${canOrder && DEMO ? '<p class="hint wide" style="margin:0">В демо заказ поставщику не отправляется, а появляется в разделе «Закупки».</p>' : ''}
       </div>`,
     onSubmit: async (d) => {
-      const part = { part_id: partId, name: title, sku: sku || '', qty: toNum(d.qty) || 1, price: toNum(d.price), buy_price: buy, unit: unit || 'шт', avail: null };
-      const work = d.with_work && service ? { service_id: service.id, name: service.name, qty: 1, price: service.price, employee_id: '' } : null;
+      const qty = toNum(d.qty) || 1;
+      const doOrder = canOrder && d.do_order;
+      const target = onAdd ? 'current' : d.order;
+      if (target === 'stock' && !doOrder) throw new Error('На склад деталь попадёт только через заказ у поставщика — отметьте «Заказать».');
+      const part = { part_id: partId, name: title, sku: sku || '', qty, price: toNum(d.price), buy_price: buy, unit: unit || 'шт', avail: null };
+      const work = d.with_work && service && target !== 'stock' ? { service_id: service.id, name: service.name, qty: 1, price: service.price, employee_id: '' } : null;
+      const purchase = doOrder ? { supplier, name: title, brand, article: sku || '', qty, price: buy, days } : null;
+      const waiting = !!(doOrder && d.set_waiting);
+
       if (onAdd) {
-        onAdd({ part, work });
+        if (purchase) await api('/purchases', { method: 'POST', body: { ...purchase, order_id: orderId } });
+        await onAdd({ part, work, waiting, ordered: !!purchase });
         return;
       }
-      let target = d.order;
-      if (target === 'new') {
-        const r = await api('/orders', { method: 'POST', body: { client_id: st.clientId, car_id: st.carId || undefined, complaint: `Замена: ${type?.name || title}` } });
-        target = r.id;
+      if (target === 'stock') {
+        await api('/purchases', { method: 'POST', body: purchase });
+        toast(`Заказано у «${supplier}», приедет ${when}. По кнопке «Получено» деталь попадёт на склад.`);
+        go('#/purchases');
+        return;
       }
-      const o = await api(`/orders/${target}`);
-      await api(`/orders/${target}`, { method: 'PUT', body: {
+      let id = target;
+      if (id === 'new') {
+        const r = await api('/orders', { method: 'POST', body: { client_id: st.clientId, car_id: st.carId || undefined, complaint: `Замена: ${type?.name || title}` } });
+        id = r.id;
+      }
+      if (purchase) await api('/purchases', { method: 'POST', body: { ...purchase, order_id: id, set_waiting: waiting } });
+      const o = await api(`/orders/${id}`);
+      await api(`/orders/${id}`, { method: 'PUT', body: {
         works: [...o.works.map((w) => ({ service_id: w.service_id, name: w.name, qty: w.qty, price: w.price, employee_id: w.employee_id })), ...(work ? [work] : [])],
         parts: [...o.parts.map((p) => ({ part_id: p.part_id, name: p.name, sku: p.sku, qty: p.qty, price: p.price, buy_price: p.buy_price })), part],
       } });
-      toast(`Добавлено в заказ-наряд №${target}`);
-      go(`#/orders/${target}`);
+      toast(purchase ? `Заказано у «${supplier}» и добавлено в заказ-наряд №${id}` : `Добавлено в заказ-наряд №${id}`);
+      go(`#/orders/${id}`);
     },
   });
+  // Подпись кнопки и доступность галочек следуют за выбором.
+  const form = m.form;
+  const sync = () => {
+    const doOrder = form.elements.do_order?.checked;
+    const toStock = form.elements.order?.value === 'stock';
+    $('button[type=submit]', m.el).textContent = doOrder ? 'Заказать' : canOrder ? 'Добавить без заказа' : 'Добавить в заказ-наряд';
+    if (form.elements.set_waiting) form.elements.set_waiting.disabled = !doOrder || toStock;
+    if (form.elements.with_work) form.elements.with_work.disabled = toStock;
+    if (form.elements.price) form.elements.price.closest('.field').hidden = toStock;
+  };
+  form.addEventListener('change', sync);
+  sync();
+}
+
+</script>
+<script>
+'use strict';
+/* Закупки: заказы запчастей у поставщиков. Создаются из подбора запчастей или вручную,
+   по кнопке «Получено» деталь отмечается в заказ-наряде или приходуется на склад.
+   Подключается до app.js и пользуется его помощниками только внутри функций. */
+
+const PURCHASE_STATUS = { ordered: ['Заказано', 'blue'], received: ['Получено', 'green'], cancelled: ['Отменено', 'red'] };
+const purchaseBadge = (s) => { const [t, c] = PURCHASE_STATUS[s] || [s, '']; return `<span class="badge ${c}">${esc(t)}</span>`; };
+
+/** «приедет завтра», «опаздывает на 2 дн.», «получено 16.11.2026». */
+function arrivalText(p) {
+  if (p.status === 'received') return `получено ${fmtDate(p.received_at)}`;
+  if (p.status === 'cancelled') return 'заказ отменён';
+  if (!p.expected_date) return 'срок не указан';
+  const t = isoDate();
+  if (p.expected_date < t) {
+    const late = Math.round((new Date(t) - new Date(p.expected_date)) / 864e5);
+    return `опаздывает на ${late} дн. · ждали ${fmtDate(p.expected_date)}`;
+  }
+  if (p.expected_date === t) return 'приедет сегодня';
+  if (p.expected_date === addDays(t, 1)) return 'приедет завтра';
+  return `приедет ${fmtDate(p.expected_date)}`;
+}
+const arrivalClass = (p) => (p.status === 'ordered' && p.expected_date && p.expected_date < isoDate() ? 'neg' : p.status === 'ordered' && p.expected_date === isoDate() ? 'ok-text' : '');
+
+/** Отметить получение. Возвращает ответ сервера; сообщает, что изменилось. */
+async function receivePurchase(p) {
+  const r = await api(`/purchases/${p.id}/receive`, { method: 'POST' });
+  if (p.order_id) {
+    toast(r.order_resumed ? `Все запчасти на месте — заказ-наряд №${p.order_id} снова «В работе»` : `Получено для заказ-наряда №${p.order_id}`);
+  } else toast(`Оприходовано на склад: ${p.name}, ${fmtNum(p.qty)} шт`);
+  return r;
+}
+
+/** Ручная запись заказа у поставщика (заказали по телефону или на сайте). */
+async function purchaseDialog(p = null, preset = {}, onSaved = () => {}) {
+  const x = { qty: 1, ...preset, ...(p || {}) };
+  const [orders, suppliers] = await Promise.all([
+    api('/orders', { query: { status: 'active' } }).then((r) => r.items),
+    api('/purchases').then((r) => [...new Set(r.items.map((i) => i.supplier))]),
+  ]);
+  if (x.order_id && !orders.some((o) => o.id === x.order_id)) orders.unshift({ id: x.order_id, client_name: x.client_name || '', make: x.make, model: x.model, plate: x.plate });
+  const buttons = p && p.status === 'ordered' ? [{ label: 'Отменить заказ', cls: 'danger', onClick: async () => {
+    if (!await askConfirm(`Отменить заказ «${p.name}» у ${p.supplier}?`, { ok: 'Отменить заказ' })) return false;
+    await api(`/purchases/${p.id}`, { method: 'PUT', body: { status: 'cancelled' } });
+    toast('Заказ отменён');
+    onSaved();
+  } }] : [];
+  openModal({
+    title: p ? 'Заказ у поставщика' : 'Записать заказ у поставщика',
+    buttons,
+    body: `<div class="form-grid">
+      ${fInput('Поставщик', 'supplier', x.supplier, { req: true, attrs: 'list="pur-suppliers"', ph: 'Например: Армтек' })}
+      ${fInput('Ожидаем', 'expected_date', x.expected_date || addDays(isoDate(), 1), { type: 'date' })}
+      ${fInput('Деталь', 'name', x.name, { req: true, cls: 'wide', ph: 'Рулевая рейка BMW 5 серии' })}
+      ${fInput('Бренд', 'brand', x.brand)}${fInput('Артикул', 'article', x.article)}
+      ${fNum('Количество', 'qty', x.qty, { req: true })}${fNum('Цена закупки за шт, ₽', 'price', x.price ?? '')}
+      ${fSelect('Для чего', 'order_id', [['', 'На склад'], ...orders.map((o) => [o.id, `Заказ-наряд №${o.id} · ${carLine(o) || '—'} · ${o.client_name}`])], x.order_id ?? '', { cls: 'wide' })}
+      ${fText('Комментарий', 'note', x.note, { rows: 2, ph: 'Номер заказа у поставщика, кто заказал' })}
+      <datalist id="pur-suppliers">${[...new Set([...suppliers, 'Армтек', 'Росско', 'Автопитер', 'Exist', 'Emex'])].map((s) => `<option value="${esc(s)}">`).join('')}</datalist></div>`,
+    submit: p ? 'Сохранить' : 'Записать заказ',
+    onSubmit: async (d) => {
+      const body = { ...d, order_id: d.order_id || null };
+      await api(p ? `/purchases/${p.id}` : '/purchases', { method: p ? 'PUT' : 'POST', body });
+      toast(p ? 'Сохранено' : 'Заказ записан');
+      onSaved();
+    },
+  });
+}
+
+async function viewPurchases(v, params) {
+  const f = { status: params.get('status') || 'ordered' };
+  const TABS = [['ordered', 'Ждём'], ['received', 'Получено'], ['cancelled', 'Отменено'], ['all', 'Все']];
+  v.innerHTML = `
+    <div class="page-head"><div><h1>Закупки</h1><div class="muted">Заказы запчастей у поставщиков: что ждём, что опаздывает, что уже приехало</div></div>
+      <div class="actions"><a class="btn" href="#/parts">${icon('tag')} Подобрать запчасть</a>
+      <button class="btn primary" data-act="new">${icon('plus')} Записать заказ</button></div></div>
+    <div class="kpis pur-kpis"></div>
+    <div class="tabs"></div>
+    <section class="card"><div class="table-wrap res"><div class="loading">Загрузка…</div></div></section>`;
+  let items = [];
+  async function load() {
+    replaceHash(`#/purchases${f.status !== 'ordered' ? '?status=' + f.status : ''}`);
+    const [r, open] = await Promise.all([
+      api('/purchases', { query: { status: f.status === 'all' ? '' : f.status } }),
+      api('/purchases', { query: { status: 'ordered' } }),
+    ]);
+    items = r.items;
+    const t = isoDate();
+    const late = open.items.filter((p) => p.expected_date && p.expected_date < t);
+    const today = open.items.filter((p) => p.expected_date === t);
+    const sum = open.items.reduce((s, p) => s + p.qty * p.price, 0);
+    $('.pur-kpis', v).innerHTML = `
+      <div class="kpi"><div class="label">Ждём от поставщиков</div><div class="value">${open.items.length}</div><div class="sub">${pfPlural(open.items.length, 'позиция', 'позиции', 'позиций')} на ${money(sum)}</div></div>
+      <div class="kpi"><div class="label">Приедут сегодня</div><div class="value">${today.length}</div><div class="sub">${today.length ? esc([...new Set(today.map((p) => p.supplier))].join(', ')) : 'нет'}</div></div>
+      <div class="kpi ${late.length ? 'alert' : ''}"><div class="label">Опаздывают</div><div class="value">${late.length}</div><div class="sub">${late.length ? 'позвоните поставщику' : 'всё вовремя'}</div></div>`;
+    const total = Object.values(r.counts).reduce((s, n) => s + n, 0);
+    $('.tabs', v).innerHTML = TABS.map(([k, label]) => `<button class="tab ${f.status === k ? 'active' : ''}" data-tab="${k}">${label}<span class="cnt">${k === 'all' ? total : r.counts[k] || 0}</span></button>`).join('');
+    $('.res', v).innerHTML = items.length ? `<table class="tbl stack st-pur"><thead><tr><th>Деталь</th><th>Поставщик</th><th class="right">Сумма</th><th>Срок</th><th>Для чего</th><th></th></tr></thead><tbody>
+      ${items.map((p, i) => `<tr data-i="${i}">
+        <td class="a-name"><div class="title">${esc(p.name)}</div><div class="muted small">${esc([p.brand, p.article].filter(Boolean).join(' · '))}${p.note ? ` · ${esc(p.note)}` : ''}</div></td>
+        <td class="a-sup">${esc(p.supplier)}<div class="small">${purchaseBadge(p.status)}</div></td>
+        <td class="num-cell a-sum"><b>${money(p.qty * p.price)}</b><div class="muted small">${fmtNum(p.qty)} × ${money(p.price)}</div></td>
+        <td class="a-when"><span class="${arrivalClass(p)}">${esc(arrivalText(p))}</span></td>
+        <td class="a-for">${p.order_id ? `<a href="#/orders/${p.order_id}">Заказ-наряд №${p.order_id}</a><div class="muted small">${esc([p.client_name, carLine(p)].filter(Boolean).join(' · '))}</div>` : '<span class="muted">на склад</span>'}</td>
+        <td class="right nowrap a-act">${p.status === 'ordered' ? `<button class="btn sm primary" data-receive="${i}">Получено</button> ` : ''}<button class="icon-btn" data-edit="${i}" title="Подробнее">${icon('edit')}</button></td>
+      </tr>`).join('')}</tbody></table>`
+      : `<div class="empty">${f.status === 'ordered' ? 'Сейчас ничего не ждём. Заказать деталь можно в «Подборе запчастей» или записать заказ вручную.' : 'Здесь пока пусто'}</div>`;
+  }
+  on(v, 'click', '[data-tab]', (e, el) => { f.status = el.dataset.tab; load(); });
+  on(v, 'click', '[data-receive]', async (e, el) => { await receivePurchase(items[+el.dataset.receive]); load(); });
+  on(v, 'click', '[data-edit]', (e, el) => purchaseDialog(items[+el.dataset.edit], {}, load));
+  $('[data-act=new]', v).onclick = () => purchaseDialog(null, {}, load);
+  await load();
 }
 
 </script>
@@ -1952,6 +2232,7 @@ const ICONS = {
   edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
   left: '<polyline points="15 18 9 12 15 6"/>',
   right: '<polyline points="9 18 15 12 9 6"/>',
+  truck: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
   tag: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
   save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
@@ -2300,6 +2581,7 @@ const ROUTES = [
   [/^\/clients$/, viewClients],
   [/^\/clients\/(\d+)$/, viewClient],
   [/^\/parts$/, viewPartsFinder],
+  [/^\/purchases$/, viewPurchases],
   [/^\/stock$/, viewStock],
   [/^\/services$/, viewServices],
   [/^\/reports$/, viewReports],
@@ -2607,6 +2889,7 @@ async function viewDashboard(v) {
       ${kpi('Запись на сегодня', d.appointments.length, 'машин', '#/calendar')}
       ${isAdmin() ? kpi('Выручка сегодня', money(d.revenue_today), `за месяц ${money(d.revenue_month)}`, '#/reports') : ''}
       ${kpi('Долги клиентов', isAdmin() ? money(d.debt_total) : d.debt_count, isAdmin() ? `${d.debt_count} заказ-нарядов` : 'заказ-нарядов', '#/orders?status=debt', d.debt_count > 0)}
+      ${kpi('Ждём запчасти', d.purchases_open ?? 0, d.purchases_overdue ? `опаздывают: ${d.purchases_overdue}` : d.purchases_today ? `приедут сегодня: ${d.purchases_today}` : 'от поставщиков', '#/purchases', d.purchases_overdue > 0)}
     </div>
     <div class="grid-2">
       <section class="card"><div class="card-head"><h2>Запись на сегодня</h2><a href="#/calendar">Календарь →</a></div>${appts}</section>
@@ -2734,6 +3017,10 @@ function renderOrder(v, o, emps) {
           <table class="lines"><thead><tr><th>Наименование</th><th>Артикул</th><th>Кол-во</th><th>Цена</th><th class="right">Сумма</th><th></th></tr></thead>
           <tbody class="parts-body" data-line="parts"></tbody></table>
           <div class="add-line"><input class="add-part" placeholder="+ Добавить запчасть — поиск по складу: название или артикул" autocomplete="off"></div>
+          ${o.purchases?.length ? `<div class="pur-list"><div class="pur-title">${icon('truck')} Заказано у поставщиков</div>${o.purchases.map((p) => `
+            <div class="pur-row"><div class="pur-main"><b>${esc(p.name)}</b><div class="muted small">${esc(p.supplier)} · ${fmtNum(p.qty)} шт · ${money(p.qty * p.price)}</div></div>
+            <div class="pur-when ${arrivalClass(p)}">${esc(arrivalText(p))}</div>
+            <div class="pur-act">${p.status === 'ordered' ? `<button type="button" class="btn sm primary" data-receive="${p.id}">Получено</button>` : purchaseBadge(p.status)}</div></div>`).join('')}</div>` : ''}
         </section>
         <section class="card">
           <h2 style="margin-bottom:12px">Рекомендации клиенту</h2>
@@ -2809,12 +3096,12 @@ function renderOrder(v, o, emps) {
   }
   function markDirty() { dirty = true; $('.dirty-flag', root).hidden = false; }
 
-  async function save() {
+  async function save(message = 'Сохранено') {
     const body = { ...st };
     delete body.payments;
     const fresh = await api(`/orders/${o.id}`, { method: 'PUT', body });
     dirty = false;
-    toast('Сохранено');
+    toast(message);
     const y = window.scrollY;
     renderOrder(v, fresh, emps);
     window.scrollTo(0, y);
@@ -2862,17 +3149,30 @@ function renderOrder(v, o, emps) {
     await save();
   };
   $('[data-act=save]', root).onclick = () => save();
+  on(root, 'click', '[data-receive]', async (e, el) => {
+    const p = o.purchases.find((x) => x.id === +el.dataset.receive);
+    if (dirty) {
+      const body = { ...st };
+      delete body.payments;
+      await api(`/orders/${o.id}`, { method: 'PUT', body });
+      dirty = false;
+    }
+    await receivePurchase(p);
+    const fresh = await api(`/orders/${o.id}`);
+    const y = window.scrollY;
+    renderOrder(v, fresh, emps);
+    window.scrollTo(0, y);
+  });
   $('[data-act=find-part]', root).onclick = () => {
     const m = openModal({ title: 'Подбор запчастей', size: 'xl', cancel: 'Закрыть', body: '<div class="pf-host"></div>' });
     partsFinder($('.pf-host', m.body), {
       car: o.car, clientId: o.client_id, carId: o.car_id, orderId: o.id,
-      onAdd: ({ part, work }) => {
+      onAdd: async ({ part, work, waiting, ordered }) => {
         st.parts.push(part);
         if (work) st.works.push(work);
-        drawLines();
-        markDirty();
+        if (waiting && ['new', 'in_progress'].includes(st.status)) st.status = 'waiting_parts';
         m.close();
-        toast(work ? 'Запчасть и работа добавлены — сохраните заказ-наряд' : 'Запчасть добавлена — сохраните заказ-наряд');
+        await save(ordered ? 'Деталь заказана и добавлена в заказ-наряд' : 'Деталь добавлена в заказ-наряд');
       },
     });
   };
