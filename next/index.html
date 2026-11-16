@@ -13,89 +13,115 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%232563eb%22/%3E%3Cpath%20d%3D%22M19.6%209.4a1.3%201.3%200%200%200%200%201.8l1.2%201.2a1.3%201.3%200%200%200%201.8%200l3-3a7%207%200%200%201-9.3%209.3l-6%206a2.2%202.2%200%200%201-3.1-3.1l6-6a7%207%200%200%201%209.3-9.3z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Onest:wght@400;500;600;700&display=swap">
 <style>
+/* Оформление «Мастерская»: графитовое меню, сигнальный оранжевый для главных действий,
+   техничный Exo 2 для заголовков и цифр, Onest для текста, госномера как настоящие номерные знаки. */
 :root {
-  --bg: #f3f5f9;
+  --bg: #eef1f3;
   --surface: #ffffff;
-  --surface-2: #f7f9fc;
-  --border: #e2e7ef;
-  --border-strong: #cfd7e3;
-  --text: #182134;
-  --muted: #687389;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-soft: #e9f0ff;
+  --surface-2: #f6f8f9;
+  --border: #dde3e8;
+  --border-strong: #c9d2d9;
+  --text: #142029;
+  --muted: #5c6a75;
+  --accent: #ff6b1a;
+  --accent-hover: #ff8338;
+  --accent-ink: #1b1007;
+  --accent-soft: #ffeadb;
+  --accent-strong: #c2410c;
+  --link: #b93d0c;
+  --blue: #1d5fd1;
+  --blue-soft: #e5eefc;
   --danger: #d92d20;
   --danger-soft: #fdeceb;
   --ok: #15803d;
-  --ok-soft: #e6f6ec;
-  --warn: #b45309;
-  --warn-soft: #fdf2e1;
+  --ok-soft: #e3f5e9;
+  --warn: #a15c07;
+  --warn-soft: #fdf1dc;
   --info: #0e7490;
-  --info-soft: #e2f5f9;
-  --gray-soft: #eef1f5;
-  --side-bg: #111827;
-  --side-text: #c4cbd8;
-  --side-hover: #1d2638;
-  --radius: 10px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .07);
-  --shadow-lg: 0 12px 32px rgba(16, 24, 40, .18);
+  --info-soft: #e0f4f8;
+  --gray-soft: #eceff2;
+  --side-bg: #121b22;
+  --side-bg-2: #1a2730;
+  --side-text: #a7b4bd;
+  --side-hover: #1f2c36;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(18, 27, 34, .06), 0 2px 6px rgba(18, 27, 34, .05);
+  --shadow-lg: 0 18px 40px rgba(18, 27, 34, .22);
+  --font-body: "Onest", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Exo 2", "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 
 /* Тёмная тема: по системной настройке и по явному выбору data-theme="dark". */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0c1220;
-    --surface: #131b2c;
-    --surface-2: #182236;
-    --border: #243049;
-    --border-strong: #33415e;
-    --text: #e5e9f2;
-    --muted: #93a0b8;
-    --accent: #4f8cff;
-    --accent-hover: #6b9dff;
-    --accent-soft: #1a2a4d;
+    --bg: #0b1116;
+    --surface: #121b22;
+    --surface-2: #17222b;
+    --border: #23313c;
+    --border-strong: #31424f;
+    --text: #e7edf1;
+    --muted: #93a3ae;
+    --accent: #ff7a2e;
+    --accent-hover: #ff9152;
+    --accent-ink: #1b1007;
+    --accent-soft: #3a2314;
+    --accent-strong: #ff9a5c;
+    --link: #ff9a5c;
+    --blue: #6aa2ff;
+    --blue-soft: #16264a;
     --danger: #f2655a;
     --danger-soft: #3a1d1f;
     --ok: #4ccb7f;
-    --ok-soft: #15301f;
+    --ok-soft: #12301f;
     --warn: #f0a24a;
     --warn-soft: #36270f;
     --info: #4cc3dc;
     --info-soft: #0f2d35;
-    --gray-soft: #1f2a40;
-    --side-bg: #0a0f1a;
-    --side-hover: #172033;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, .5);
+    --gray-soft: #1c2832;
+    --side-bg: #080d11;
+    --side-bg-2: #101a21;
+    --side-hover: #16222b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    --shadow-lg: 0 18px 40px rgba(0, 0, 0, .55);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0c1220;
-  --surface: #131b2c;
-  --surface-2: #182236;
-  --border: #243049;
-  --border-strong: #33415e;
-  --text: #e5e9f2;
-  --muted: #93a0b8;
-  --accent: #4f8cff;
-  --accent-hover: #6b9dff;
-  --accent-soft: #1a2a4d;
+  --bg: #0b1116;
+  --surface: #121b22;
+  --surface-2: #17222b;
+  --border: #23313c;
+  --border-strong: #31424f;
+  --text: #e7edf1;
+  --muted: #93a3ae;
+  --accent: #ff7a2e;
+  --accent-hover: #ff9152;
+  --accent-ink: #1b1007;
+  --accent-soft: #3a2314;
+  --accent-strong: #ff9a5c;
+  --link: #ff9a5c;
+  --blue: #6aa2ff;
+  --blue-soft: #16264a;
   --danger: #f2655a;
   --danger-soft: #3a1d1f;
   --ok: #4ccb7f;
-  --ok-soft: #15301f;
+  --ok-soft: #12301f;
   --warn: #f0a24a;
   --warn-soft: #36270f;
   --info: #4cc3dc;
   --info-soft: #0f2d35;
-  --gray-soft: #1f2a40;
-  --side-bg: #0a0f1a;
-  --side-hover: #172033;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .3);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .5);
+  --gray-soft: #1c2832;
+  --side-bg: #080d11;
+  --side-bg-2: #101a21;
+  --side-hover: #16222b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, .55);
   color-scheme: dark;
 }
 
@@ -208,7 +234,7 @@ input[type="checkbox"] { width: 16px; height: 16px; padding: 0; accent-color: va
 .kpi .sub { font-size: 12.5px; color: var(--muted); }
 .kpi.alert .value { color: var(--danger); }
 a.kpi { color: inherit; display: block; }
-a.kpi:hover { text-decoration: none; border-color: var(--accent); }
+a.kpi:hover { text-decoration: none; }
 
 /* ---------- таблицы ---------- */
 .table-wrap { overflow-x: auto; margin: 0 -18px; padding: 0 18px; }
@@ -288,7 +314,7 @@ table.lines { width: 100%; border-collapse: collapse; }
 .ac-item.active { background: var(--accent-soft); }
 .ac-item .t { font-weight: 600; }
 .ac-item .s { font-size: 12.5px; color: var(--muted); }
-.ac-item.footer { color: var(--accent); font-weight: 550; border-top: 1px solid var(--border); border-radius: 0 0 7px 7px; }
+.ac-item.footer { color: var(--accent-strong); font-weight: 550; border-top: 1px solid var(--border); border-radius: 0 0 7px 7px; }
 .ac-empty { padding: 10px; color: var(--muted); }
 
 /* ---------- выбор клиента ---------- */
@@ -296,7 +322,7 @@ table.lines { width: 100%; border-collapse: collapse; }
 .picked { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); margin-bottom: 12px; }
 .picked .t { font-weight: 650; }
 .section-label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 8px; }
-.link-btn { border: 0; background: none; color: var(--accent); font: inherit; font-weight: 550; cursor: pointer; padding: 0; }
+.link-btn { border: 0; background: none; color: var(--link); font: inherit; font-weight: 550; cursor: pointer; padding: 0; }
 .link-btn:hover { text-decoration: underline; }
 
 /* ---------- модальные окна ---------- */
@@ -392,14 +418,14 @@ body.printing #print-root { display: block !important; }
 .pf-client { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
 .pf-client-search { max-width: none; width: 100%; }
 .pf-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 2px 2px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-.pf-pill .icon-btn { width: 28px; height: 28px; color: var(--accent); }
+.pf-pill .icon-btn { width: 28px; height: 28px; color: var(--accent-strong); }
 .pf-q { display: flex; gap: 8px; }
 .pf-q input { height: 46px; font-size: 16px; }
 .pf-q .btn { height: 46px; padding: 0 18px; }
 .pf-chips, .pf-related { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .pf-chips { margin-top: 12px; }
 .chip { border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
-.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip:hover { border-color: var(--accent); color: var(--accent-strong); }
 .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .pf-loading { display: flex; align-items: center; gap: 14px; }
 .pf-spinner { width: 26px; height: 26px; border-radius: 50%; border: 3px solid var(--accent-soft); border-top-color: var(--accent); animation: pf-spin .8s linear infinite; flex: none; }
@@ -488,6 +514,181 @@ body.printing #print-root { display: block !important; }
 .demo-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin: 16px 24px 0; padding: 10px 14px; border-radius: var(--radius); background: var(--warn-soft); color: var(--text); font-size: 13.5px; }
 .demo-bar b { color: var(--warn); }
 
+/* ---------- оформление «Мастерская» ---------- */
+body { font-family: var(--font-body); font-size: 14.5px; }
+a { color: var(--link); }
+h1 { font-family: var(--font-display); font-size: 27px; font-weight: 800; letter-spacing: -.005em; line-height: 1.15; }
+h2 { font-size: 15.5px; font-weight: 650; }
+.h-sub { font-family: var(--font-body); font-weight: 500; font-size: 15px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; }
+
+/* меню */
+#sidebar {
+  width: 244px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .022) 0 2px, transparent 2px 9px) bottom / 100% 190px no-repeat,
+    radial-gradient(130% 55% at 0% 0%, var(--side-bg-2), transparent 62%),
+    var(--side-bg);
+  border-right: 1px solid rgba(255, 255, 255, .04);
+}
+.brand { gap: 12px; padding: 20px 18px 16px; color: #fff; font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: .01em; line-height: 1.1; }
+.brand small { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--side-text); margin-top: 3px; }
+.brand-logo { width: 40px; height: 40px; border-radius: 11px; background: var(--accent); color: var(--accent-ink); font: 800 15px/1 var(--font-display); letter-spacing: -.02em; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .2); flex: none; }
+.nav-label { padding: 14px 12px 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #64747f; }
+.nav-label:first-child { padding-top: 4px; }
+#nav { gap: 1px; padding: 4px 12px; }
+#nav a { position: relative; padding: 9px 12px; border-radius: 10px; }
+#nav a.active { background: var(--side-hover); color: #fff; }
+#nav a.active::before { content: ""; position: absolute; left: -12px; top: 8px; bottom: 8px; width: 4px; border-radius: 0 4px 4px 0; background: var(--accent); }
+#nav a.active .ic { color: var(--accent); }
+.user-box { justify-content: flex-start; gap: 10px; padding: 14px 16px; }
+.user-box .who { flex: 1; min-width: 0; }
+.user-box #user-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-box #user-role { color: var(--side-text); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; background: #263540; color: var(--accent); font: 800 13px/1 var(--font-display); }
+
+/* верхняя панель */
+#topbar { background: color-mix(in srgb, var(--surface) 90%, transparent); }
+.search-wrap input { height: 40px; border-radius: 12px; background: var(--surface-2); }
+
+/* кнопки и поля */
+.btn { height: 38px; border-radius: 10px; font-weight: 600; }
+.btn.sm { height: 32px; border-radius: 9px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .14); }
+.btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+input, select, textarea { border-radius: 10px; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.chip.active { color: var(--accent-ink); }
+.tab.active { background: var(--text); border-color: var(--text); color: var(--surface); box-shadow: none; }
+.tab.active .cnt { color: inherit; opacity: .65; }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+.badge.blue { background: var(--blue-soft); color: var(--blue); }
+.card { border-radius: var(--radius); }
+.card-head h2 { display: flex; align-items: center; gap: 8px; }
+.tbl th { font-size: 11px; letter-spacing: .07em; }
+.tbl tr.click:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface)); }
+.modal { border-radius: 16px; }
+.modal-head h3 { font-family: var(--font-display); font-size: 19px; font-weight: 800; }
+.pf-best.fast { background: var(--blue-soft); }
+.pf-best.fast .lbl { color: var(--blue); }
+.pf-title, .pf-best .val, .pf-from .v { font-family: var(--font-display); font-weight: 800; }
+.pf-pill { color: var(--accent-strong); }
+
+/* плитки с цифрами */
+.kpi { position: relative; padding: 16px 18px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+a.kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(18, 27, 34, .1); border-color: var(--border-strong); }
+.kpi-top { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.kpi-top .label { line-height: 1.3; }
+.kpi-ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex: none; background: var(--accent-soft); color: var(--accent-strong); }
+.kpi-ic .ic { width: 17px; height: 17px; }
+.kpi .value { font-family: var(--font-display); font-size: 30px; font-weight: 800; margin-top: 10px; line-height: 1.05; }
+.kpi.alert .kpi-ic { background: var(--danger-soft); color: var(--danger); }
+
+/* номерной знак */
+.plate {
+  display: inline-flex; align-items: stretch; height: 22px; vertical-align: middle; flex: none;
+  border: 1.5px solid #111; border-radius: 4px; background: #fff; color: #111; overflow: hidden;
+  font: 700 12.5px/1 var(--font-body); letter-spacing: .03em; box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
+}
+.plate-main { display: flex; align-items: center; padding: 0 5px; white-space: nowrap; }
+.plate-main b { font-size: 14px; margin: 0 2px; font-weight: 800; }
+.plate-reg { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 4px; border-left: 1.5px solid #111; font-size: 10px; font-weight: 800; }
+.plate-reg i { display: flex; align-items: center; gap: 2px; font-style: normal; font-size: 5.5px; letter-spacing: .02em; margin-top: 1px; }
+.plate-reg i::after { content: ""; width: 7px; height: 5px; background: linear-gradient(#fff 33%, #1c3fa8 33% 66%, #d52b1e 66%); outline: .5px solid #999; }
+.plate-lg { height: 34px; border-width: 2px; border-radius: 6px; font-size: 18px; }
+.plate-lg .plate-main { padding: 0 8px; }
+.plate-lg .plate-main b { font-size: 22px; margin: 0 3px; }
+.plate-lg .plate-reg { padding: 0 7px; border-left-width: 2px; font-size: 15px; }
+.plate-lg .plate-reg i { font-size: 7.5px; }
+.plate-lg .plate-reg i::after { width: 10px; height: 7px; }
+.li-car, .bay-car, .cal-car { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+/* посты сейчас */
+.bays { margin-bottom: 16px; }
+.bays .card-head { margin-bottom: 10px; }
+.bay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.bay {
+  position: relative; display: flex; flex-direction: column; gap: 8px; text-align: left; overflow: hidden;
+  padding: 16px 16px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  box-shadow: var(--shadow); color: inherit; font: inherit; cursor: pointer; transition: transform .15s, border-color .15s;
+}
+.bay::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--ok); }
+.bay.busy::before { background: var(--accent); }
+.bay:hover { transform: translateY(-1px); border-color: var(--border-strong); }
+.bay-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.bay-name { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.bay-state { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: 3px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); }
+.bay.busy .bay-state { background: var(--accent-soft); color: var(--accent-strong); }
+.bay-car { font-weight: 600; }
+.bay-desc { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.bay-bar { height: 6px; border-radius: 99px; background: var(--gray-soft); overflow: hidden; margin-top: auto; }
+.bay-bar span { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.bay-foot { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); }
+.bay-foot b { color: var(--text); }
+.bay-free-text { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ok); line-height: 1.1; }
+
+/* заказ-наряд: машина и этапы */
+.order-car { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.stage-card { padding: 12px; margin-bottom: 16px; }
+.stage-card + .order-grid .card:first-child { margin-top: 0; }
+.stepper { display: flex; align-items: center; gap: 6px; }
+.step {
+  flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px;
+  border: 1px solid transparent; background: transparent; color: var(--muted); font: inherit; font-weight: 600; text-align: left; cursor: pointer;
+}
+.step:hover { background: var(--surface-2); color: var(--text); }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--gray-soft); color: var(--muted); font: 800 13px/1 var(--font-display); }
+.step-dot .ic { width: 15px; height: 15px; stroke-width: 3; }
+.step-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.step-line { flex: 0 0 18px; height: 2px; border-radius: 2px; background: var(--border-strong); }
+.step.done { color: var(--text); }
+.step.done .step-dot { background: var(--text); color: var(--surface); }
+.step.current { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--text); }
+.step.current .step-dot { background: var(--accent); color: var(--accent-ink); }
+.step-cancel { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 8px 10px; border: 0; border-radius: 10px; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+.step-cancel:hover { background: var(--danger-soft); color: var(--danger); }
+.stepper.is-cancelled { gap: 12px; flex-wrap: wrap; padding: 4px; }
+
+/* итог как чек */
+.receipt { position: relative; border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0; padding-bottom: 20px; margin-bottom: 26px; }
+.receipt::after {
+  content: ""; position: absolute; left: -1px; right: -1px; bottom: -9px; height: 10px;
+  background: radial-gradient(circle at 7px 0, var(--surface) 6.5px, transparent 7px) 0 0 / 14px 10px repeat-x;
+}
+.receipt-head { display: flex; justify-content: space-between; padding-bottom: 10px; margin-bottom: 6px; border-bottom: 1px dashed var(--border-strong); font: 700 11.5px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.totals .row.big { border-top: 1px dashed var(--border-strong); font-family: var(--font-display); font-size: 26px; font-weight: 800; }
+.order-side .receipt + .card { margin-top: 0; }
+
+/* календарь */
+.cal-h { font-family: var(--font-display); font-weight: 700; }
+.cal-appt { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); }
+.cal-appt.arrived { background: color-mix(in srgb, var(--ok-soft) 70%, var(--surface)); border-left-color: var(--ok); }
+.cal-car .plate { height: 19px; font-size: 11px; }
+.cal-car .plate-main b { font-size: 12.5px; }
+.cal-car .plate-reg { font-size: 9px; }
+
+/* вход */
+#auth {
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 10px),
+    radial-gradient(90% 70% at 15% 10%, var(--side-bg-2), transparent 60%),
+    var(--side-bg);
+}
+.auth-card { padding: 28px; border: 0; box-shadow: var(--shadow-lg); }
+.auth-card .brand { color: var(--text); padding: 0 0 18px; }
+
+/* полоса демо-версии: «рабочая зона» */
+.demo-bar {
+  background: repeating-linear-gradient(-45deg, var(--warn-soft) 0 14px, color-mix(in srgb, var(--warn-soft) 55%, var(--surface)) 14px 28px);
+  border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kpi, .bay { transition: none; }
+  a.kpi:hover, .bay:hover { transform: none; }
+}
+
 /* ---------- адаптивность ---------- */
 @media (max-width: 1100px) {
   .order-grid { grid-template-columns: 1fr; }
@@ -519,7 +720,20 @@ body.printing #print-root { display: block !important; }
   .modal-overlay { padding: 0; }
   .modal { border-radius: 0; min-height: 100vh; }
   .modal-foot { border-radius: 0; position: sticky; bottom: 0; }
-  .kpi .value { font-size: 20px; }
+  .kpi .value { font-size: 22px; margin-top: 8px; }
+  .kpi-ic { width: 28px; height: 28px; }
+  h1 { font-size: 22px; }
+  .order-car .plate-lg { height: 28px; font-size: 15px; }
+  .order-car .plate-lg .plate-main b { font-size: 18px; }
+  .order-car .plate-lg .plate-reg { font-size: 12px; }
+  .stepper { justify-content: space-between; gap: 2px; }
+  .step { flex: 0 0 auto; padding: 4px; gap: 6px; }
+  .step.current { padding-right: 10px; }
+  .step-dot { width: 26px; height: 26px; }
+  .step:not(.current) .step-label, .step-cancel span, .step-line { display: none; }
+  .step-cancel { padding: 6px; }
+  .stage-card { padding: 8px; }
+  .bay-grid { grid-template-columns: 1fr; }
   /* Списки на телефоне — карточками, без прокрутки вбок */
   .m-only { display: inline; }
   .tbl.stack thead { display: none; }
@@ -554,21 +768,25 @@ body.printing #print-root { display: block !important; }
 <body>
 <div id="app" hidden>
     <aside id="sidebar">
-      <div class="brand"><span class="brand-logo" data-icon="tool"></span><span id="brand-name">МК Сервис</span></div>
+      <div class="brand"><span class="brand-logo">МК</span><span><span id="brand-name">МК Сервис</span><small>автосервис</small></span></div>
       <nav id="nav">
+        <div class="nav-label">Работа</div>
         <a href="#/" data-nav="/"><span data-icon="home"></span>Главная</a>
         <a href="#/calendar" data-nav="/calendar"><span data-icon="calendar"></span>Запись</a>
         <a href="#/orders" data-nav="/orders"><span data-icon="clipboard"></span>Заказ-наряды</a>
+        <a href="#/clients" data-nav="/clients"><span data-icon="users"></span>Клиенты</a>
+        <div class="nav-label">Запчасти</div>
         <a href="#/parts" data-nav="/parts"><span data-icon="tag"></span>Подбор запчастей</a>
         <a href="#/purchases" data-nav="/purchases"><span data-icon="truck"></span>Закупки</a>
-        <a href="#/clients" data-nav="/clients"><span data-icon="users"></span>Клиенты</a>
         <a href="#/stock" data-nav="/stock"><span data-icon="box"></span>Склад</a>
+        <div class="nav-label">Управление</div>
         <a href="#/services" data-nav="/services"><span data-icon="list"></span>Услуги и цены</a>
         <a href="#/reports" data-nav="/reports" data-admin><span data-icon="chart"></span>Отчёты</a>
         <a href="#/settings" data-nav="/settings"><span data-icon="settings"></span>Настройки</a>
       </nav>
       <div class="user-box">
-        <div><div id="user-name"></div><div id="user-role" class="muted small"></div></div>
+        <span class="avatar" id="user-avatar"></span>
+        <div class="who"><div id="user-name"></div><div id="user-role" class="small"></div></div>
         <button class="icon-btn" id="logout" title="Выйти"><span data-icon="logout"></span></button>
       </div>
     </aside>
@@ -2197,6 +2415,23 @@ const fromMin = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
 const debounce = (fn, ms = 250) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 const carName = (c) => [c?.make, c?.model].filter(Boolean).join(' ');
 const carLine = (c) => [carName(c), c?.plate].filter(Boolean).join(' · ');
+// Российский номер «А123ВС777» рисуется как номерной знак: серия и номер, справа регион и RUS.
+const PLATE_RX = /^([АВЕКМНОРСТУХ])(\d{3})([АВЕКМНОРСТУХ]{2})(\d{2,3})$/;
+function plateHtml(value, cls = '') {
+  const v = String(value || '').toUpperCase().replace(/\s/g, '');
+  if (!v) return '';
+  const m = v.match(PLATE_RX);
+  if (!m) return `<span class="plate plate-free ${cls}"><span class="plate-main">${esc(v)}</span></span>`;
+  return `<span class="plate ${cls}" title="${esc(v)}"><span class="plate-main">${m[1]}<b>${m[2]}</b>${m[3]}</span><span class="plate-reg">${m[4]}<i>RUS</i></span></span>`;
+}
+const carHtml = (c) => `${plateHtml(c?.plate)} <span>${esc(carName(c) || '—')}</span>`;
+function monogram(name) {
+  const words = String(name || '').replace(/[«»"']/g, '').split(/\s+/).filter(Boolean);
+  if (!words.length) return 'АС';
+  if (/^[A-ZА-ЯЁ]{2,3}$/.test(words[0])) return words[0];
+  return words.slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+}
+const initials = (name) => String(name || '').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '?';
 const phoneLink = (p) => (p ? `<a href="tel:${esc(String(p).replace(/[^\d+]/g, ''))}">${esc(p)}</a>` : '');
 const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Доброй ночи' : h < 12 ? 'Доброе утро' : h < 18 ? 'Добрый день' : 'Добрый вечер'; };
 
@@ -2232,6 +2467,8 @@ const ICONS = {
   edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
   left: '<polyline points="15 18 9 12 15 6"/>',
   right: '<polyline points="9 18 15 12 9 6"/>',
+  check: '<polyline points="20 6 9 17 4 12"/>',
+  alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
   truck: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
   tag: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
   save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
@@ -2494,7 +2731,7 @@ function showAuth(html) {
   $$('.modal-overlay').forEach((m) => m.remove());
   const a = $('#auth');
   a.hidden = false;
-  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${icon('tool')}</span>${esc(COMPANY || 'МК Сервис')}</div>${html}</div>`;
+  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${esc(monogram(COMPANY || 'МК Сервис'))}</span><span>${esc(COMPANY || 'МК Сервис')}</span></div>${html}</div>`;
   return a;
 }
 
@@ -2545,6 +2782,7 @@ async function boot() {
   $('#app').hidden = false;
   applyCompany();
   $('#user-name').textContent = ME.name;
+  $('#user-avatar').textContent = initials(ME.name);
   $('#user-role').textContent = isAdmin() ? 'Администратор' : 'Сотрудник';
   $$('[data-admin]').forEach((el) => { el.hidden = !isAdmin(); });
   if (DEMO && !$('.demo-bar')) {
@@ -2569,6 +2807,7 @@ async function boot() {
 
 function applyCompany() {
   $('#brand-name').textContent = SETTINGS.company_name || 'МК Сервис';
+  $('#sidebar .brand-logo').textContent = monogram(SETTINGS.company_name || 'МК Сервис');
   document.title = `${SETTINGS.company_name || 'МК Сервис'} — CRM`;
 }
 
@@ -2858,19 +3097,42 @@ function carDialog(car, clientId, onSaved) {
 
 /* ======================= главная ======================= */
 async function viewDashboard(v) {
-  const d = await api('/dashboard');
-  const kpi = (label, value, sub = '', href = '', alert = false) => {
+  const [d, posts] = await Promise.all([api('/dashboard'), getPosts()]);
+  const kpi = (label, value, sub = '', href = '', alert = false, ic = 'chart') => {
     const tag = href ? 'a' : 'div';
-    return `<${tag} ${href ? `href="${href}"` : ''} class="kpi ${alert ? 'alert' : ''}"><div class="label">${esc(label)}</div><div class="value">${value}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</${tag}>`;
+    return `<${tag} ${href ? `href="${href}"` : ''} class="kpi ${alert ? 'alert' : ''}"><div class="kpi-top"><span class="kpi-ic">${icon(ic)}</span><span class="label">${esc(label)}</span></div><div class="value">${value}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</${tag}>`;
   };
+  // Посты сейчас: какая машина на подъёмнике и когда он освободится.
+  const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+  const live = d.appointments.map((a, i) => ({ a, i, s: toMin(a.start.slice(11, 16)) })).filter((x) => ['planned', 'arrived'].includes(x.a.status));
+  const bay = (p) => {
+    const mine = live.filter((x) => x.a.post_id === p.id).sort((x, y) => x.s - y.s);
+    const cur = mine.find((x) => x.s <= nowMin && nowMin < x.s + x.a.duration);
+    const next = mine.find((x) => x.s > nowMin);
+    if (cur) {
+      const pct = Math.min(100, Math.round(((nowMin - cur.s) / cur.a.duration) * 100));
+      return `<button type="button" class="bay busy" data-appt="${cur.i}">
+        <div class="bay-top"><span class="bay-name">${esc(p.name)}</span><span class="bay-state">занят</span></div>
+        <div class="bay-car">${carHtml(cur.a)}</div>
+        <div class="muted small bay-desc">${esc(cur.a.client_name || '')}${cur.a.description ? ' · ' + esc(cur.a.description) : ''}</div>
+        <div class="bay-bar" aria-label="Выполнено ${pct}%"><span style="width:${pct}%"></span></div>
+        <div class="bay-foot small"><span>с ${cur.a.start.slice(11, 16)}</span><span>освободится в <b>${fromMin(cur.s + cur.a.duration)}</b></span></div></button>`;
+    }
+    return `<button type="button" class="bay free" ${next ? `data-appt="${next.i}"` : `data-bay-post="${p.id}"`}>
+      <div class="bay-top"><span class="bay-name">${esc(p.name)}</span><span class="bay-state">свободен</span></div>
+      <div class="bay-free-text">${next ? `до ${fromMin(next.s)}` : 'до конца дня'}</div>
+      <div class="muted small bay-desc">${next ? `Далее: ${esc(carName(next.a) || next.a.client_name || 'запись')} · ${esc(next.a.client_name || '')}` : 'Записей больше нет — можно принять машину'}</div></button>`;
+  };
+  const bays = posts.length ? `<section class="bays"><div class="card-head"><h2>Посты сейчас</h2><a href="#/calendar">Расписание →</a></div>
+    <div class="bay-grid">${posts.map(bay).join('')}</div></section>` : '';
   const appts = d.appointments.length ? `<div class="list">${d.appointments.map((a, i) => `
       <a href="javascript:void 0" class="list-item" data-appt="${i}">
         <div class="time">${a.start.slice(11, 16)}</div>
-        <div class="main"><div class="title">${esc(a.client_name || '—')}</div><div class="muted small">${esc(carLine(a))}${a.description ? ' — ' + esc(a.description) : ''}</div></div>
+        <div class="main"><div class="title">${esc(a.client_name || '—')}</div><div class="muted small li-car">${carHtml(a)}${a.description ? ' — ' + esc(a.description) : ''}</div></div>
         <div class="right small"><div>${esc(a.post_name || '')}</div>${a.order_id ? `<span class="badge teal">№${a.order_id}</span>` : a.status !== 'planned' ? `<span class="badge">${esc(APPT_STATUS[a.status])}</span>` : ''}</div>
       </a>`).join('')}</div>` : '<div class="empty-sm">На сегодня записей нет</div>';
   const active = d.active_orders.length ? `<div class="table-wrap"><table class="tbl"><tbody>${d.active_orders.slice(0, 12).map((o) => `
-      <tr class="click" data-href="#/orders/${o.id}"><td class="nowrap"><b>№${o.id}</b></td><td><div class="title">${esc(carLine(o) || '—')}</div><div class="muted small">${esc(o.client_name)}</div></td>
+      <tr class="click" data-href="#/orders/${o.id}"><td class="nowrap"><b>№${o.id}</b></td><td><div class="title li-car">${carHtml(o)}</div><div class="muted small">${esc(o.client_name)}</div></td>
       <td>${badge(o.status)}</td><td class="num-cell">${money(o.total)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty-sm">Нет заказ-нарядов в работе</div>';
   const reminders = d.reminders.length ? `<div class="list">${d.reminders.map((r) => `
       <div class="list-item"><div class="main"><div class="title"><a href="#/clients/${r.client_id}">${esc(r.client_name)}</a></div>
@@ -2884,13 +3146,14 @@ async function viewDashboard(v) {
   v.innerHTML = `
     <div class="page-head"><div><h1>${greeting()}, ${esc((ME.name || '').split(' ')[0])}</h1><div class="muted">${longDate(isoDate())}</div></div></div>
     <div class="kpis">
-      ${kpi('В работе', d.active_count, 'заказ-нарядов', '#/orders?status=active')}
-      ${kpi('Готовы к выдаче', d.ready_count, 'можно звонить клиентам', '#/orders?status=ready')}
-      ${kpi('Запись на сегодня', d.appointments.length, 'машин', '#/calendar')}
-      ${isAdmin() ? kpi('Выручка сегодня', money(d.revenue_today), `за месяц ${money(d.revenue_month)}`, '#/reports') : ''}
-      ${kpi('Долги клиентов', isAdmin() ? money(d.debt_total) : d.debt_count, isAdmin() ? `${d.debt_count} заказ-нарядов` : 'заказ-нарядов', '#/orders?status=debt', d.debt_count > 0)}
-      ${kpi('Ждём запчасти', d.purchases_open ?? 0, d.purchases_overdue ? `опаздывают: ${d.purchases_overdue}` : d.purchases_today ? `приедут сегодня: ${d.purchases_today}` : 'от поставщиков', '#/purchases', d.purchases_overdue > 0)}
+      ${kpi('В работе', d.active_count, 'заказ-нарядов', '#/orders?status=active', false, 'tool')}
+      ${kpi('Готовы к выдаче', d.ready_count, 'можно звонить клиентам', '#/orders?status=ready', false, 'check')}
+      ${kpi('Запись на сегодня', d.appointments.length, 'машин', '#/calendar', false, 'calendar')}
+      ${isAdmin() ? kpi('Выручка сегодня', money(d.revenue_today), `за месяц ${money(d.revenue_month)}`, '#/reports', false, 'chart') : ''}
+      ${kpi('Долги клиентов', isAdmin() ? money(d.debt_total) : d.debt_count, isAdmin() ? `${d.debt_count} заказ-нарядов` : 'заказ-нарядов', '#/orders?status=debt', d.debt_count > 0, 'alert')}
+      ${kpi('Ждём запчасти', d.purchases_open ?? 0, d.purchases_overdue ? `опаздывают: ${d.purchases_overdue}` : d.purchases_today ? `приедут сегодня: ${d.purchases_today}` : 'от поставщиков', '#/purchases', d.purchases_overdue > 0, 'truck')}
     </div>
+    ${bays}
     <div class="grid-2">
       <section class="card"><div class="card-head"><h2>Запись на сегодня</h2><a href="#/calendar">Календарь →</a></div>${appts}</section>
       <section class="card"><div class="card-head"><h2>Заказ-наряды в работе</h2><a href="#/orders?status=active">Все →</a></div>${active}</section>
@@ -2898,6 +3161,7 @@ async function viewDashboard(v) {
       <section class="card"><div class="card-head"><h2>Заканчивается на складе</h2><a href="#/stock?low=1">Склад →</a></div>${low}</section>
     </div>`;
   on(v, 'click', '[data-appt]', (e, el) => { e.preventDefault(); apptDialog({ appt: d.appointments[+el.dataset.appt], onSaved: router }); });
+  on(v, 'click', '[data-bay-post]', (e, el) => apptDialog({ date: isoDate(), postId: +el.dataset.bayPost, onSaved: router }));
   on(v, 'click', 'tr[data-href]', (e, el) => { if (!e.target.closest('a')) go(el.dataset.href); });
 }
 
@@ -2932,7 +3196,7 @@ async function viewOrders(v, params) {
       ${r.items.map((o) => `<tr class="click" data-href="#/orders/${o.id}">
         <td class="nowrap a-num"><b>№${o.id}</b><span class="m-only muted"> · ${fmtDate(o.created_at)}</span></td><td class="nowrap m-hide">${fmtDate(o.created_at)}</td>
         <td class="a-client"><div class="title">${esc(o.client_name)}</div><div class="muted small">${esc(o.client_phone)}</div></td>
-        <td class="a-car">${esc(carName(o))}<div class="muted small">${esc(o.plate)}</div></td>
+        <td class="a-car"><div>${esc(carName(o))}</div>${plateHtml(o.plate)}</td>
         <td class="a-status">${badge(o.status)}</td><td class="m-hide">${esc(o.master_name || '')}</td>
         <td class="num-cell a-total"><b>${money(o.total)}</b></td>
         <td class="num-cell a-pay">${payState(o)}</td></tr>`).join('')}
@@ -2977,26 +3241,40 @@ function renderOrder(v, o, emps) {
   LEAVE_GUARD = () => dirty;
   const empOpts = (sel) => [['', '—'], ...emps.filter((e) => e.active || String(e.id) === String(sel)).map((e) => [e.id, e.name])];
   const car = o.car;
+  // Этапы работы с машиной; «Отменён» стоит отдельно.
+  const STEPS = [['new', 'Принят'], ['in_progress', 'В работе'], ['waiting_parts', 'Ждёт запчасти'], ['ready', 'Готов'], ['done', 'Выдан']];
+  function stepper() {
+    if (st.status === 'cancelled') {
+      return `<div class="stepper is-cancelled" data-current="cancelled"><span class="badge red">Заказ-наряд отменён</span>
+        <span class="muted small">Запчасти со склада возвращены</span><button type="button" class="btn sm" data-step="in_progress">Вернуть в работу</button></div>`;
+    }
+    const cur = STEPS.findIndex(([k]) => k === st.status);
+    return `<div class="stepper" data-current="${st.status}" role="group" aria-label="Этап заказ-наряда">${STEPS.map(([k, label], i) => `
+      <button type="button" class="step ${i < cur ? 'done' : i === cur ? 'current' : ''}" data-step="${k}" ${i === cur ? 'aria-current="step"' : ''}>
+        <span class="step-dot">${i < cur ? icon('check') : i + 1}</span><span class="step-label">${label}</span></button>`).join('<span class="step-line" aria-hidden="true"></span>')}
+      <button type="button" class="step-cancel" data-step="cancelled" title="Отменить заказ-наряд">${icon('x')}<span>Отменить</span></button></div>`;
+  }
 
   root.innerHTML = `
     <div class="page-head">
       <div><a href="#/orders" class="back">← Заказ-наряды</a>
-        <h1>Заказ-наряд №${o.id} <span class="muted" style="font-weight:500;font-size:15px">от ${fmtDate(o.created_at)}</span></h1></div>
+        <h1>Заказ-наряд №${o.id} <span class="muted h-sub">от ${fmtDate(o.created_at)}</span></h1>
+        <div class="order-car">${plateHtml(car?.plate, 'plate-lg')}<div><b>${esc(carName(car) || 'Автомобиль не указан')}</b>${car?.year ? ` <span class="muted">${car.year}</span>` : ''}<div class="muted small">${esc(o.client?.name || '')}</div></div></div></div>
       <div class="actions">
         <span class="dirty-flag" hidden>● не сохранено</span>
-        <select class="status-select" data-status>${opts(Object.entries(ORDER_STATUS).map(([k, [t]]) => [k, t]), o.status)}</select>
         <button class="btn" data-act="print" title="Печать">${icon('printer')}<span class="hide-sm">Печать</span></button>
         ${isAdmin() ? `<button class="btn danger" data-act="delete" title="Удалить">${icon('trash')}</button>` : ''}
         <button class="btn primary" data-act="save">${icon('save')} Сохранить</button>
       </div>
     </div>
+    <section class="card stage-card">${stepper()}</section>
     <div class="order-grid">
       <div class="order-main">
         <section class="card">
           <div class="info-line">
             <div><div class="lbl">Клиент</div><div class="val"><a href="#/clients/${o.client_id}">${esc(o.client?.name)}</a></div><div class="small">${phoneLink(o.client?.phone)}</div></div>
             <div><div class="lbl">Автомобиль</div><div class="val">${esc(carName(car) || '—')} ${car?.year ? `<span class="muted">${car.year}</span>` : ''}</div>
-              <div class="small muted">${esc(car?.plate || '')}${car?.vin ? ' · VIN ' + esc(car.vin) : ''}</div></div>
+              <div class="small muted">${car?.vin ? 'VIN ' + esc(car.vin) : ''}</div></div>
             ${o.closed_at ? `<div><div class="lbl">Выдан</div><div class="val">${fmtDT(o.closed_at)}</div></div>` : ''}
           </div>
           <div class="form-grid">
@@ -3033,7 +3311,7 @@ function renderOrder(v, o, emps) {
         </section>
       </div>
       <aside class="order-side">
-        <section class="card totals"></section>
+        <section class="card totals receipt"></section>
         <section class="card payments"></section>
       </aside>
     </div>`;
@@ -3080,6 +3358,7 @@ function renderOrder(v, o, emps) {
     $('.works-sum', root).textContent = money(t.works);
     $('.parts-sum', root).textContent = money(t.parts);
     $('.totals', root).innerHTML = `
+      <div class="receipt-head"><span>Итог</span><span>№${o.id}</span></div>
       <div class="row"><span>Работы</span><span>${money(t.works)}</span></div>
       <div class="row"><span>Запчасти</span><span>${money(t.parts)}</span></div>
       <div class="row"><span class="disc">Скидка <input data-o="discount" inputmode="decimal" value="${esc(st.discount)}"> %</span><span>${t.discSum ? '−' + money(t.discSum) : '—'}</span></div>
@@ -3138,16 +3417,14 @@ function renderOrder(v, o, emps) {
   });
   on(root, 'change', '[data-o="discount"]', () => drawTotals());
 
-  $('[data-status]', root).onchange = async (e) => {
-    const next = e.target.value;
-    if (next === 'done' && calc().debt > 0.009 && !await askConfirm(`Остаток к оплате ${money(calc().debt)}. Всё равно отметить как «Выдан»?`)) {
-      e.target.value = st.status;
-      return;
-    }
-    if (next === 'cancelled' && !await askConfirm('Отменить заказ-наряд? Запчасти вернутся на склад.')) { e.target.value = st.status; return; }
+  async function setStatus(next) {
+    if (next === st.status) return;
+    if (next === 'done' && calc().debt > 0.009 && !await askConfirm(`Остаток к оплате ${money(calc().debt)}. Всё равно отметить как «Выдан»?`, { ok: 'Выдать' })) return;
+    if (next === 'cancelled' && !await askConfirm('Отменить заказ-наряд? Запчасти вернутся на склад.', { ok: 'Отменить заказ-наряд' })) return;
     st.status = next;
-    await save();
-  };
+    await save(`Сохранено: ${next === 'cancelled' ? 'заказ-наряд отменён' : `«${STEPS.find(([k]) => k === next)[1]}»`}`);
+  }
+  on(root, 'click', '[data-step]', (e, el) => setStatus(el.dataset.step));
   $('[data-act=save]', root).onclick = () => save();
   on(root, 'click', '[data-receive]', async (e, el) => {
     const p = o.purchases.find((x) => x.id === +el.dataset.receive);
@@ -3302,7 +3579,7 @@ async function viewCalendar(v, params) {
         const h = Math.max((a.duration / SLOT) * ROW - 3, 24);
         html += `<div class="cal-appt ${a.status}" data-id="${a.id}" style="top:${top + 1}px;height:${h}px" title="${esc(`${a.client_name || ''}\n${carLine(a)}\n${a.description || ''}`)}">
           <div class="t">${a.start.slice(11, 16)}–${fromMin(s + a.duration)} ${esc(a.client_name || '')}</div>
-          <div>${esc(carLine(a))}</div>
+          <div class="cal-car">${carHtml(a)}</div>
           ${a.description ? `<div class="muted">${esc(a.description)}</div>` : ''}
           ${a.order_id ? `<div style="margin-top:2px">${badge(a.order_status)} <span class="small">№${a.order_id}</span></div>` : ''}</div>`;
       }
@@ -3366,7 +3643,7 @@ async function viewClient(v, params, id) {
     <section class="card">
       <div class="card-head"><h2>Автомобили</h2><button class="btn sm" data-act="add-car">${icon('plus')} Добавить</button></div>
       ${c.cars.length ? `<div class="table-wrap"><table class="tbl"><thead><tr><th>Автомобиль</th><th>Госномер</th><th>VIN</th><th class="right">Пробег</th><th>Следующее ТО</th><th></th></tr></thead><tbody>
-        ${c.cars.map((x) => `<tr><td class="title">${esc(carName(x) || '—')} ${x.year ? `<span class="muted">${x.year}</span>` : ''}</td><td class="nowrap">${esc(x.plate)}</td>
+        ${c.cars.map((x) => `<tr><td class="title">${esc(carName(x) || '—')} ${x.year ? `<span class="muted">${x.year}</span>` : ''}</td><td class="nowrap">${plateHtml(x.plate)}</td>
           <td class="small">${esc(x.vin)}</td><td class="num-cell">${x.mileage ? fmtNum(x.mileage) + ' км' : ''}</td>
           <td class="nowrap">${fmtDate(x.next_service_date)}${x.next_service_km ? ` · ${fmtNum(x.next_service_km)} км` : ''}</td>
           <td class="right nowrap"><button class="btn sm" data-car-order="${x.id}">Заказ-наряд</button> <button class="icon-btn" data-car-edit="${x.id}" title="Изменить">${icon('edit')}</button></td></tr>`).join('')}
