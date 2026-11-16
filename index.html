@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Демо CRM автосервиса</title>
+<title>CRM МК Сервис</title>
 <meta name="theme-color" content="#111827">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="CRM">
+<meta name="apple-mobile-web-app-title" content="МК Сервис">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="description" content="Демо-версия CRM для автосервиса: запись, заказ-наряды, клиенты, склад, отчёты.">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -445,7 +445,7 @@ body.printing #print-root { display: block !important; }
 <body>
 <div id="app" hidden>
     <aside id="sidebar">
-      <div class="brand"><span class="brand-logo" data-icon="tool"></span><span id="brand-name">Автосервис</span></div>
+      <div class="brand"><span class="brand-logo" data-icon="tool"></span><span id="brand-name">МК Сервис</span></div>
       <nav id="nav">
         <a href="#/" data-nav="/"><span data-icon="home"></span>Главная</a>
         <a href="#/calendar" data-nav="/calendar"><span data-icon="calendar"></span>Запись</a>
@@ -486,7 +486,7 @@ body.printing #print-root { display: block !important; }
 (function () {
   'use strict';
 
-  const KEY = 'autocrm-demo-v1';
+  const KEY = 'autocrm-demo-v2';
   const MAX_AGE = 7 * 864e5; // через неделю демо-данные обновляются, чтобы запись «на сегодня» не устаревала
   const framed = (() => { try { return window.self !== window.top; } catch { return true; } })();
 
@@ -542,7 +542,7 @@ body.printing #print-root { display: block !important; }
   /* ---------- хранилище ---------- */
   const TABLES = ['users', 'employees', 'posts', 'clients', 'cars', 'services', 'parts', 'orders', 'order_works', 'order_parts', 'payments', 'appointments'];
   const DEFAULT_SETTINGS = {
-    company_name: 'Автосервис', company_address: '', company_phone: '', company_inn: '', company_requisites: '',
+    company_name: 'МК Сервис', company_address: '', company_phone: '', company_inn: '', company_requisites: '',
     hour_price: '2000', work_start: '09:00', work_end: '20:00',
     warranty_text: 'Гарантия на выполненные работы — 30 дней или 1 000 км пробега, на установленные запчасти — по условиям производителя. С объёмом и стоимостью работ согласен, автомобиль получил, претензий к внешнему виду и комплектности не имею.',
   };
@@ -1179,7 +1179,7 @@ body.printing #print-root { display: block !important; }
     S = { v: 1, seededAt: Date.now(), seq: {}, session: null, settings: { ...DEFAULT_SETTINGS } };
     for (const t of TABLES) S[t] = [];
     Object.assign(S.settings, {
-      company_name: 'Автосервис «Мотор»', company_address: 'г. Москва, ул. Автомобильная, д. 1',
+      company_name: 'МК Сервис', company_address: 'г. Москва, ул. Автомобильная, д. 1',
       company_phone: '+7 900 000-00-00', company_inn: '7700000000',
     });
     const rnd = rng(42);
@@ -1615,7 +1615,7 @@ function showAuth(html) {
   $$('.modal-overlay').forEach((m) => m.remove());
   const a = $('#auth');
   a.hidden = false;
-  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${icon('tool')}</span>${esc(COMPANY || 'CRM автосервиса')}</div>${html}</div>`;
+  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${icon('tool')}</span>${esc(COMPANY || 'МК Сервис')}</div>${html}</div>`;
   return a;
 }
 
@@ -1645,7 +1645,7 @@ function showLogin() {
 
 function showSetup() {
   const a = showAuth(`<p class="muted" style="margin-top:0">Первый запуск. Создайте учётную запись администратора — дальше в настройках можно добавить сотрудников.</p>
-    <form>${fInput('Название автосервиса', 'company_name', '', { ph: 'Автосервис «Мотор»' })}
+    <form>${fInput('Название автосервиса', 'company_name', '', { ph: 'МК Сервис' })}
     ${fInput('Ваше имя', 'name', '', { req: true })}
     ${fInput('Логин', 'login', 'admin', { req: true, attrs: 'autocomplete="username" autocapitalize="off"' })}
     ${fInput('Пароль (не короче 6 символов)', 'password', '', { type: 'password', req: true, attrs: 'autocomplete="new-password"' })}
@@ -1688,8 +1688,8 @@ async function boot() {
 }
 
 function applyCompany() {
-  $('#brand-name').textContent = SETTINGS.company_name || 'Автосервис';
-  document.title = `${SETTINGS.company_name || 'Автосервис'} — CRM`;
+  $('#brand-name').textContent = SETTINGS.company_name || 'МК Сервис';
+  document.title = `${SETTINGS.company_name || 'МК Сервис'} — CRM`;
 }
 
 /* ======================= маршрутизация ======================= */

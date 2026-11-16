@@ -1,6 +1,6 @@
 {
-  "name": "Демо CRM автосервиса",
-  "short_name": "CRM",
+  "name": "CRM МК Сервис",
+  "short_name": "МК Сервис",
   "lang": "ru",
   "start_url": "./",
   "scope": "./",
