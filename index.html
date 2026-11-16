@@ -13,89 +13,115 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%232563eb%22/%3E%3Cpath%20d%3D%22M19.6%209.4a1.3%201.3%200%200%200%200%201.8l1.2%201.2a1.3%201.3%200%200%200%201.8%200l3-3a7%207%200%200%201-9.3%209.3l-6%206a2.2%202.2%200%200%201-3.1-3.1l6-6a7%207%200%200%201%209.3-9.3z%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Onest:wght@400;500;600;700&display=swap">
 <style>
+/* Оформление «Мастерская»: графитовое меню, сигнальный оранжевый для главных действий,
+   техничный Exo 2 для заголовков и цифр, Onest для текста, госномера как настоящие номерные знаки. */
 :root {
-  --bg: #f3f5f9;
+  --bg: #eef1f3;
   --surface: #ffffff;
-  --surface-2: #f7f9fc;
-  --border: #e2e7ef;
-  --border-strong: #cfd7e3;
-  --text: #182134;
-  --muted: #687389;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-soft: #e9f0ff;
+  --surface-2: #f6f8f9;
+  --border: #dde3e8;
+  --border-strong: #c9d2d9;
+  --text: #142029;
+  --muted: #5c6a75;
+  --accent: #ff6b1a;
+  --accent-hover: #ff8338;
+  --accent-ink: #1b1007;
+  --accent-soft: #ffeadb;
+  --accent-strong: #c2410c;
+  --link: #b93d0c;
+  --blue: #1d5fd1;
+  --blue-soft: #e5eefc;
   --danger: #d92d20;
   --danger-soft: #fdeceb;
   --ok: #15803d;
-  --ok-soft: #e6f6ec;
-  --warn: #b45309;
-  --warn-soft: #fdf2e1;
+  --ok-soft: #e3f5e9;
+  --warn: #a15c07;
+  --warn-soft: #fdf1dc;
   --info: #0e7490;
-  --info-soft: #e2f5f9;
-  --gray-soft: #eef1f5;
-  --side-bg: #111827;
-  --side-text: #c4cbd8;
-  --side-hover: #1d2638;
-  --radius: 10px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .05), 0 1px 3px rgba(16, 24, 40, .07);
-  --shadow-lg: 0 12px 32px rgba(16, 24, 40, .18);
+  --info-soft: #e0f4f8;
+  --gray-soft: #eceff2;
+  --side-bg: #121b22;
+  --side-bg-2: #1a2730;
+  --side-text: #a7b4bd;
+  --side-hover: #1f2c36;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(18, 27, 34, .06), 0 2px 6px rgba(18, 27, 34, .05);
+  --shadow-lg: 0 18px 40px rgba(18, 27, 34, .22);
+  --font-body: "Onest", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Exo 2", "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 
 /* Тёмная тема: по системной настройке и по явному выбору data-theme="dark". */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0c1220;
-    --surface: #131b2c;
-    --surface-2: #182236;
-    --border: #243049;
-    --border-strong: #33415e;
-    --text: #e5e9f2;
-    --muted: #93a0b8;
-    --accent: #4f8cff;
-    --accent-hover: #6b9dff;
-    --accent-soft: #1a2a4d;
+    --bg: #0b1116;
+    --surface: #121b22;
+    --surface-2: #17222b;
+    --border: #23313c;
+    --border-strong: #31424f;
+    --text: #e7edf1;
+    --muted: #93a3ae;
+    --accent: #ff7a2e;
+    --accent-hover: #ff9152;
+    --accent-ink: #1b1007;
+    --accent-soft: #3a2314;
+    --accent-strong: #ff9a5c;
+    --link: #ff9a5c;
+    --blue: #6aa2ff;
+    --blue-soft: #16264a;
     --danger: #f2655a;
     --danger-soft: #3a1d1f;
     --ok: #4ccb7f;
-    --ok-soft: #15301f;
+    --ok-soft: #12301f;
     --warn: #f0a24a;
     --warn-soft: #36270f;
     --info: #4cc3dc;
     --info-soft: #0f2d35;
-    --gray-soft: #1f2a40;
-    --side-bg: #0a0f1a;
-    --side-hover: #172033;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, .5);
+    --gray-soft: #1c2832;
+    --side-bg: #080d11;
+    --side-bg-2: #101a21;
+    --side-hover: #16222b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    --shadow-lg: 0 18px 40px rgba(0, 0, 0, .55);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0c1220;
-  --surface: #131b2c;
-  --surface-2: #182236;
-  --border: #243049;
-  --border-strong: #33415e;
-  --text: #e5e9f2;
-  --muted: #93a0b8;
-  --accent: #4f8cff;
-  --accent-hover: #6b9dff;
-  --accent-soft: #1a2a4d;
+  --bg: #0b1116;
+  --surface: #121b22;
+  --surface-2: #17222b;
+  --border: #23313c;
+  --border-strong: #31424f;
+  --text: #e7edf1;
+  --muted: #93a3ae;
+  --accent: #ff7a2e;
+  --accent-hover: #ff9152;
+  --accent-ink: #1b1007;
+  --accent-soft: #3a2314;
+  --accent-strong: #ff9a5c;
+  --link: #ff9a5c;
+  --blue: #6aa2ff;
+  --blue-soft: #16264a;
   --danger: #f2655a;
   --danger-soft: #3a1d1f;
   --ok: #4ccb7f;
-  --ok-soft: #15301f;
+  --ok-soft: #12301f;
   --warn: #f0a24a;
   --warn-soft: #36270f;
   --info: #4cc3dc;
   --info-soft: #0f2d35;
-  --gray-soft: #1f2a40;
-  --side-bg: #0a0f1a;
-  --side-hover: #172033;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .3);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, .5);
+  --gray-soft: #1c2832;
+  --side-bg: #080d11;
+  --side-bg-2: #101a21;
+  --side-hover: #16222b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 18px 40px rgba(0, 0, 0, .55);
   color-scheme: dark;
 }
 
@@ -208,7 +234,7 @@ input[type="checkbox"] { width: 16px; height: 16px; padding: 0; accent-color: va
 .kpi .sub { font-size: 12.5px; color: var(--muted); }
 .kpi.alert .value { color: var(--danger); }
 a.kpi { color: inherit; display: block; }
-a.kpi:hover { text-decoration: none; border-color: var(--accent); }
+a.kpi:hover { text-decoration: none; }
 
 /* ---------- таблицы ---------- */
 .table-wrap { overflow-x: auto; margin: 0 -18px; padding: 0 18px; }
@@ -288,7 +314,7 @@ table.lines { width: 100%; border-collapse: collapse; }
 .ac-item.active { background: var(--accent-soft); }
 .ac-item .t { font-weight: 600; }
 .ac-item .s { font-size: 12.5px; color: var(--muted); }
-.ac-item.footer { color: var(--accent); font-weight: 550; border-top: 1px solid var(--border); border-radius: 0 0 7px 7px; }
+.ac-item.footer { color: var(--accent-strong); font-weight: 550; border-top: 1px solid var(--border); border-radius: 0 0 7px 7px; }
 .ac-empty { padding: 10px; color: var(--muted); }
 
 /* ---------- выбор клиента ---------- */
@@ -296,7 +322,7 @@ table.lines { width: 100%; border-collapse: collapse; }
 .picked { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); margin-bottom: 12px; }
 .picked .t { font-weight: 650; }
 .section-label { font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 8px; }
-.link-btn { border: 0; background: none; color: var(--accent); font: inherit; font-weight: 550; cursor: pointer; padding: 0; }
+.link-btn { border: 0; background: none; color: var(--link); font: inherit; font-weight: 550; cursor: pointer; padding: 0; }
 .link-btn:hover { text-decoration: underline; }
 
 /* ---------- модальные окна ---------- */
@@ -382,9 +408,286 @@ body.printing #print-root { display: block !important; }
 
 .m-only { display: none; }
 
+/* ---------- подбор запчастей ---------- */
+.modal.xl { max-width: 1120px; }
+.head-actions { display: flex; align-items: center; gap: 12px; }
+.pf { display: grid; gap: 16px; }
+.pf .card + .card { margin-top: 0; }
+.pf-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 16px; align-items: start; }
+.pf-car-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pf-client { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.pf-client-search { max-width: none; width: 100%; }
+.pf-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 2px 2px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.pf-pill .icon-btn { width: 28px; height: 28px; color: var(--accent-strong); }
+.pf-q { display: flex; gap: 8px; }
+.pf-q input { height: 46px; font-size: 16px; }
+.pf-q .btn { height: 46px; padding: 0 18px; }
+.pf-chips, .pf-related { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pf-chips { margin-top: 12px; }
+.chip { border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+.chip:hover { border-color: var(--accent); color: var(--accent-strong); }
+.chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.pf-loading { display: flex; align-items: center; gap: 14px; }
+.pf-spinner { width: 26px; height: 26px; border-radius: 50%; border: 3px solid var(--accent-soft); border-top-color: var(--accent); animation: pf-spin .8s linear infinite; flex: none; }
+@keyframes pf-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .pf-spinner { animation-duration: 2.4s; } }
+.pf-summary { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, auto) minmax(190px, auto); gap: 14px; align-items: stretch; }
+.pf-title { font-size: 20px; margin-top: 2px; }
+.pf-group { text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
+.pf-best { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; border-radius: 10px; padding: 12px 14px; background: var(--ok-soft); }
+.pf-best.fast { background: var(--accent-soft); }
+.pf-best .lbl { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ok); }
+.pf-best.fast .lbl { color: var(--accent); }
+.pf-best .val { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pf-best .btn { margin-top: 8px; }
+.pf-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.pf-seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--gray-soft); }
+.pf-seg button { border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+.pf-seg button.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+.pf-markup { margin-left: auto; }
+.pf-part, .pf-stock { padding: 0; overflow: hidden; }
+.pf-stock .card-head { padding: 14px 18px 0; margin-bottom: 4px; }
+.pf-part-head { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+.pf-part-title { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-weight: 650; font-size: 15px; }
+.pf-article { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; font-weight: 500; color: var(--muted); }
+.pf-from { text-align: right; flex: none; }
+.pf-from .v { font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pf-offer { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto 104px; gap: 8px 16px; align-items: center; padding: 11px 18px; border-bottom: 1px solid var(--border); }
+.pf-offer:last-child { border-bottom: 0; }
+.pf-offer.cheapest { background: color-mix(in srgb, var(--ok-soft) 70%, transparent); }
+.pf-offer .btn { width: 100%; }
+.pf-sup .t { font-weight: 600; }
+.pf-sup .s { font-size: 12.5px; color: var(--muted); }
+.pf-rating { font-size: 12px; font-weight: 600; color: var(--warn); margin-left: 4px; }
+.pf-meta { display: flex; flex-direction: column; }
+.pf-days { font-weight: 600; }
+.pf-days.today { color: var(--ok); }
+.pf-price { text-align: right; font-variant-numeric: tabular-nums; }
+.pf-price .v { font-weight: 700; font-size: 15px; }
+.pf-price .s { font-size: 12px; color: var(--muted); }
+.pf-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.pf-demo-note { display: flex; gap: 8px; align-items: flex-start; margin: 0; }
+.pf-empty h2, .pf-connect h2 { margin-bottom: 6px; }
+.pf-empty p, .pf-connect p { margin: 0 0 10px; max-width: 70ch; }
+.pf-add-head { padding: 12px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); margin-bottom: 14px; }
+.pf-add-head .t { font-weight: 650; }
+@media (max-width: 900px) {
+  .pf-top { grid-template-columns: 1fr; }
+  .pf-summary { grid-template-columns: 1fr 1fr; }
+  .pf-summary .pf-head { grid-column: 1 / -1; }
+  .pf-markup { margin-left: 0; width: 100%; }
+}
+@media (max-width: 640px) {
+  .pf-q .btn span { display: none; }
+  .pf-summary { gap: 10px; }
+  .pf-best { padding: 10px 12px; }
+  .pf-best .val { font-size: 18px; }
+  .pf-offer { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "sup price" "meta btn"; padding: 12px 14px; }
+  .pf-offer .pf-sup { grid-area: sup; } .pf-offer .pf-price { grid-area: price; }
+  .pf-offer .pf-meta { grid-area: meta; flex-direction: row; gap: 10px; align-items: baseline; }
+  .pf-offer .btn { grid-area: btn; width: auto; }
+  .pf-part-head { padding: 12px 14px; }
+  .pf-stock .card-head { padding: 12px 14px 0; }
+}
+
+/* ---------- закупки ---------- */
+.ok-text { color: var(--ok); font-weight: 600; }
+.tbl .neg, span.neg { color: var(--danger); font-weight: 600; }
+.pur-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 640px) {
+  .pur-kpis { gap: 8px; }
+  .pur-kpis .kpi { padding: 10px 12px; }
+  .pur-kpis .kpi .label { font-size: 12px; }
+  .pur-kpis .kpi .sub { display: none; }
+}
+.pur-list { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 10px; }
+.pur-title { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 650; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 4px; }
+.pur-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px 16px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.pur-row:last-child { border-bottom: 0; }
+.pur-when { font-size: 13px; white-space: nowrap; }
+.pf-add-checks { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.pf-add-checks .check { align-items: flex-start; }
+.pf-add-checks input[type="checkbox"] { margin-top: 2px; flex: none; }
+.pf-add-checks input:disabled + * , .pf-add-checks .check:has(input:disabled) { color: var(--muted); }
+
 /* ---------- демо-режим ---------- */
 .demo-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; margin: 16px 24px 0; padding: 10px 14px; border-radius: var(--radius); background: var(--warn-soft); color: var(--text); font-size: 13.5px; }
 .demo-bar b { color: var(--warn); }
+
+/* ---------- оформление «Мастерская» ---------- */
+body { font-family: var(--font-body); font-size: 14.5px; }
+a { color: var(--link); }
+h1 { font-family: var(--font-display); font-size: 27px; font-weight: 800; letter-spacing: -.005em; line-height: 1.15; }
+h2 { font-size: 15.5px; font-weight: 650; }
+.h-sub { font-family: var(--font-body); font-weight: 500; font-size: 15px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; }
+
+/* меню */
+#sidebar {
+  width: 244px;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .022) 0 2px, transparent 2px 9px) bottom / 100% 190px no-repeat,
+    radial-gradient(130% 55% at 0% 0%, var(--side-bg-2), transparent 62%),
+    var(--side-bg);
+  border-right: 1px solid rgba(255, 255, 255, .04);
+}
+.brand { gap: 12px; padding: 20px 18px 16px; color: #fff; font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: .01em; line-height: 1.1; }
+.brand small { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--side-text); margin-top: 3px; }
+.brand-logo { width: 40px; height: 40px; border-radius: 11px; background: var(--accent); color: var(--accent-ink); font: 800 15px/1 var(--font-display); letter-spacing: -.02em; box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .2); flex: none; }
+.nav-label { padding: 14px 12px 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #64747f; }
+.nav-label:first-child { padding-top: 4px; }
+#nav { gap: 1px; padding: 4px 12px; }
+#nav a { position: relative; padding: 9px 12px; border-radius: 10px; }
+#nav a.active { background: var(--side-hover); color: #fff; }
+#nav a.active::before { content: ""; position: absolute; left: -12px; top: 8px; bottom: 8px; width: 4px; border-radius: 0 4px 4px 0; background: var(--accent); }
+#nav a.active .ic { color: var(--accent); }
+.user-box { justify-content: flex-start; gap: 10px; padding: 14px 16px; }
+.user-box .who { flex: 1; min-width: 0; }
+.user-box #user-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-box #user-role { color: var(--side-text); }
+.avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; background: #263540; color: var(--accent); font: 800 13px/1 var(--font-display); }
+
+/* верхняя панель */
+#topbar { background: color-mix(in srgb, var(--surface) 90%, transparent); }
+.search-wrap input { height: 40px; border-radius: 12px; background: var(--surface-2); }
+
+/* кнопки и поля */
+.btn { height: 38px; border-radius: 10px; font-weight: 600; }
+.btn.sm { height: 32px; border-radius: 9px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .14); }
+.btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+input, select, textarea { border-radius: 10px; }
+input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.chip.active { color: var(--accent-ink); }
+.tab.active { background: var(--text); border-color: var(--text); color: var(--surface); box-shadow: none; }
+.tab.active .cnt { color: inherit; opacity: .65; }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .8; }
+.badge.blue { background: var(--blue-soft); color: var(--blue); }
+.card { border-radius: var(--radius); }
+.card-head h2 { display: flex; align-items: center; gap: 8px; }
+.tbl th { font-size: 11px; letter-spacing: .07em; }
+.tbl tr.click:hover td { background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface)); }
+.modal { border-radius: 16px; }
+.modal-head h3 { font-family: var(--font-display); font-size: 19px; font-weight: 800; }
+.pf-best.fast { background: var(--blue-soft); }
+.pf-best.fast .lbl { color: var(--blue); }
+.pf-title, .pf-best .val, .pf-from .v { font-family: var(--font-display); font-weight: 800; }
+.pf-pill { color: var(--accent-strong); }
+
+/* плитки с цифрами */
+.kpi { position: relative; padding: 16px 18px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+a.kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(18, 27, 34, .1); border-color: var(--border-strong); }
+.kpi-top { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.kpi-top .label { line-height: 1.3; }
+.kpi-ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex: none; background: var(--accent-soft); color: var(--accent-strong); }
+.kpi-ic .ic { width: 17px; height: 17px; }
+.kpi .value { font-family: var(--font-display); font-size: 30px; font-weight: 800; margin-top: 10px; line-height: 1.05; }
+.kpi.alert .kpi-ic { background: var(--danger-soft); color: var(--danger); }
+
+/* номерной знак */
+.plate {
+  display: inline-flex; align-items: stretch; height: 22px; vertical-align: middle; flex: none;
+  border: 1.5px solid #111; border-radius: 4px; background: #fff; color: #111; overflow: hidden;
+  font: 700 12.5px/1 var(--font-body); letter-spacing: .03em; box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
+}
+.plate-main { display: flex; align-items: center; padding: 0 5px; white-space: nowrap; }
+.plate-main b { font-size: 14px; margin: 0 2px; font-weight: 800; }
+.plate-reg { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 4px; border-left: 1.5px solid #111; font-size: 10px; font-weight: 800; }
+.plate-reg i { display: flex; align-items: center; gap: 2px; font-style: normal; font-size: 5.5px; letter-spacing: .02em; margin-top: 1px; }
+.plate-reg i::after { content: ""; width: 7px; height: 5px; background: linear-gradient(#fff 33%, #1c3fa8 33% 66%, #d52b1e 66%); outline: .5px solid #999; }
+.plate-lg { height: 34px; border-width: 2px; border-radius: 6px; font-size: 18px; }
+.plate-lg .plate-main { padding: 0 8px; }
+.plate-lg .plate-main b { font-size: 22px; margin: 0 3px; }
+.plate-lg .plate-reg { padding: 0 7px; border-left-width: 2px; font-size: 15px; }
+.plate-lg .plate-reg i { font-size: 7.5px; }
+.plate-lg .plate-reg i::after { width: 10px; height: 7px; }
+.li-car, .bay-car, .cal-car { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+
+/* посты сейчас */
+.bays { margin-bottom: 16px; }
+.bays .card-head { margin-bottom: 10px; }
+.bay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.bay {
+  position: relative; display: flex; flex-direction: column; gap: 8px; text-align: left; overflow: hidden;
+  padding: 16px 16px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  box-shadow: var(--shadow); color: inherit; font: inherit; cursor: pointer; transition: transform .15s, border-color .15s;
+}
+.bay::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--ok); }
+.bay.busy::before { background: var(--accent); }
+.bay:hover { transform: translateY(-1px); border-color: var(--border-strong); }
+.bay-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.bay-name { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.bay-state { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: 3px 8px; border-radius: 999px; background: var(--ok-soft); color: var(--ok); }
+.bay.busy .bay-state { background: var(--accent-soft); color: var(--accent-strong); }
+.bay-car { font-weight: 600; }
+.bay-desc { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.bay-bar { height: 6px; border-radius: 99px; background: var(--gray-soft); overflow: hidden; margin-top: auto; }
+.bay-bar span { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.bay-foot { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); }
+.bay-foot b { color: var(--text); }
+.bay-free-text { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ok); line-height: 1.1; }
+
+/* заказ-наряд: машина и этапы */
+.order-car { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.stage-card { padding: 12px; margin-bottom: 16px; }
+.stage-card + .order-grid .card:first-child { margin-top: 0; }
+.stepper { display: flex; align-items: center; gap: 6px; }
+.step {
+  flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px;
+  border: 1px solid transparent; background: transparent; color: var(--muted); font: inherit; font-weight: 600; text-align: left; cursor: pointer;
+}
+.step:hover { background: var(--surface-2); color: var(--text); }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--gray-soft); color: var(--muted); font: 800 13px/1 var(--font-display); }
+.step-dot .ic { width: 15px; height: 15px; stroke-width: 3; }
+.step-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.step-line { flex: 0 0 18px; height: 2px; border-radius: 2px; background: var(--border-strong); }
+.step.done { color: var(--text); }
+.step.done .step-dot { background: var(--text); color: var(--surface); }
+.step.current { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 45%, transparent); color: var(--text); }
+.step.current .step-dot { background: var(--accent); color: var(--accent-ink); }
+.step-cancel { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 8px 10px; border: 0; border-radius: 10px; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+.step-cancel:hover { background: var(--danger-soft); color: var(--danger); }
+.stepper.is-cancelled { gap: 12px; flex-wrap: wrap; padding: 4px; }
+
+/* итог как чек */
+.receipt { position: relative; border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0; padding-bottom: 20px; margin-bottom: 26px; }
+.receipt::after {
+  content: ""; position: absolute; left: -1px; right: -1px; bottom: -9px; height: 10px;
+  background: radial-gradient(circle at 7px 0, var(--surface) 6.5px, transparent 7px) 0 0 / 14px 10px repeat-x;
+}
+.receipt-head { display: flex; justify-content: space-between; padding-bottom: 10px; margin-bottom: 6px; border-bottom: 1px dashed var(--border-strong); font: 700 11.5px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.totals .row.big { border-top: 1px dashed var(--border-strong); font-family: var(--font-display); font-size: 26px; font-weight: 800; }
+.order-side .receipt + .card { margin-top: 0; }
+
+/* календарь */
+.cal-h { font-family: var(--font-display); font-weight: 700; }
+.cal-appt { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); }
+.cal-appt.arrived { background: color-mix(in srgb, var(--ok-soft) 70%, var(--surface)); border-left-color: var(--ok); }
+.cal-car .plate { height: 19px; font-size: 11px; }
+.cal-car .plate-main b { font-size: 12.5px; }
+.cal-car .plate-reg { font-size: 9px; }
+
+/* вход */
+#auth {
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 10px),
+    radial-gradient(90% 70% at 15% 10%, var(--side-bg-2), transparent 60%),
+    var(--side-bg);
+}
+.auth-card { padding: 28px; border: 0; box-shadow: var(--shadow-lg); }
+.auth-card .brand { color: var(--text); padding: 0 0 18px; }
+
+/* полоса демо-версии: «рабочая зона» */
+.demo-bar {
+  background: repeating-linear-gradient(-45deg, var(--warn-soft) 0 14px, color-mix(in srgb, var(--warn-soft) 55%, var(--surface)) 14px 28px);
+  border: 1px solid color-mix(in srgb, var(--warn) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kpi, .bay { transition: none; }
+  a.kpi:hover, .bay:hover { transform: none; }
+}
 
 /* ---------- адаптивность ---------- */
 @media (max-width: 1100px) {
@@ -417,7 +720,20 @@ body.printing #print-root { display: block !important; }
   .modal-overlay { padding: 0; }
   .modal { border-radius: 0; min-height: 100vh; }
   .modal-foot { border-radius: 0; position: sticky; bottom: 0; }
-  .kpi .value { font-size: 20px; }
+  .kpi .value { font-size: 22px; margin-top: 8px; }
+  .kpi-ic { width: 28px; height: 28px; }
+  h1 { font-size: 22px; }
+  .order-car .plate-lg { height: 28px; font-size: 15px; }
+  .order-car .plate-lg .plate-main b { font-size: 18px; }
+  .order-car .plate-lg .plate-reg { font-size: 12px; }
+  .stepper { justify-content: space-between; gap: 2px; }
+  .step { flex: 0 0 auto; padding: 4px; gap: 6px; }
+  .step.current { padding-right: 10px; }
+  .step-dot { width: 26px; height: 26px; }
+  .step:not(.current) .step-label, .step-cancel span, .step-line { display: none; }
+  .step-cancel { padding: 6px; }
+  .stage-card { padding: 8px; }
+  .bay-grid { grid-template-columns: 1fr; }
   /* Списки на телефоне — карточками, без прокрутки вбок */
   .m-only { display: inline; }
   .tbl.stack thead { display: none; }
@@ -438,6 +754,13 @@ body.printing #print-root { display: block !important; }
   .st-stock .a-name { grid-area: name; } .st-stock .a-qty { grid-area: qty; }
   .st-stock .a-sku { grid-area: sku; } .st-stock .a-price { grid-area: price; }
   .st-stock .a-act { grid-area: act; text-align: left; margin-top: 4px; }
+  .st-pur tr { grid-template-areas: "name sum" "sup when" "for act"; }
+  .st-pur .a-name { grid-area: name; } .st-pur .a-sum { grid-area: sum; }
+  .st-pur .a-sup { grid-area: sup; } .st-pur .a-when { grid-area: when; text-align: right; }
+  .st-pur .a-for { grid-area: for; } .st-pur .a-act { grid-area: act; }
+  .pur-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .pur-row .pur-when { grid-column: 1; white-space: normal; }
+  .pur-row .pur-act { grid-column: 2; grid-row: 1 / span 2; }
 }
 
 </style>
@@ -445,19 +768,25 @@ body.printing #print-root { display: block !important; }
 <body>
 <div id="app" hidden>
     <aside id="sidebar">
-      <div class="brand"><span class="brand-logo" data-icon="tool"></span><span id="brand-name">МК Сервис</span></div>
+      <div class="brand"><span class="brand-logo">МК</span><span><span id="brand-name">МК Сервис</span><small>автосервис</small></span></div>
       <nav id="nav">
+        <div class="nav-label">Работа</div>
         <a href="#/" data-nav="/"><span data-icon="home"></span>Главная</a>
         <a href="#/calendar" data-nav="/calendar"><span data-icon="calendar"></span>Запись</a>
         <a href="#/orders" data-nav="/orders"><span data-icon="clipboard"></span>Заказ-наряды</a>
         <a href="#/clients" data-nav="/clients"><span data-icon="users"></span>Клиенты</a>
+        <div class="nav-label">Запчасти</div>
+        <a href="#/parts" data-nav="/parts"><span data-icon="tag"></span>Подбор запчастей</a>
+        <a href="#/purchases" data-nav="/purchases"><span data-icon="truck"></span>Закупки</a>
         <a href="#/stock" data-nav="/stock"><span data-icon="box"></span>Склад</a>
+        <div class="nav-label">Управление</div>
         <a href="#/services" data-nav="/services"><span data-icon="list"></span>Услуги и цены</a>
         <a href="#/reports" data-nav="/reports" data-admin><span data-icon="chart"></span>Отчёты</a>
         <a href="#/settings" data-nav="/settings"><span data-icon="settings"></span>Настройки</a>
       </nav>
       <div class="user-box">
-        <div><div id="user-name"></div><div id="user-role" class="muted small"></div></div>
+        <span class="avatar" id="user-avatar"></span>
+        <div class="who"><div id="user-name"></div><div id="user-role" class="small"></div></div>
         <button class="icon-btn" id="logout" title="Выйти"><span data-icon="logout"></span></button>
       </div>
     </aside>
@@ -480,6 +809,7 @@ body.printing #print-root { display: block !important; }
   <div id="auth" hidden></div>
   <div id="print-root" hidden></div>
   <div id="toasts" aria-live="polite"></div>
+<script>window.CRM_CHANNEL = "stable";</script>
 <script>
 /* Демо-режим CRM: копия серверного API (api.py), работающая прямо в браузере.
    Перехватывает fetch('/api/...'), данные вымышленные и хранятся в localStorage этого браузера. */
@@ -540,10 +870,10 @@ body.printing #print-root { display: block !important; }
   const requireName = (data) => { if ('name' in data && !data.name) throw new ApiError(400, 'Заполните обязательные поля'); };
 
   /* ---------- хранилище ---------- */
-  const TABLES = ['users', 'employees', 'posts', 'clients', 'cars', 'services', 'parts', 'orders', 'order_works', 'order_parts', 'payments', 'appointments'];
+  const TABLES = ['users', 'employees', 'posts', 'clients', 'cars', 'services', 'parts', 'orders', 'order_works', 'order_parts', 'payments', 'appointments', 'purchases'];
   const DEFAULT_SETTINGS = {
     company_name: 'МК Сервис', company_address: '', company_phone: '', company_inn: '', company_requisites: '',
-    hour_price: '2000', work_start: '09:00', work_end: '20:00',
+    hour_price: '2000', parts_markup: '30', parts_demo_catalog: '1', work_start: '09:00', work_end: '20:00',
     warranty_text: 'Гарантия на выполненные работы — 30 дней или 1 000 км пробега, на установленные запчасти — по условиям производителя. С объёмом и стоимостью работ согласен, автомобиль получил, претензий к внешнему виду и комплектности не имею.',
   };
   const DEFAULTS = {
@@ -558,6 +888,7 @@ body.printing #print-root { display: block !important; }
     order_works: () => ({ service_id: null, qty: 1, price: 0, employee_id: null, sort: 0 }),
     order_parts: () => ({ part_id: null, sku: '', qty: 1, price: 0, buy_price: 0, sort: 0 }),
     payments: () => ({ method: 'cash', note: '', created_at: now(), user_id: null }),
+    purchases: () => ({ brand: '', article: '', qty: 1, price: 0, expected_date: null, status: 'ordered', order_id: null, note: '', created_at: now(), received_at: null, created_by: null }),
     appointments: () => ({ duration: 60, post_id: null, client_id: null, car_id: null, description: '', status: 'planned', order_id: null, created_at: now() }),
   };
   let S = null;
@@ -578,7 +909,7 @@ body.printing #print-root { display: block !important; }
     S[table] = S[table].filter((r) => r.id !== id);
     const nullify = {
       services: [['order_works', 'service_id']], parts: [['order_parts', 'part_id']], posts: [['appointments', 'post_id']],
-      cars: [['appointments', 'car_id']], orders: [['appointments', 'order_id']], employees: [['orders', 'master_id'], ['order_works', 'employee_id']],
+      cars: [['appointments', 'car_id']], orders: [['appointments', 'order_id'], ['purchases', 'order_id']], employees: [['orders', 'master_id'], ['order_works', 'employee_id']],
     }[table] || [];
     for (const [t, col] of nullify) S[t].forEach((r) => { if (r[col] === id) r[col] = null; });
     if (table === 'clients') {
@@ -593,7 +924,10 @@ body.printing #print-root { display: block !important; }
       const raw = localStorage.getItem(KEY);
       if (!raw) return null;
       const s = JSON.parse(raw);
-      if (s.v === 1 && Date.now() - s.seededAt < MAX_AGE && TABLES.every((t) => Array.isArray(s[t]))) return s;
+      if (s.v === 1 && Date.now() - s.seededAt < MAX_AGE && Array.isArray(s.orders)) {
+        for (const t of TABLES) if (!Array.isArray(s[t])) s[t] = []; // таблицы, появившиеся в новой версии
+        return s;
+      }
     } catch { /* повреждённые данные: создадим заново */ }
     return null;
   }
@@ -895,6 +1229,7 @@ body.printing #print-root { display: block !important; }
     r.client = find('clients', o.client_id);
     r.car = find('cars', o.car_id);
     r.client_cars = carsOf(o.client_id).map(({ id: cid, make, model, plate, year }) => ({ id: cid, make, model, plate, year }));
+    r.purchases = purchasesQuery((p) => p.order_id === id);
     return r;
   }
   function raiseMileage(carId, mileage) {
@@ -1008,6 +1343,84 @@ body.printing #print-root { display: block !important; }
     return paymentsOf(p.order_id);
   });
 
+  /* ----- закупки у поставщиков ----- */
+  const PURCHASE = { supplier: 'str', name: 'str', brand: 'str', article: 'str', qty: 'num', price: 'num', expected_date: 'date', order_id: 'int', note: 'str' };
+  function purchaseRow(p) {
+    const o = find('orders', p.order_id);
+    const c = o ? find('clients', o.client_id) : null;
+    const car = o ? find('cars', o.car_id) : null;
+    return { ...p, order_status: o?.status ?? null, client_name: c?.name ?? null, make: car?.make ?? null, model: car?.model ?? null, plate: car?.plate ?? null };
+  }
+  function purchasesQuery(pred = () => true) {
+    const rank = (p) => (p.status === 'ordered' ? 0 : 1);
+    return S.purchases.filter(pred).map(purchaseRow).sort((a, b) => rank(a) - rank(b)
+      || (a.status === 'ordered' ? ru(a.expected_date, b.expected_date) : 0) || b.id - a.id);
+  }
+  function checkPurchase(data) {
+    requireName(data);
+    if ('supplier' in data && !data.supplier) throw new ApiError(400, 'Заполните обязательные поля');
+    if ('qty' in data && data.qty <= 0) throw new ApiError(400, 'Количество должно быть больше нуля');
+    if (data.order_id) get('orders', data.order_id, 'Заказ-наряд');
+  }
+  route('GET', '/purchases', 'staff', (req) => {
+    const status = req.q('status');
+    const orderId = Number(req.q('order_id')) || null;
+    const items = purchasesQuery((p) => (!['ordered', 'received', 'cancelled'].includes(status) || p.status === status) && (!orderId || p.order_id === orderId));
+    const counts = {};
+    for (const p of S.purchases) counts[p.status] = (counts[p.status] || 0) + 1;
+    return { items, counts };
+  });
+  route('POST', '/purchases', 'staff', (req) => {
+    const d = req.body;
+    const data = conv(d, PURCHASE);
+    if (!data.supplier || !data.name) throw new ApiError(400, 'Укажите поставщика и деталь');
+    if (data.qty === undefined) data.qty = 1;
+    checkPurchase(data);
+    if (!data.expected_date && d.days !== undefined && d.days !== '') data.expected_date = addDays(today(), Math.trunc(toNumber(d.days, 'Срок') || 0));
+    const p = ins('purchases', { ...data, status: 'ordered', created_by: req.user.id });
+    const o = find('orders', data.order_id);
+    if (o && d.set_waiting && ['new', 'in_progress'].includes(o.status)) o.status = 'waiting_parts';
+    return purchaseRow(p);
+  });
+  route('PUT', '/purchases/(\\d+)', 'staff', (req, id) => {
+    const p = get('purchases', id, 'Заказ поставщику');
+    const d = req.body;
+    const data = conv(d, PURCHASE);
+    checkPurchase(data);
+    if ('status' in d) {
+      if (!['ordered', 'cancelled'].includes(d.status)) throw new ApiError(400, 'Получение отмечается кнопкой «Получено»');
+      if (p.status === 'received') throw new ApiError(400, 'Заказ уже получен, его статус не меняется');
+      data.status = d.status;
+    }
+    Object.assign(p, data);
+    return purchaseRow(p);
+  });
+  route('POST', '/purchases/(\\d+)/receive', 'staff', (req, id) => {
+    const p = get('purchases', id, 'Заказ поставщику');
+    if (p.status !== 'ordered') throw new ApiError(400, 'Этот заказ уже закрыт');
+    Object.assign(p, { status: 'received', received_at: now() });
+    const result = { order_resumed: false, part_id: null };
+    if (p.order_id) {
+      const o = find('orders', p.order_id);
+      if (o && o.status === 'waiting_parts' && !S.purchases.some((x) => x.order_id === p.order_id && x.status === 'ordered')) {
+        o.status = 'in_progress';
+        result.order_resumed = true;
+      }
+    } else {
+      const art = String(p.article || '').replace(/\s/g, '').toUpperCase();
+      let part = art ? S.parts.find((x) => String(x.sku).replace(/\s/g, '').toUpperCase() === art) : null;
+      if (!part) part = S.parts.find((x) => lower(x.name) === lower(p.name));
+      if (part) Object.assign(part, { qty: part.qty + p.qty, buy_price: p.price });
+      else {
+        const markup = toNumber(S.settings.parts_markup, 'Наценка') || 0;
+        part = ins('parts', { name: p.name, sku: p.article, brand: p.brand, qty: p.qty, buy_price: p.price, price: Math.round(p.price * (1 + markup / 100) / 10) * 10 });
+      }
+      result.part_id = part.id;
+    }
+    result.purchase = purchaseRow(p);
+    return result;
+  });
+
   /* ----- запись ----- */
   const toMin = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
   function parseStart(v) {
@@ -1103,6 +1516,9 @@ body.printing #print-root { display: block !important; }
       }),
       low_stock: S.parts.filter((p) => p.min_qty > 0 && p.qty <= p.min_qty).sort((a, b) => (a.qty - a.min_qty) - (b.qty - b.min_qty)).slice(0, 15),
       debt_count: debts.length,
+      purchases_open: S.purchases.filter((p) => p.status === 'ordered').length,
+      purchases_today: S.purchases.filter((p) => p.status === 'ordered' && p.expected_date === t).length,
+      purchases_overdue: S.purchases.filter((p) => p.status === 'ordered' && p.expected_date && p.expected_date < t).length,
     };
     if (req.user.role === 'admin') {
       const paidSince = (since) => round2(sum(S.payments.filter((p) => p.created_at >= since), (p) => p.amount));
@@ -1195,6 +1611,7 @@ body.printing #print-root { display: block !important; }
       ['Тормоза', 'Замена передних тормозных колодок', 0.8, 1500], ['Тормоза', 'Замена задних тормозных колодок', 1.0, 1800],
       ['Тормоза', 'Замена тормозной жидкости', 0.7, 1200], ['Подвеска', 'Замена стойки стабилизатора', 0.5, 900],
       ['Подвеска', 'Замена амортизатора переднего', 1.2, 2200], ['Подвеска', 'Развал-схождение', 1.0, 2000],
+      ['Рулевое', 'Замена рулевой рейки', 3.5, 7000], ['Рулевое', 'Замена наконечника рулевой тяги', 0.6, 1200],
       ['Диагностика', 'Компьютерная диагностика', 0.5, 1000], ['Диагностика', 'Диагностика ходовой части', 0.5, 800],
       ['Шиномонтаж', 'Шиномонтаж R15–R17 (4 колеса)', 1.0, 2400], ['Кондиционер', 'Заправка кондиционера', 0.7, 2500],
     ].map(([category, name, hours, price]) => ins('services', { category, name, hours, price }));
@@ -1239,6 +1656,10 @@ body.printing #print-root { display: block !important; }
       }
     });
     for (const p of S.parts) if (['GDB1551', '64210'].includes(p.sku)) p.qty = 1;
+    // Заказы у поставщиков: колодки для заказ-наряда, который ждёт запчасти, и лампы на склад.
+    const waiting = S.orders.find((o) => o.status === 'waiting_parts');
+    ins('purchases', { supplier: 'ДетальОпт', name: 'Колодки тормозные задние TRW', brand: 'TRW', article: 'GDB1551', qty: 1, price: 1900, order_id: waiting?.id ?? null, expected_date: addDays(today(), 1), created_by: admin.id });
+    ins('purchases', { supplier: 'ПартсМаркет', name: 'Лампа H7', brand: 'Osram', article: '64210', qty: 10, price: 280, expected_date: today(), created_by: admin.id });
     find('cars', cars[1][1]).next_service_date = addDays(today(), 5);
     find('cars', cars[4][1]).next_service_date = addDays(today(), -3);
 
@@ -1254,7 +1675,8 @@ body.printing #print-root { display: block !important; }
 
   /* ---------- перехват fetch ---------- */
   S = load();
-  if (!S) { seed(); save(); }
+  if (S) S.settings = { ...DEFAULT_SETTINGS, ...S.settings }; // данные прошлой версии получают новые настройки
+  else { seed(); save(); }
 
   const json = (status, data) => new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8' } });
   const realFetch = window.fetch ? window.fetch.bind(window) : null;
@@ -1288,11 +1710,684 @@ body.printing #print-root { display: block !important; }
   };
 
   window.CRM_DEMO = {
+    channel: window.CRM_CHANNEL || 'stable',
     framed,
     memoryRouter: framed,
     reset() { seed(); save(); },
   };
 }());
+
+</script>
+<script>
+'use strict';
+/* Подбор запчастей: по автомобилю и неисправности показывает варианты детали (оригинал и аналоги),
+   сравнивает предложения поставщиков и добавляет выбранное в заказ-наряд.
+   Подключается до app.js и пользуется его помощниками (esc, money, api, openModal…) только внутри функций.
+
+   Источники данных:
+   - свой склад — всегда (настоящие остатки CRM);
+   - ссылки на сайты для проверки цены — всегда;
+   - демонстрационный каталог и цены поставщиков — только при настройке parts_demo_catalog = '1' (демо-версия).
+     В рабочей версии на его место встанут API поставщиков, с которыми работает сервис. */
+
+const PF_MAKES = {
+  BMW: ['1 серии', '3 серии', '5 серии', '7 серии', 'X1', 'X3', 'X5', 'X6'],
+  'Mercedes-Benz': ['A-класс', 'C-класс', 'E-класс', 'S-класс', 'GLC', 'GLE'],
+  Audi: ['A3', 'A4', 'A6', 'Q3', 'Q5', 'Q7'],
+  Volkswagen: ['Polo', 'Golf', 'Jetta', 'Passat', 'Tiguan', 'Touareg'],
+  Skoda: ['Rapid', 'Octavia', 'Superb', 'Karoq', 'Kodiaq'],
+  Toyota: ['Corolla', 'Camry', 'RAV4', 'Land Cruiser Prado', 'Land Cruiser'],
+  Lexus: ['ES', 'NX', 'RX', 'LX'],
+  Kia: ['Rio', 'Ceed', 'K5', 'Sportage', 'Sorento'],
+  Hyundai: ['Solaris', 'Elantra', 'Creta', 'Tucson', 'Santa Fe'],
+  Nissan: ['Almera', 'Qashqai', 'X-Trail', 'Murano'],
+  Mazda: ['3', '6', 'CX-5', 'CX-9'],
+  Mitsubishi: ['ASX', 'Outlander', 'Pajero Sport'],
+  Ford: ['Focus', 'Mondeo', 'Kuga', 'Transit'],
+  Renault: ['Logan', 'Sandero', 'Duster', 'Kaptur', 'Arkana'],
+  Lada: ['Granta', 'Vesta', 'Largus', 'Niva Travel', 'Niva Legend'],
+  Haval: ['Jolion', 'F7', 'H6', 'Dargo'],
+  Chery: ['Tiggo 4 Pro', 'Tiggo 7 Pro', 'Tiggo 8 Pro'],
+  Geely: ['Coolray', 'Atlas', 'Monjaro'],
+  Volvo: ['S60', 'XC60', 'XC90'],
+};
+
+// Насколько запчасти марки дороже «средней» иномарки.
+const PF_CLASS = {
+  BMW: 2.1, 'Mercedes-Benz': 2.2, Audi: 1.9, Lexus: 2, Volvo: 1.9, Porsche: 2.8, 'Land Rover': 2.4, Volkswagen: 1.05,
+  Skoda: 0.95, Toyota: 1.1, Kia: 0.85, Hyundai: 0.85, Renault: 0.75, Lada: 0.45, Haval: 0.9, Chery: 0.85, Geely: 0.9,
+};
+
+// Бренды: [название, доля от цены оригинала, вид]. Вид: analog — новый аналог, restored — восстановленная.
+const PF_TYPES = [
+  { id: 'rack', name: 'Рулевая рейка', group: 'Рулевое', keys: ['рулев', 'рейк', 'руль', 'гур', 'эур'], base: 62000, work: 'рулевой рейки',
+    brands: [['ZF', 0.86], ['TRW', 0.74], ['Lizarte', 0.47, 'restored']] },
+  { id: 'tierod', name: 'Наконечник рулевой тяги', group: 'Рулевое', keys: ['наконечник', 'рулевой тяг', 'тяга рулев'], base: 2600, work: 'наконечник',
+    brands: [['Lemförder', 0.7], ['TRW', 0.62], ['Febi', 0.55], ['CTR', 0.4]] },
+  { id: 'pads-f', name: 'Колодки тормозные передние', group: 'Тормоза', keys: ['колодк', 'тормоз'], side: ['перед'], base: 5200, work: 'передних тормозных колодок',
+    brands: [['Brembo', 0.82], ['ATE', 0.7], ['TRW', 0.66], ['Textar', 0.68], ['Ferodo', 0.6]] },
+  { id: 'pads-r', name: 'Колодки тормозные задние', group: 'Тормоза', keys: ['колодк', 'тормоз'], side: ['зад'], base: 4300, work: 'задних тормозных колодок',
+    brands: [['Brembo', 0.82], ['ATE', 0.7], ['TRW', 0.66], ['Textar', 0.68]] },
+  { id: 'discs-f', name: 'Диски тормозные передние (2 шт.)', group: 'Тормоза', keys: ['диск', 'тормоз'], base: 11000, work: 'тормозных дисков',
+    brands: [['Brembo', 0.78], ['Zimmermann', 0.72], ['ATE', 0.7], ['TRW', 0.62]] },
+  { id: 'shock-f', name: 'Амортизатор передний', group: 'Подвеска', keys: ['амортиз', 'стойк', 'подвеск', 'стук'], side: ['перед'], base: 10500, work: 'амортизатора',
+    brands: [['Sachs', 0.72], ['Bilstein', 0.8], ['Kayaba', 0.62], ['Monroe', 0.58]] },
+  { id: 'shock-r', name: 'Амортизатор задний', group: 'Подвеска', keys: ['амортиз', 'подвеск'], side: ['зад'], base: 8200, work: 'амортизатора',
+    brands: [['Sachs', 0.72], ['Bilstein', 0.8], ['Kayaba', 0.62]] },
+  { id: 'arm', name: 'Рычаг передней подвески', group: 'Подвеска', keys: ['рычаг', 'сайлент', 'подвеск', 'стук'], base: 8800, work: 'рычага',
+    brands: [['Lemförder', 0.72], ['Febi', 0.58], ['Meyle', 0.55], ['TRW', 0.6]] },
+  { id: 'stab', name: 'Стойка стабилизатора', group: 'Подвеска', keys: ['стабилиз', 'стойк', 'стук'], base: 2100, work: 'стойки стабилизатора',
+    brands: [['Lemförder', 0.72], ['Febi', 0.58], ['Meyle', 0.55], ['CTR', 0.38]] },
+  { id: 'bearing', name: 'Подшипник ступицы', group: 'Подвеска', keys: ['подшипник', 'ступиц', 'гул'], base: 7000, work: 'подшипника',
+    brands: [['SKF', 0.74], ['FAG', 0.72], ['SNR', 0.6]] },
+  { id: 'oil-f', name: 'Фильтр масляный', group: 'ТО', keys: ['масл', 'фильтр', 'то '], base: 750, work: 'масляного фильтра',
+    brands: [['MANN', 0.7], ['Mahle', 0.68], ['Bosch', 0.6], ['Filtron', 0.45]] },
+  { id: 'air-f', name: 'Фильтр воздушный', group: 'ТО', keys: ['воздуш', 'фильтр'], base: 1100, work: 'воздушного фильтра',
+    brands: [['MANN', 0.7], ['Mahle', 0.68], ['Bosch', 0.6]] },
+  { id: 'cabin-f', name: 'Фильтр салонный', group: 'ТО', keys: ['салон', 'фильтр', 'кондиц'], base: 1300, work: 'салонного фильтра',
+    brands: [['MANN', 0.7], ['Mahle', 0.68], ['Bosch', 0.6]] },
+  { id: 'plugs', name: 'Свечи зажигания (комплект)', group: 'ТО', keys: ['свеч', 'зажиган', 'троит'], base: 3600, work: 'свечей',
+    brands: [['NGK', 0.66], ['Bosch', 0.6], ['Denso', 0.64]] },
+  { id: 'timing', name: 'Комплект ГРМ', group: 'Двигатель', keys: ['грм', 'ремень', 'цеп', 'ролик'], base: 16000, work: 'ГРМ',
+    brands: [['INA', 0.72], ['Gates', 0.66], ['Contitech', 0.62], ['Dayco', 0.58]] },
+  { id: 'pump', name: 'Помпа (водяной насос)', group: 'Двигатель', keys: ['помп', 'насос', 'охлажд', 'течь'], base: 8200, work: 'помпы',
+    brands: [['Gates', 0.66], ['SKF', 0.7], ['Febi', 0.58]] },
+  { id: 'radiator', name: 'Радиатор охлаждения', group: 'Двигатель', keys: ['радиатор', 'охлажд', 'перегрев', 'течь'], base: 17000, work: 'радиатора',
+    brands: [['Nissens', 0.62], ['Valeo', 0.6], ['NRF', 0.52], ['Behr', 0.7]] },
+  { id: 'clutch', name: 'Комплект сцепления', group: 'Трансмиссия', keys: ['сцеплен', 'корзин', 'выжимн'], base: 21000, work: 'сцепления',
+    brands: [['Sachs', 0.72], ['LuK', 0.74], ['Valeo', 0.62]] },
+  { id: 'battery', name: 'Аккумулятор', group: 'Электрика', keys: ['аккумул', 'акб', 'не заводит', 'батаре'], base: 13500, work: 'аккумулятора',
+    brands: [['Varta', 0.78], ['Bosch', 0.8], ['Mutlu', 0.55]] },
+  { id: 'alternator', name: 'Генератор', group: 'Электрика', keys: ['генератор', 'зарядк', 'не заряж'], base: 38000, work: 'генератора',
+    brands: [['Bosch', 0.78], ['Valeo', 0.7], ['Denso', 0.5, 'restored']] },
+];
+
+const PF_POPULAR = ['rack', 'pads-f', 'shock-f', 'oil-f', 'timing', 'clutch', 'battery', 'radiator'];
+
+const PF_SUPPLIERS = [
+  { name: 'Запчасть-Экспресс', rating: 4.9, k: 1.14, days: [0, 0], note: 'склад в городе' },
+  { name: 'ДетальОпт', rating: 4.8, k: 1.0, days: [1, 2], note: 'доставка до сервиса' },
+  { name: 'АвтоЛайн', rating: 4.6, k: 0.95, days: [2, 4], note: 'региональный склад' },
+  { name: 'ЕвроДеталь', rating: 4.5, k: 0.92, days: [3, 6], note: 'под заказ из Москвы' },
+  { name: 'ПартсМаркет', rating: 4.3, k: 0.86, days: [6, 12], note: 'под заказ' },
+];
+
+const PF_STATE = { sort: 'price', kind: 'all', fast: false };
+
+function pfNorm(s) { return String(s || '').toLowerCase().replace(/ё/g, 'е'); }
+function pfHash(str) {
+  let h = 2166136261;
+  for (const ch of str) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function pfRand(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function pfDigits(rnd, n) { let s = ''; for (let i = 0; i < n; i++) s += Math.floor(rnd() * 10); return s; }
+function pfPlural(n, one, few, many) {
+  const m10 = n % 10;
+  const m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+const pfDays = (d) => (d === 0 ? 'сегодня' : d === 1 ? 'завтра' : `${d} дн.`);
+const pfRound10 = (x) => Math.round(x / 10) * 10;
+const pfCarTitle = (car) => [car.make, car.model, car.year].filter(Boolean).join(' ');
+const pfLooksLikeArticle = (q) => /^[A-Za-z0-9][A-Za-z0-9\s.\-/]{3,}$/.test(q.trim()) && (q.match(/\d/g) || []).length >= 3;
+const pfMarkup = () => Math.max(0, toNum(SETTINGS.parts_markup ?? 30));
+const pfRetail = (price) => pfRound10(price * (1 + pfMarkup() / 100));
+const pfDemoCatalog = () => String(SETTINGS.parts_demo_catalog) === '1';
+
+/** Какие детали подходят под запрос: «стук спереди» → амортизатор, рычаг, стойка стабилизатора. */
+function pfDetectTypes(query) {
+  const q = ` ${pfNorm(query)} `;
+  const scored = PF_TYPES.map((t) => {
+    let score = 0;
+    if (q.includes(pfNorm(t.name))) score += 10;
+    for (const k of t.keys) if (q.includes(k)) score += k.length > 4 ? 2 : 1;
+    // «перед» и «зад» только уточняют деталь, найденную по основному слову.
+    if (score) for (const k of t.side || []) if (q.includes(k)) score += 1;
+    return { t, score };
+  }).filter((x) => x.score > 0).sort((a, b) => b.score - a.score);
+  if (!scored.length) return { main: null, related: [] };
+  return { main: scored[0].t, related: scored.slice(1, 5).map((x) => x.t) };
+}
+
+/** Демонстрационный каталог: варианты детали и предложения поставщиков (детерминированно по машине и детали). */
+function pfDemoParts(car, type) {
+  const makeKey = car.make || 'Авто';
+  const k = PF_CLASS[makeKey] ?? 1;
+  const year = Number(car.year) || 2019;
+  const ageK = Math.max(0.75, 1 - Math.max(0, 2024 - year) * 0.02);
+  const seed = `${makeKey}|${car.model}|${year}|${type.id}`;
+  const fit = `${[car.make, car.model].filter(Boolean).join(' ') || 'ваш автомобиль'} ${year - 3}–${year + 4}`;
+  const brandList = [[car.make || 'Оригинал', 1, 'original'], ...type.brands];
+  return brandList.map(([brand, share, kind = 'analog']) => {
+    const rnd = pfRand(pfHash(`${seed}|${brand}`));
+    const article = kind === 'original'
+      ? `${pfDigits(rnd, 2)} ${pfDigits(rnd, 2)} ${pfDigits(rnd, 1)} ${pfDigits(rnd, 3)} ${pfDigits(rnd, 3)}`
+      : `${brand.replace(/[^A-Za-z]/g, '').slice(0, 3).toUpperCase()}${pfDigits(rnd, 5)}`;
+    const base = type.base * k * ageK * share;
+    const count = 2 + Math.floor(rnd() * 3);
+    const suppliers = [...PF_SUPPLIERS].sort(() => rnd() - 0.5).slice(0, count);
+    const offers = suppliers.map((s) => {
+      const days = s.days[0] + Math.floor(rnd() * (s.days[1] - s.days[0] + 1));
+      return {
+        supplier: s.name, rating: s.rating, note: s.note, days,
+        qty: days === 0 ? 1 + Math.floor(rnd() * 4) : 2 + Math.floor(rnd() * 15),
+        price: pfRound10(base * s.k * (0.94 + rnd() * 0.12)),
+      };
+    });
+    return { brand, article, kind, fit, name: type.name, offers };
+  });
+}
+
+function pfLinks(text, article) {
+  const q = encodeURIComponent(text);
+  const links = [];
+  if (article) {
+    const a = encodeURIComponent(article.replace(/\s+/g, ''));
+    links.push(['Exist', `https://www.exist.ru/Price/?pcode=${a}`], ['ZZap', `https://www.zzap.ru/public/search.aspx#rawdata=${a}`]);
+  }
+  links.push(
+    ['Авито', `https://www.avito.ru/rossiya/zapchasti_i_aksessuary?q=${q}`],
+    ['Дром', `https://baza.drom.ru/sell_spare_parts/?query=${q}`],
+    ['Яндекс Маркет', `https://market.yandex.ru/search?text=${q}`],
+    ['Ozon', `https://www.ozon.ru/search/?text=${q}`],
+  );
+  return links;
+}
+
+/* ---------- страница ---------- */
+async function viewPartsFinder(v, params) {
+  v.innerHTML = `<div class="page-head"><div><h1>Подбор запчастей</h1>
+    <div class="muted">Укажите машину и что нужно заменить — сравним варианты и цены поставщиков</div></div></div><div class="pf-host"></div>`;
+  await partsFinder($('.pf-host', v), {
+    query: params.get('q') || '',
+    clientId: params.get('client') ? +params.get('client') : null,
+    carId: params.get('car') ? +params.get('car') : null,
+  });
+}
+
+/**
+ * Подборщик. В заказ-наряде передаётся onAdd(lines) и машина заказа;
+ * на отдельной странице выбранное добавляется в открытый заказ-наряд или создаёт новый.
+ */
+async function partsFinder(host, { car = null, clientId = null, carId = null, query = '', onAdd = null, orderId = null } = {}) {
+  const st = {
+    car: { make: car?.make || '', model: car?.model || '', year: car?.year || '', vin: car?.vin || '' },
+    client: null, clientId, carId, query, type: null, related: [], parts: [], stock: [], loading: false,
+  };
+  if (clientId && !car) {
+    try {
+      const c = await api(`/clients/${clientId}`);
+      st.client = { id: c.id, name: c.name, cars: c.cars };
+      const chosen = c.cars.find((x) => x.id === carId) || c.cars[0];
+      if (chosen) {
+        Object.assign(st.car, { make: chosen.make, model: chosen.model, year: chosen.year || '', vin: chosen.vin });
+        st.carId = chosen.id;
+      }
+    } catch { /* клиент не найден — подбор вручную */ }
+  }
+  const inOrder = !!onAdd;
+  host.innerHTML = `<div class="pf">
+    <div class="pf-top">
+      <section class="card pf-car">
+        <div class="card-head"><h2>Автомобиль</h2>${inOrder ? `<span class="muted small">из заказ-наряда №${orderId}</span>` : ''}</div>
+        ${inOrder ? '' : `<div class="pf-client"></div>`}
+        <div class="form-grid pf-car-grid">
+          <label class="field"><span>Марка</span><input data-car="make" list="pf-makes" placeholder="BMW" autocomplete="off"></label>
+          <label class="field"><span>Модель</span><input data-car="model" list="pf-models" placeholder="5 серии" autocomplete="off"></label>
+          <label class="field"><span>Год</span><input data-car="year" inputmode="numeric" maxlength="4" placeholder="2019"></label>
+          <label class="field"><span>VIN <span class="muted">(необязательно)</span></span><input data-car="vin" maxlength="17" style="text-transform:uppercase" autocomplete="off"></label>
+        </div>
+        <datalist id="pf-makes">${Object.keys(PF_MAKES).map((m) => `<option value="${esc(m)}">`).join('')}</datalist>
+        <datalist id="pf-models"></datalist>
+      </section>
+      <section class="card pf-search">
+        <h2 style="margin-bottom:10px">Что нужно заменить?</h2>
+        <div class="pf-q"><input class="pf-input" enterkeyhint="search" autocomplete="off" placeholder="Например: рулевая рейка, стук спереди, ремень ГРМ или артикул">
+          <button type="button" class="btn primary pf-go">${icon('search')}<span>Найти</span></button></div>
+        <div class="pf-chips">${PF_POPULAR.map((id) => { const t = PF_TYPES.find((x) => x.id === id); return `<button type="button" class="chip" data-type="${t.id}">${esc(t.name)}</button>`; }).join('')}</div>
+      </section>
+    </div>
+    <div class="pf-results"></div>
+  </div>`;
+
+  const res = $('.pf-results', host);
+  const input = $('.pf-input', host);
+  const carInputs = $$('[data-car]', host);
+  const syncModels = () => { $('#pf-models', host).innerHTML = (PF_MAKES[st.car.make] || []).map((m) => `<option value="${esc(m)}">`).join(''); };
+  const fillCar = () => { carInputs.forEach((i) => { i.value = st.car[i.dataset.car] ?? ''; }); syncModels(); };
+  fillCar();
+  input.value = st.query;
+
+  // Машина клиента: поиск по телефону, имени или госномеру.
+  function drawClient() {
+    const box = $('.pf-client', host);
+    if (!box) return;
+    if (st.client) {
+      const cars = st.client.cars || [];
+      box.innerHTML = `<span class="pf-pill">${icon('users')} ${esc(st.client.name)}<button type="button" class="icon-btn" data-unpick title="Убрать клиента">${icon('x')}</button></span>
+        ${cars.length > 1 ? cars.map((c) => `<button type="button" class="chip ${c.id === st.carId ? 'active' : ''}" data-pick-car="${c.id}">${esc(carLine(c))}</button>`).join('') : ''}`;
+    } else {
+      box.innerHTML = `<div class="search-wrap pf-client-search"><span class="search-ic">${icon('search')}</span>
+        <input placeholder="Машина клиента: телефон, имя или госномер" autocomplete="off"></div>`;
+      autocomplete($('input', box), {
+        source: async (q) => (await api('/search', { query: { q } })).clients,
+        render: clientItem,
+        minLen: 2,
+        onPick: (c) => {
+          if (!c) return;
+          st.client = { id: c.id, name: c.name, cars: c.cars };
+          st.clientId = c.id;
+          const first = c.cars?.[0];
+          if (first) { st.carId = first.id; Object.assign(st.car, { make: first.make, model: first.model, year: first.year || '', vin: first.vin }); }
+          fillCar();
+          drawClient();
+          if (st.type || st.query) search();
+        },
+      });
+    }
+  }
+  drawClient();
+  on(host, 'click', '[data-unpick]', () => {
+    Object.assign(st, { client: null, clientId: null, carId: null, car: { make: '', model: '', year: '', vin: '' } });
+    fillCar();
+    drawClient();
+  });
+  on(host, 'click', '[data-pick-car]', (e, el) => {
+    const c = st.client.cars.find((x) => x.id === +el.dataset.pickCar);
+    st.carId = c.id;
+    Object.assign(st.car, { make: c.make, model: c.model, year: c.year || '', vin: c.vin });
+    fillCar();
+    drawClient();
+    if (st.type || st.query) search();
+  });
+  carInputs.forEach((i) => i.addEventListener('input', () => {
+    st.car[i.dataset.car] = i.value.trim();
+    if (i.dataset.car === 'make') syncModels();
+    if (st.carId && i.dataset.car !== 'vin') {
+      // Машину поменяли вручную — VIN прежней машины ей уже не подходит.
+      st.car.vin = '';
+      $('[data-car=vin]', host).value = '';
+    }
+    st.carId = null;
+  }));
+
+  // Не <form>: подборщик живёт и внутри окна заказ-наряда, а вложенные формы браузер отбрасывает.
+  const runSearch = () => { st.query = input.value.trim(); st.type = null; search(); };
+  $('.pf-go', host).addEventListener('click', runSearch);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); runSearch(); } });
+  on(host, 'click', '[data-type]', (e, el) => {
+    const t = PF_TYPES.find((x) => x.id === el.dataset.type);
+    st.type = t;
+    st.query = t.name;
+    input.value = t.name;
+    search();
+  });
+
+  async function search() {
+    $$('.pf-chips .chip', host).forEach((c) => c.classList.toggle('active', c.dataset.type === st.type?.id));
+    const q = st.query;
+    if (!q && !st.type) { res.innerHTML = ''; return; }
+    if (!st.type) {
+      const found = pfDetectTypes(q);
+      st.type = found.main;
+      st.related = found.related;
+    } else st.related = [];
+    st.article = !st.type && pfLooksLikeArticle(q) ? q.trim() : null;
+    res.innerHTML = `<div class="card pf-loading"><div class="pf-spinner"></div><div><b>Ищем у поставщиков…</b><div class="muted small">${esc(pfCarTitle(st.car) || 'автомобиль не указан')} · ${esc(st.type?.name || q)}</div></div></div>`;
+    // Свой склад: ищем по первому слову детали и оставляем только то, что распознаётся как та же деталь.
+    const stockQ = st.type ? pfNorm(st.type.name).split(' ')[0].slice(0, 6) : q;
+    const [stock] = await Promise.all([
+      api('/parts', { query: { q: stockQ, limit: 20 } }).catch(() => []),
+      new Promise((r) => setTimeout(r, pfDemoCatalog() ? 550 : 150)),
+    ]);
+    st.stock = stock.filter((p) => p.qty > 0 && (!st.type || pfDetectTypes(p.name).main?.id === st.type.id)).slice(0, 5);
+    st.parts = st.type && pfDemoCatalog() ? pfDemoParts(st.car, st.type) : [];
+    draw();
+  }
+
+  function draw() {
+    const carTitle = pfCarTitle(st.car);
+    const label = st.type?.name || st.query;
+    const linkText = [st.type?.name || st.query, st.car.make, st.car.model, st.car.year].filter(Boolean).join(' ');
+    const links = pfLinks(linkText, st.article);
+    const linksHtml = `<section class="card pf-links-card"><div class="card-head"><h2>Проверить цену на сайтах</h2><span class="muted small">откроется в новой вкладке</span></div>
+      <div class="pf-links">${links.map(([n, u]) => `<a class="btn sm" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(n)} ↗</a>`).join('')}</div>
+      <p class="hint" style="margin-bottom:0">Ищем «${esc(linkText)}»${st.article ? ` и артикул ${esc(st.article)}` : ''}.</p></section>`;
+    const relatedHtml = st.related.length ? `<div class="pf-related"><span class="muted small">Возможно, вы ищете:</span>${st.related.map((t) => `<button type="button" class="chip" data-type="${t.id}">${esc(t.name)}</button>`).join('')}</div>` : '';
+    const stockHtml = st.stock.length ? `<section class="card pf-stock"><div class="card-head"><h2>У вас на складе</h2><span class="badge green">можно ставить сегодня</span></div>
+      ${st.stock.map((p, i) => `<div class="pf-offer"><div class="pf-sup"><div class="t">${esc(p.name)}</div><div class="s">${esc([p.brand, p.sku].filter(Boolean).join(' · '))}${p.location ? ` · место ${esc(p.location)}` : ''}</div></div>
+        <div class="pf-meta"><span class="pf-days today">сегодня</span><span class="muted small">${fmtNum(p.qty)} ${esc(p.unit)}</span></div>
+        <div class="pf-price"><div class="v">${money(p.price)}</div><div class="s">закупка ${money(p.buy_price)}</div></div>
+        <button type="button" class="btn sm primary" data-stock="${i}">Взять</button></div>`).join('')}</section>` : '';
+
+    if (!st.type && !st.article && !st.stock.length) {
+      res.innerHTML = `<div class="card pf-empty"><h2>Не поняли, какая деталь нужна</h2>
+        <p class="muted">Попробуйте написать по-другому или выберите из популярных выше. Можно ввести артикул детали.</p>${relatedHtml}</div>${linksHtml}`;
+      return;
+    }
+    if (!st.parts.length) {
+      res.innerHTML = `${relatedHtml}${stockHtml}
+        <section class="card pf-connect"><h2>Цены поставщиков</h2>
+          <p class="muted">Здесь будут предложения ваших поставщиков по «${esc(label)}»${carTitle ? ` для ${esc(carTitle)}` : ''}: цены, сроки и наличие, отсортированные от дешёвых к дорогим.
+          Для этого подключаются API поставщиков, с которыми вы работаете (Армтек, Росско, Автопитер, магазины на платформе ABCP и другие).</p>
+          <p class="muted">Заказали по телефону или на сайте? Запишите заказ — CRM напомнит, когда деталь должна приехать.</p>
+          <button type="button" class="btn" data-manual-order>${icon('plus')} Записать заказ у поставщика</button></section>${linksHtml}`;
+      return;
+    }
+
+    const parts = st.parts
+      .filter((p) => PF_STATE.kind === 'all' || (PF_STATE.kind === 'original' ? p.kind === 'original' : p.kind !== 'original'))
+      .map((p) => {
+        const offers = p.offers.filter((o) => !PF_STATE.fast || o.days <= 2)
+          .sort((a, b) => (PF_STATE.sort === 'price' ? a.price - b.price || a.days - b.days : a.days - b.days || a.price - b.price));
+        return { ...p, offers, min: offers.length ? Math.min(...offers.map((o) => o.price)) : Infinity, minDays: offers.length ? Math.min(...offers.map((o) => o.days)) : Infinity };
+      })
+      .filter((p) => p.offers.length)
+      .sort((a, b) => (PF_STATE.sort === 'price' ? a.min - b.min : a.minDays - b.minDays || a.min - b.min));
+    const all = parts.flatMap((p) => p.offers.map((o) => ({ p, o })));
+    const cheapest = all.reduce((m, x) => (!m || x.o.price < m.o.price ? x : m), null);
+    const fastest = all.reduce((m, x) => (!m || x.o.days < m.o.days || (x.o.days === m.o.days && x.o.price < m.o.price) ? x : m), null);
+    const original = st.parts.find((p) => p.kind === 'original');
+    const origMin = original ? Math.min(...original.offers.map((o) => o.price)) : null;
+    const kindBadge = (k) => (k === 'original' ? '<span class="badge blue">Оригинал</span>' : k === 'restored' ? '<span class="badge orange">Восстановленная</span>' : '<span class="badge">Аналог</span>');
+    const keyOf = (p, o) => `${p.article}|${o.supplier}`;
+    const bestCard = (title, cls, x) => (x ? `<div class="pf-best ${cls}"><div class="lbl">${title}</div>
+      <div class="val">${money(x.o.price)}</div><div class="small">${esc(x.p.brand)} · ${esc(x.o.supplier)} · ${pfDays(x.o.days)}</div>
+      <button type="button" class="btn sm" data-offer="${esc(keyOf(x.p, x.o))}">Заказать</button></div>` : '');
+
+    res.innerHTML = `
+      <section class="card pf-summary">
+        <div class="pf-head"><div class="pf-group muted small">${esc(st.type.group)}</div><h2 class="pf-title">${esc(st.type.name)}</h2>
+          <div class="muted">${esc(carTitle || 'Автомобиль не указан — цены для средней иномарки')}</div>
+          <div class="muted small" style="margin-top:6px">${st.parts.length} ${pfPlural(st.parts.length, 'вариант', 'варианта', 'вариантов')} детали · ${st.parts.reduce((s, p) => s + p.offers.length, 0)} ${pfPlural(st.parts.reduce((s, p) => s + p.offers.length, 0), 'предложение', 'предложения', 'предложений')}${origMin && cheapest ? ` · аналог дешевле оригинала до ${Math.round((1 - cheapest.o.price / origMin) * 100)}%` : ''}</div></div>
+        ${bestCard('Дешевле всего', 'cheap', cheapest)}
+        ${bestCard('Быстрее всего', 'fast', fastest)}
+      </section>
+      ${relatedHtml}
+      ${stockHtml}
+      <div class="pf-toolbar">
+        <div class="pf-seg" role="group" aria-label="Сортировка">
+          <button type="button" class="${PF_STATE.sort === 'price' ? 'active' : ''}" data-sort="price">Дешевле</button>
+          <button type="button" class="${PF_STATE.sort === 'days' ? 'active' : ''}" data-sort="days">Быстрее</button></div>
+        <div class="pf-seg" role="group" aria-label="Тип детали">
+          <button type="button" class="${PF_STATE.kind === 'all' ? 'active' : ''}" data-kind="all">Все</button>
+          <button type="button" class="${PF_STATE.kind === 'original' ? 'active' : ''}" data-kind="original">Оригинал</button>
+          <button type="button" class="${PF_STATE.kind === 'analog' ? 'active' : ''}" data-kind="analog">Аналоги</button></div>
+        <label class="check"><input type="checkbox" data-fast ${PF_STATE.fast ? 'checked' : ''}> Привезут за 1–2 дня</label>
+        <span class="muted small pf-markup">Цена клиенту — с наценкой ${fmtNum(pfMarkup())}%</span>
+      </div>
+      ${parts.length ? parts.map((p) => `<section class="card pf-part">
+        <div class="pf-part-head">
+          <div><div class="pf-part-title">${kindBadge(p.kind)} <span>${esc(p.brand)}</span> <span class="pf-article">${esc(p.article)}</span></div>
+            <div class="muted small">${esc(p.name)} · подходит: ${esc(p.fit)}</div></div>
+          <div class="pf-from"><div class="muted small">от</div><div class="v">${money(p.min)}</div></div>
+        </div>
+        ${p.offers.map((o) => `<div class="pf-offer ${cheapest && o === cheapest.o ? 'cheapest' : ''}">
+          <div class="pf-sup"><div class="t">${esc(o.supplier)} <span class="pf-rating">★ ${o.rating.toFixed(1)}</span></div><div class="s">${esc(o.note)}</div></div>
+          <div class="pf-meta"><span class="pf-days ${o.days <= 1 ? 'today' : ''}">${pfDays(o.days)}</span><span class="muted small">в наличии ${o.qty} шт</span></div>
+          <div class="pf-price"><div class="v">${money(o.price)}</div><div class="s">клиенту ${money(pfRetail(o.price))}</div></div>
+          <button type="button" class="btn sm ${cheapest && o === cheapest.o ? 'primary' : ''}" data-offer="${esc(keyOf(p, o))}">Заказать</button>
+        </div>`).join('')}
+      </section>`).join('') : '<div class="card empty">Нет предложений с такими фильтрами</div>'}
+      ${linksHtml}
+      <p class="hint pf-demo-note">${icon('tag')} Демо-версия: артикулы, цены, сроки и поставщики примерные. В рабочей версии здесь будут цены поставщиков, с которыми работает сервис.</p>`;
+    st.offerIndex = new Map(all.map((x) => [keyOf(x.p, x.o), x]));
+  }
+
+  on(host, 'click', '[data-sort]', (e, el) => { PF_STATE.sort = el.dataset.sort; draw(); });
+  on(host, 'click', '[data-kind]', (e, el) => { PF_STATE.kind = el.dataset.kind; draw(); });
+  on(host, 'change', '[data-fast]', (e, el) => { PF_STATE.fast = el.checked; draw(); });
+  on(host, 'click', '[data-offer]', (e, el) => {
+    const x = st.offerIndex.get(el.dataset.offer);
+    if (!x) return;
+    pfAddDialog({
+      title: `${st.type.name} ${x.p.brand}${x.p.kind === 'restored' ? ' (восстановленная)' : ''}`,
+      sku: x.p.article, buy: x.o.price, retail: pfRetail(x.o.price), partId: null,
+      source: `${x.o.supplier} · ${pfDays(x.o.days)}`, type: st.type, st, onAdd, orderId,
+      brand: x.p.brand, supplier: x.o.supplier, days: x.o.days, canOrder: true,
+    });
+  });
+  on(host, 'click', '[data-manual-order]', () => {
+    const name = [st.type?.name || st.query, st.car.make, st.car.model].filter(Boolean).join(' ');
+    purchaseDialog(null, { name, order_id: orderId || null }, () => {});
+  });
+  on(host, 'click', '[data-stock]', (e, el) => {
+    const p = st.stock[+el.dataset.stock];
+    pfAddDialog({
+      title: p.name, sku: p.sku, buy: p.buy_price, retail: p.price, partId: p.id, unit: p.unit,
+      source: 'Свой склад · сегодня', type: st.type, st, onAdd, orderId,
+    });
+  });
+
+  if (st.query) search();
+  else {
+    // Курсор — в поле «Что нужно заменить?», если пользователь ещё никуда не ввёл текст
+    // (в окне заказ-наряда фокус сначала встаёт на марку — переносим его).
+    setTimeout(() => {
+      const a = document.activeElement;
+      if (!a || a === document.body || (onAdd && a.dataset.car === 'make')) input.focus();
+    }, 60);
+  }
+}
+
+/**
+ * Окно заказа детали: количество, цена клиенту, куда (заказ-наряд или склад),
+ * заказ у поставщика, работа по замене из прайса и статус «Ждёт запчасти».
+ */
+async function pfAddDialog({ title, brand = '', sku, buy, retail, partId, unit, source, type, st, onAdd, orderId, supplier = '', days = 0, canOrder = false }) {
+  const services = type?.work ? await api('/services', { query: { q: type.work, limit: 3 } }).catch(() => []) : [];
+  const service = services.find((s) => pfNorm(s.name).startsWith('замен')) || services[0] || null;
+  const expected = addDays(isoDate(), days);
+  const when = days === 0 ? 'сегодня' : days === 1 ? 'завтра' : fmtDate(expected);
+  let orders = [];
+  if (!onAdd) {
+    const r = await api('/orders', { query: { status: 'active' } });
+    orders = r.items;
+    if (st.carId) orders.sort((a, b) => (b.car_id === st.carId) - (a.car_id === st.carId));
+  }
+  const targets = [
+    ...orders.map((o) => [o.id, `Заказ-наряд №${o.id} · ${carLine(o) || '—'} · ${o.client_name}`]),
+    ...(st.clientId ? [['new', `Новый заказ-наряд для ${st.client?.name || 'клиента'}`]] : []),
+    ...(canOrder ? [['stock', 'На склад, без заказ-наряда']] : []),
+  ];
+  if (!onAdd && !targets.length) {
+    toast('Нет открытых заказ-нарядов. Выберите машину клиента, чтобы создать новый.', 'error');
+    return;
+  }
+  const preferred = orders.find((o) => o.car_id && o.car_id === st.carId)?.id ?? (st.clientId ? 'new' : targets[0][0]);
+  const m = openModal({
+    title: canOrder ? 'Заказ детали' : 'Взять со склада',
+    submit: canOrder ? 'Заказать' : 'Добавить в заказ-наряд',
+    body: `<div class="pf-add-head"><div class="t">${esc(title)}</div><div class="muted small">${esc(sku || '')}${sku ? ' · ' : ''}${esc(source)} · закупка ${money(buy)}</div></div>
+      <div class="form-grid">
+        ${onAdd ? '' : fSelect('Куда', 'order', targets, preferred, { cls: 'wide' })}
+        ${fNum('Количество', 'qty', 1)}
+        ${fNum('Цена клиенту за шт, ₽', 'price', retail)}
+        <div class="wide pf-add-checks">
+          ${canOrder ? fCheck(`Заказать у «${supplier}» — приедет ${when}`, 'do_order', true) : ''}
+          ${service ? fCheck(`Добавить работу «${service.name}» — ${money(service.price)}`, 'with_work', true) : ''}
+          ${canOrder && days > 0 ? fCheck('Перевести заказ-наряд в «Ждёт запчасти»', 'set_waiting', true) : ''}
+        </div>
+        ${canOrder && DEMO ? '<p class="hint wide" style="margin:0">В демо заказ поставщику не отправляется, а появляется в разделе «Закупки».</p>' : ''}
+      </div>`,
+    onSubmit: async (d) => {
+      const qty = toNum(d.qty) || 1;
+      const doOrder = canOrder && d.do_order;
+      const target = onAdd ? 'current' : d.order;
+      if (target === 'stock' && !doOrder) throw new Error('На склад деталь попадёт только через заказ у поставщика — отметьте «Заказать».');
+      const part = { part_id: partId, name: title, sku: sku || '', qty, price: toNum(d.price), buy_price: buy, unit: unit || 'шт', avail: null };
+      const work = d.with_work && service && target !== 'stock' ? { service_id: service.id, name: service.name, qty: 1, price: service.price, employee_id: '' } : null;
+      const purchase = doOrder ? { supplier, name: title, brand, article: sku || '', qty, price: buy, days } : null;
+      const waiting = !!(doOrder && d.set_waiting);
+
+      if (onAdd) {
+        if (purchase) await api('/purchases', { method: 'POST', body: { ...purchase, order_id: orderId } });
+        await onAdd({ part, work, waiting, ordered: !!purchase });
+        return;
+      }
+      if (target === 'stock') {
+        await api('/purchases', { method: 'POST', body: purchase });
+        toast(`Заказано у «${supplier}», приедет ${when}. По кнопке «Получено» деталь попадёт на склад.`);
+        go('#/purchases');
+        return;
+      }
+      let id = target;
+      if (id === 'new') {
+        const r = await api('/orders', { method: 'POST', body: { client_id: st.clientId, car_id: st.carId || undefined, complaint: `Замена: ${type?.name || title}` } });
+        id = r.id;
+      }
+      if (purchase) await api('/purchases', { method: 'POST', body: { ...purchase, order_id: id, set_waiting: waiting } });
+      const o = await api(`/orders/${id}`);
+      await api(`/orders/${id}`, { method: 'PUT', body: {
+        works: [...o.works.map((w) => ({ service_id: w.service_id, name: w.name, qty: w.qty, price: w.price, employee_id: w.employee_id })), ...(work ? [work] : [])],
+        parts: [...o.parts.map((p) => ({ part_id: p.part_id, name: p.name, sku: p.sku, qty: p.qty, price: p.price, buy_price: p.buy_price })), part],
+      } });
+      toast(purchase ? `Заказано у «${supplier}» и добавлено в заказ-наряд №${id}` : `Добавлено в заказ-наряд №${id}`);
+      go(`#/orders/${id}`);
+    },
+  });
+  // Подпись кнопки и доступность галочек следуют за выбором.
+  const form = m.form;
+  const sync = () => {
+    const doOrder = form.elements.do_order?.checked;
+    const toStock = form.elements.order?.value === 'stock';
+    $('button[type=submit]', m.el).textContent = doOrder ? 'Заказать' : canOrder ? 'Добавить без заказа' : 'Добавить в заказ-наряд';
+    if (form.elements.set_waiting) form.elements.set_waiting.disabled = !doOrder || toStock;
+    if (form.elements.with_work) form.elements.with_work.disabled = toStock;
+    if (form.elements.price) form.elements.price.closest('.field').hidden = toStock;
+  };
+  form.addEventListener('change', sync);
+  sync();
+}
+
+</script>
+<script>
+'use strict';
+/* Закупки: заказы запчастей у поставщиков. Создаются из подбора запчастей или вручную,
+   по кнопке «Получено» деталь отмечается в заказ-наряде или приходуется на склад.
+   Подключается до app.js и пользуется его помощниками только внутри функций. */
+
+const PURCHASE_STATUS = { ordered: ['Заказано', 'blue'], received: ['Получено', 'green'], cancelled: ['Отменено', 'red'] };
+const purchaseBadge = (s) => { const [t, c] = PURCHASE_STATUS[s] || [s, '']; return `<span class="badge ${c}">${esc(t)}</span>`; };
+
+/** «приедет завтра», «опаздывает на 2 дн.», «получено 16.11.2026». */
+function arrivalText(p) {
+  if (p.status === 'received') return `получено ${fmtDate(p.received_at)}`;
+  if (p.status === 'cancelled') return 'заказ отменён';
+  if (!p.expected_date) return 'срок не указан';
+  const t = isoDate();
+  if (p.expected_date < t) {
+    const late = Math.round((new Date(t) - new Date(p.expected_date)) / 864e5);
+    return `опаздывает на ${late} дн. · ждали ${fmtDate(p.expected_date)}`;
+  }
+  if (p.expected_date === t) return 'приедет сегодня';
+  if (p.expected_date === addDays(t, 1)) return 'приедет завтра';
+  return `приедет ${fmtDate(p.expected_date)}`;
+}
+const arrivalClass = (p) => (p.status === 'ordered' && p.expected_date && p.expected_date < isoDate() ? 'neg' : p.status === 'ordered' && p.expected_date === isoDate() ? 'ok-text' : '');
+
+/** Отметить получение. Возвращает ответ сервера; сообщает, что изменилось. */
+async function receivePurchase(p) {
+  const r = await api(`/purchases/${p.id}/receive`, { method: 'POST' });
+  if (p.order_id) {
+    toast(r.order_resumed ? `Все запчасти на месте — заказ-наряд №${p.order_id} снова «В работе»` : `Получено для заказ-наряда №${p.order_id}`);
+  } else toast(`Оприходовано на склад: ${p.name}, ${fmtNum(p.qty)} шт`);
+  return r;
+}
+
+/** Ручная запись заказа у поставщика (заказали по телефону или на сайте). */
+async function purchaseDialog(p = null, preset = {}, onSaved = () => {}) {
+  const x = { qty: 1, ...preset, ...(p || {}) };
+  const [orders, suppliers] = await Promise.all([
+    api('/orders', { query: { status: 'active' } }).then((r) => r.items),
+    api('/purchases').then((r) => [...new Set(r.items.map((i) => i.supplier))]),
+  ]);
+  if (x.order_id && !orders.some((o) => o.id === x.order_id)) orders.unshift({ id: x.order_id, client_name: x.client_name || '', make: x.make, model: x.model, plate: x.plate });
+  const buttons = p && p.status === 'ordered' ? [{ label: 'Отменить заказ', cls: 'danger', onClick: async () => {
+    if (!await askConfirm(`Отменить заказ «${p.name}» у ${p.supplier}?`, { ok: 'Отменить заказ' })) return false;
+    await api(`/purchases/${p.id}`, { method: 'PUT', body: { status: 'cancelled' } });
+    toast('Заказ отменён');
+    onSaved();
+  } }] : [];
+  openModal({
+    title: p ? 'Заказ у поставщика' : 'Записать заказ у поставщика',
+    buttons,
+    body: `<div class="form-grid">
+      ${fInput('Поставщик', 'supplier', x.supplier, { req: true, attrs: 'list="pur-suppliers"', ph: 'Например: Армтек' })}
+      ${fInput('Ожидаем', 'expected_date', x.expected_date || addDays(isoDate(), 1), { type: 'date' })}
+      ${fInput('Деталь', 'name', x.name, { req: true, cls: 'wide', ph: 'Рулевая рейка BMW 5 серии' })}
+      ${fInput('Бренд', 'brand', x.brand)}${fInput('Артикул', 'article', x.article)}
+      ${fNum('Количество', 'qty', x.qty, { req: true })}${fNum('Цена закупки за шт, ₽', 'price', x.price ?? '')}
+      ${fSelect('Для чего', 'order_id', [['', 'На склад'], ...orders.map((o) => [o.id, `Заказ-наряд №${o.id} · ${carLine(o) || '—'} · ${o.client_name}`])], x.order_id ?? '', { cls: 'wide' })}
+      ${fText('Комментарий', 'note', x.note, { rows: 2, ph: 'Номер заказа у поставщика, кто заказал' })}
+      <datalist id="pur-suppliers">${[...new Set([...suppliers, 'Армтек', 'Росско', 'Автопитер', 'Exist', 'Emex'])].map((s) => `<option value="${esc(s)}">`).join('')}</datalist></div>`,
+    submit: p ? 'Сохранить' : 'Записать заказ',
+    onSubmit: async (d) => {
+      const body = { ...d, order_id: d.order_id || null };
+      await api(p ? `/purchases/${p.id}` : '/purchases', { method: p ? 'PUT' : 'POST', body });
+      toast(p ? 'Сохранено' : 'Заказ записан');
+      onSaved();
+    },
+  });
+}
+
+async function viewPurchases(v, params) {
+  const f = { status: params.get('status') || 'ordered' };
+  const TABS = [['ordered', 'Ждём'], ['received', 'Получено'], ['cancelled', 'Отменено'], ['all', 'Все']];
+  v.innerHTML = `
+    <div class="page-head"><div><h1>Закупки</h1><div class="muted">Заказы запчастей у поставщиков: что ждём, что опаздывает, что уже приехало</div></div>
+      <div class="actions"><a class="btn" href="#/parts">${icon('tag')} Подобрать запчасть</a>
+      <button class="btn primary" data-act="new">${icon('plus')} Записать заказ</button></div></div>
+    <div class="kpis pur-kpis"></div>
+    <div class="tabs"></div>
+    <section class="card"><div class="table-wrap res"><div class="loading">Загрузка…</div></div></section>`;
+  let items = [];
+  async function load() {
+    replaceHash(`#/purchases${f.status !== 'ordered' ? '?status=' + f.status : ''}`);
+    const [r, open] = await Promise.all([
+      api('/purchases', { query: { status: f.status === 'all' ? '' : f.status } }),
+      api('/purchases', { query: { status: 'ordered' } }),
+    ]);
+    items = r.items;
+    const t = isoDate();
+    const late = open.items.filter((p) => p.expected_date && p.expected_date < t);
+    const today = open.items.filter((p) => p.expected_date === t);
+    const sum = open.items.reduce((s, p) => s + p.qty * p.price, 0);
+    $('.pur-kpis', v).innerHTML = `
+      <div class="kpi"><div class="label">Ждём от поставщиков</div><div class="value">${open.items.length}</div><div class="sub">${pfPlural(open.items.length, 'позиция', 'позиции', 'позиций')} на ${money(sum)}</div></div>
+      <div class="kpi"><div class="label">Приедут сегодня</div><div class="value">${today.length}</div><div class="sub">${today.length ? esc([...new Set(today.map((p) => p.supplier))].join(', ')) : 'нет'}</div></div>
+      <div class="kpi ${late.length ? 'alert' : ''}"><div class="label">Опаздывают</div><div class="value">${late.length}</div><div class="sub">${late.length ? 'позвоните поставщику' : 'всё вовремя'}</div></div>`;
+    const total = Object.values(r.counts).reduce((s, n) => s + n, 0);
+    $('.tabs', v).innerHTML = TABS.map(([k, label]) => `<button class="tab ${f.status === k ? 'active' : ''}" data-tab="${k}">${label}<span class="cnt">${k === 'all' ? total : r.counts[k] || 0}</span></button>`).join('');
+    $('.res', v).innerHTML = items.length ? `<table class="tbl stack st-pur"><thead><tr><th>Деталь</th><th>Поставщик</th><th class="right">Сумма</th><th>Срок</th><th>Для чего</th><th></th></tr></thead><tbody>
+      ${items.map((p, i) => `<tr data-i="${i}">
+        <td class="a-name"><div class="title">${esc(p.name)}</div><div class="muted small">${esc([p.brand, p.article].filter(Boolean).join(' · '))}${p.note ? ` · ${esc(p.note)}` : ''}</div></td>
+        <td class="a-sup">${esc(p.supplier)}<div class="small">${purchaseBadge(p.status)}</div></td>
+        <td class="num-cell a-sum"><b>${money(p.qty * p.price)}</b><div class="muted small">${fmtNum(p.qty)} × ${money(p.price)}</div></td>
+        <td class="a-when"><span class="${arrivalClass(p)}">${esc(arrivalText(p))}</span></td>
+        <td class="a-for">${p.order_id ? `<a href="#/orders/${p.order_id}">Заказ-наряд №${p.order_id}</a><div class="muted small">${esc([p.client_name, carLine(p)].filter(Boolean).join(' · '))}</div>` : '<span class="muted">на склад</span>'}</td>
+        <td class="right nowrap a-act">${p.status === 'ordered' ? `<button class="btn sm primary" data-receive="${i}">Получено</button> ` : ''}<button class="icon-btn" data-edit="${i}" title="Подробнее">${icon('edit')}</button></td>
+      </tr>`).join('')}</tbody></table>`
+      : `<div class="empty">${f.status === 'ordered' ? 'Сейчас ничего не ждём. Заказать деталь можно в «Подборе запчастей» или записать заказ вручную.' : 'Здесь пока пусто'}</div>`;
+  }
+  on(v, 'click', '[data-tab]', (e, el) => { f.status = el.dataset.tab; load(); });
+  on(v, 'click', '[data-receive]', async (e, el) => { await receivePurchase(items[+el.dataset.receive]); load(); });
+  on(v, 'click', '[data-edit]', (e, el) => purchaseDialog(items[+el.dataset.edit], {}, load));
+  $('[data-act=new]', v).onclick = () => purchaseDialog(null, {}, load);
+  await load();
+}
 
 </script>
 <script>
@@ -1320,6 +2415,23 @@ const fromMin = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
 const debounce = (fn, ms = 250) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 const carName = (c) => [c?.make, c?.model].filter(Boolean).join(' ');
 const carLine = (c) => [carName(c), c?.plate].filter(Boolean).join(' · ');
+// Российский номер «А123ВС777» рисуется как номерной знак: серия и номер, справа регион и RUS.
+const PLATE_RX = /^([АВЕКМНОРСТУХ])(\d{3})([АВЕКМНОРСТУХ]{2})(\d{2,3})$/;
+function plateHtml(value, cls = '') {
+  const v = String(value || '').toUpperCase().replace(/\s/g, '');
+  if (!v) return '';
+  const m = v.match(PLATE_RX);
+  if (!m) return `<span class="plate plate-free ${cls}"><span class="plate-main">${esc(v)}</span></span>`;
+  return `<span class="plate ${cls}" title="${esc(v)}"><span class="plate-main">${m[1]}<b>${m[2]}</b>${m[3]}</span><span class="plate-reg">${m[4]}<i>RUS</i></span></span>`;
+}
+const carHtml = (c) => `${plateHtml(c?.plate)} <span>${esc(carName(c) || '—')}</span>`;
+function monogram(name) {
+  const words = String(name || '').replace(/[«»"']/g, '').split(/\s+/).filter(Boolean);
+  if (!words.length) return 'АС';
+  if (/^[A-ZА-ЯЁ]{2,3}$/.test(words[0])) return words[0];
+  return words.slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+}
+const initials = (name) => String(name || '').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '?';
 const phoneLink = (p) => (p ? `<a href="tel:${esc(String(p).replace(/[^\d+]/g, ''))}">${esc(p)}</a>` : '');
 const greeting = () => { const h = new Date().getHours(); return h < 5 ? 'Доброй ночи' : h < 12 ? 'Доброе утро' : h < 18 ? 'Добрый день' : 'Добрый вечер'; };
 
@@ -1355,6 +2467,10 @@ const ICONS = {
   edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
   left: '<polyline points="15 18 9 12 15 6"/>',
   right: '<polyline points="9 18 15 12 9 6"/>',
+  check: '<polyline points="20 6 9 17 4 12"/>',
+  alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  truck: '<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+  tag: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
   save: '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
   download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
 };
@@ -1478,10 +2594,10 @@ function askConfirm(message, { ok = 'Да', title = 'Подтвердите де
   });
 }
 
-function openModal({ title, body = '', submit = 'Сохранить', onSubmit, onClose, buttons = [], wide = false, cancel = 'Отмена' }) {
+function openModal({ title, body = '', submit = 'Сохранить', onSubmit, onClose, buttons = [], wide = false, size = '', cancel = 'Отмена' }) {
   const ov = document.createElement('div');
   ov.className = 'modal-overlay';
-  ov.innerHTML = `<form class="modal ${wide ? 'wide' : ''}" novalidate autocomplete="off">
+  ov.innerHTML = `<form class="modal ${size || (wide ? 'wide' : '')}" novalidate autocomplete="off">
     <div class="modal-head"><h3>${esc(title)}</h3><button type="button" class="icon-btn" data-close title="Закрыть">${icon('x')}</button></div>
     <div class="modal-body">${body}<div class="form-error" hidden></div></div>
     <div class="modal-foot"></div></form>`;
@@ -1615,7 +2731,7 @@ function showAuth(html) {
   $$('.modal-overlay').forEach((m) => m.remove());
   const a = $('#auth');
   a.hidden = false;
-  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${icon('tool')}</span>${esc(COMPANY || 'МК Сервис')}</div>${html}</div>`;
+  a.innerHTML = `<div class="card auth-card"><div class="brand"><span class="brand-logo">${esc(monogram(COMPANY || 'МК Сервис'))}</span><span>${esc(COMPANY || 'МК Сервис')}</span></div>${html}</div>`;
   return a;
 }
 
@@ -1666,12 +2782,14 @@ async function boot() {
   $('#app').hidden = false;
   applyCompany();
   $('#user-name').textContent = ME.name;
+  $('#user-avatar').textContent = initials(ME.name);
   $('#user-role').textContent = isAdmin() ? 'Администратор' : 'Сотрудник';
   $$('[data-admin]').forEach((el) => { el.hidden = !isAdmin(); });
   if (DEMO && !$('.demo-bar')) {
     const bar = document.createElement('div');
     bar.className = 'demo-bar';
-    bar.innerHTML = '<span><b>Демо-версия.</b> Данные вымышленные и хранятся только в этом браузере — можно смело пробовать.</span><button type="button" class="btn sm">Сбросить демо-данные</button>';
+    const lead = DEMO.channel === 'next' ? '<b>Новая версия на проверке.</b> Здесь новые функции до выхода на основную ссылку.' : '<b>Демо-версия.</b>';
+    bar.innerHTML = `<span>${lead} Данные вымышленные и хранятся только в этом браузере — можно смело пробовать.</span><button type="button" class="btn sm">Сбросить демо-данные</button>`;
     $('button', bar).onclick = async () => {
       if (!await askConfirm('Вернуть демо-данные к исходному виду? Всё, что вы добавили, удалится.', { ok: 'Сбросить' })) return;
       DEMO.reset();
@@ -1689,6 +2807,7 @@ async function boot() {
 
 function applyCompany() {
   $('#brand-name').textContent = SETTINGS.company_name || 'МК Сервис';
+  $('#sidebar .brand-logo').textContent = monogram(SETTINGS.company_name || 'МК Сервис');
   document.title = `${SETTINGS.company_name || 'МК Сервис'} — CRM`;
 }
 
@@ -1700,6 +2819,8 @@ const ROUTES = [
   [/^\/calendar$/, viewCalendar],
   [/^\/clients$/, viewClients],
   [/^\/clients\/(\d+)$/, viewClient],
+  [/^\/parts$/, viewPartsFinder],
+  [/^\/purchases$/, viewPurchases],
   [/^\/stock$/, viewStock],
   [/^\/services$/, viewServices],
   [/^\/reports$/, viewReports],
@@ -1976,19 +3097,42 @@ function carDialog(car, clientId, onSaved) {
 
 /* ======================= главная ======================= */
 async function viewDashboard(v) {
-  const d = await api('/dashboard');
-  const kpi = (label, value, sub = '', href = '', alert = false) => {
+  const [d, posts] = await Promise.all([api('/dashboard'), getPosts()]);
+  const kpi = (label, value, sub = '', href = '', alert = false, ic = 'chart') => {
     const tag = href ? 'a' : 'div';
-    return `<${tag} ${href ? `href="${href}"` : ''} class="kpi ${alert ? 'alert' : ''}"><div class="label">${esc(label)}</div><div class="value">${value}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</${tag}>`;
+    return `<${tag} ${href ? `href="${href}"` : ''} class="kpi ${alert ? 'alert' : ''}"><div class="kpi-top"><span class="kpi-ic">${icon(ic)}</span><span class="label">${esc(label)}</span></div><div class="value">${value}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</${tag}>`;
   };
+  // Посты сейчас: какая машина на подъёмнике и когда он освободится.
+  const nowMin = new Date().getHours() * 60 + new Date().getMinutes();
+  const live = d.appointments.map((a, i) => ({ a, i, s: toMin(a.start.slice(11, 16)) })).filter((x) => ['planned', 'arrived'].includes(x.a.status));
+  const bay = (p) => {
+    const mine = live.filter((x) => x.a.post_id === p.id).sort((x, y) => x.s - y.s);
+    const cur = mine.find((x) => x.s <= nowMin && nowMin < x.s + x.a.duration);
+    const next = mine.find((x) => x.s > nowMin);
+    if (cur) {
+      const pct = Math.min(100, Math.round(((nowMin - cur.s) / cur.a.duration) * 100));
+      return `<button type="button" class="bay busy" data-appt="${cur.i}">
+        <div class="bay-top"><span class="bay-name">${esc(p.name)}</span><span class="bay-state">занят</span></div>
+        <div class="bay-car">${carHtml(cur.a)}</div>
+        <div class="muted small bay-desc">${esc(cur.a.client_name || '')}${cur.a.description ? ' · ' + esc(cur.a.description) : ''}</div>
+        <div class="bay-bar" aria-label="Выполнено ${pct}%"><span style="width:${pct}%"></span></div>
+        <div class="bay-foot small"><span>с ${cur.a.start.slice(11, 16)}</span><span>освободится в <b>${fromMin(cur.s + cur.a.duration)}</b></span></div></button>`;
+    }
+    return `<button type="button" class="bay free" ${next ? `data-appt="${next.i}"` : `data-bay-post="${p.id}"`}>
+      <div class="bay-top"><span class="bay-name">${esc(p.name)}</span><span class="bay-state">свободен</span></div>
+      <div class="bay-free-text">${next ? `до ${fromMin(next.s)}` : 'до конца дня'}</div>
+      <div class="muted small bay-desc">${next ? `Далее: ${esc(carName(next.a) || next.a.client_name || 'запись')} · ${esc(next.a.client_name || '')}` : 'Записей больше нет — можно принять машину'}</div></button>`;
+  };
+  const bays = posts.length ? `<section class="bays"><div class="card-head"><h2>Посты сейчас</h2><a href="#/calendar">Расписание →</a></div>
+    <div class="bay-grid">${posts.map(bay).join('')}</div></section>` : '';
   const appts = d.appointments.length ? `<div class="list">${d.appointments.map((a, i) => `
       <a href="javascript:void 0" class="list-item" data-appt="${i}">
         <div class="time">${a.start.slice(11, 16)}</div>
-        <div class="main"><div class="title">${esc(a.client_name || '—')}</div><div class="muted small">${esc(carLine(a))}${a.description ? ' — ' + esc(a.description) : ''}</div></div>
+        <div class="main"><div class="title">${esc(a.client_name || '—')}</div><div class="muted small li-car">${carHtml(a)}${a.description ? ' — ' + esc(a.description) : ''}</div></div>
         <div class="right small"><div>${esc(a.post_name || '')}</div>${a.order_id ? `<span class="badge teal">№${a.order_id}</span>` : a.status !== 'planned' ? `<span class="badge">${esc(APPT_STATUS[a.status])}</span>` : ''}</div>
       </a>`).join('')}</div>` : '<div class="empty-sm">На сегодня записей нет</div>';
   const active = d.active_orders.length ? `<div class="table-wrap"><table class="tbl"><tbody>${d.active_orders.slice(0, 12).map((o) => `
-      <tr class="click" data-href="#/orders/${o.id}"><td class="nowrap"><b>№${o.id}</b></td><td><div class="title">${esc(carLine(o) || '—')}</div><div class="muted small">${esc(o.client_name)}</div></td>
+      <tr class="click" data-href="#/orders/${o.id}"><td class="nowrap"><b>№${o.id}</b></td><td><div class="title li-car">${carHtml(o)}</div><div class="muted small">${esc(o.client_name)}</div></td>
       <td>${badge(o.status)}</td><td class="num-cell">${money(o.total)}</td></tr>`).join('')}</tbody></table></div>` : '<div class="empty-sm">Нет заказ-нарядов в работе</div>';
   const reminders = d.reminders.length ? `<div class="list">${d.reminders.map((r) => `
       <div class="list-item"><div class="main"><div class="title"><a href="#/clients/${r.client_id}">${esc(r.client_name)}</a></div>
@@ -2002,12 +3146,14 @@ async function viewDashboard(v) {
   v.innerHTML = `
     <div class="page-head"><div><h1>${greeting()}, ${esc((ME.name || '').split(' ')[0])}</h1><div class="muted">${longDate(isoDate())}</div></div></div>
     <div class="kpis">
-      ${kpi('В работе', d.active_count, 'заказ-нарядов', '#/orders?status=active')}
-      ${kpi('Готовы к выдаче', d.ready_count, 'можно звонить клиентам', '#/orders?status=ready')}
-      ${kpi('Запись на сегодня', d.appointments.length, 'машин', '#/calendar')}
-      ${isAdmin() ? kpi('Выручка сегодня', money(d.revenue_today), `за месяц ${money(d.revenue_month)}`, '#/reports') : ''}
-      ${kpi('Долги клиентов', isAdmin() ? money(d.debt_total) : d.debt_count, isAdmin() ? `${d.debt_count} заказ-нарядов` : 'заказ-нарядов', '#/orders?status=debt', d.debt_count > 0)}
+      ${kpi('В работе', d.active_count, 'заказ-нарядов', '#/orders?status=active', false, 'tool')}
+      ${kpi('Готовы к выдаче', d.ready_count, 'можно звонить клиентам', '#/orders?status=ready', false, 'check')}
+      ${kpi('Запись на сегодня', d.appointments.length, 'машин', '#/calendar', false, 'calendar')}
+      ${isAdmin() ? kpi('Выручка сегодня', money(d.revenue_today), `за месяц ${money(d.revenue_month)}`, '#/reports', false, 'chart') : ''}
+      ${kpi('Долги клиентов', isAdmin() ? money(d.debt_total) : d.debt_count, isAdmin() ? `${d.debt_count} заказ-нарядов` : 'заказ-нарядов', '#/orders?status=debt', d.debt_count > 0, 'alert')}
+      ${kpi('Ждём запчасти', d.purchases_open ?? 0, d.purchases_overdue ? `опаздывают: ${d.purchases_overdue}` : d.purchases_today ? `приедут сегодня: ${d.purchases_today}` : 'от поставщиков', '#/purchases', d.purchases_overdue > 0, 'truck')}
     </div>
+    ${bays}
     <div class="grid-2">
       <section class="card"><div class="card-head"><h2>Запись на сегодня</h2><a href="#/calendar">Календарь →</a></div>${appts}</section>
       <section class="card"><div class="card-head"><h2>Заказ-наряды в работе</h2><a href="#/orders?status=active">Все →</a></div>${active}</section>
@@ -2015,6 +3161,7 @@ async function viewDashboard(v) {
       <section class="card"><div class="card-head"><h2>Заканчивается на складе</h2><a href="#/stock?low=1">Склад →</a></div>${low}</section>
     </div>`;
   on(v, 'click', '[data-appt]', (e, el) => { e.preventDefault(); apptDialog({ appt: d.appointments[+el.dataset.appt], onSaved: router }); });
+  on(v, 'click', '[data-bay-post]', (e, el) => apptDialog({ date: isoDate(), postId: +el.dataset.bayPost, onSaved: router }));
   on(v, 'click', 'tr[data-href]', (e, el) => { if (!e.target.closest('a')) go(el.dataset.href); });
 }
 
@@ -2049,7 +3196,7 @@ async function viewOrders(v, params) {
       ${r.items.map((o) => `<tr class="click" data-href="#/orders/${o.id}">
         <td class="nowrap a-num"><b>№${o.id}</b><span class="m-only muted"> · ${fmtDate(o.created_at)}</span></td><td class="nowrap m-hide">${fmtDate(o.created_at)}</td>
         <td class="a-client"><div class="title">${esc(o.client_name)}</div><div class="muted small">${esc(o.client_phone)}</div></td>
-        <td class="a-car">${esc(carName(o))}<div class="muted small">${esc(o.plate)}</div></td>
+        <td class="a-car"><div>${esc(carName(o))}</div>${plateHtml(o.plate)}</td>
         <td class="a-status">${badge(o.status)}</td><td class="m-hide">${esc(o.master_name || '')}</td>
         <td class="num-cell a-total"><b>${money(o.total)}</b></td>
         <td class="num-cell a-pay">${payState(o)}</td></tr>`).join('')}
@@ -2094,26 +3241,40 @@ function renderOrder(v, o, emps) {
   LEAVE_GUARD = () => dirty;
   const empOpts = (sel) => [['', '—'], ...emps.filter((e) => e.active || String(e.id) === String(sel)).map((e) => [e.id, e.name])];
   const car = o.car;
+  // Этапы работы с машиной; «Отменён» стоит отдельно.
+  const STEPS = [['new', 'Принят'], ['in_progress', 'В работе'], ['waiting_parts', 'Ждёт запчасти'], ['ready', 'Готов'], ['done', 'Выдан']];
+  function stepper() {
+    if (st.status === 'cancelled') {
+      return `<div class="stepper is-cancelled" data-current="cancelled"><span class="badge red">Заказ-наряд отменён</span>
+        <span class="muted small">Запчасти со склада возвращены</span><button type="button" class="btn sm" data-step="in_progress">Вернуть в работу</button></div>`;
+    }
+    const cur = STEPS.findIndex(([k]) => k === st.status);
+    return `<div class="stepper" data-current="${st.status}" role="group" aria-label="Этап заказ-наряда">${STEPS.map(([k, label], i) => `
+      <button type="button" class="step ${i < cur ? 'done' : i === cur ? 'current' : ''}" data-step="${k}" ${i === cur ? 'aria-current="step"' : ''}>
+        <span class="step-dot">${i < cur ? icon('check') : i + 1}</span><span class="step-label">${label}</span></button>`).join('<span class="step-line" aria-hidden="true"></span>')}
+      <button type="button" class="step-cancel" data-step="cancelled" title="Отменить заказ-наряд">${icon('x')}<span>Отменить</span></button></div>`;
+  }
 
   root.innerHTML = `
     <div class="page-head">
       <div><a href="#/orders" class="back">← Заказ-наряды</a>
-        <h1>Заказ-наряд №${o.id} <span class="muted" style="font-weight:500;font-size:15px">от ${fmtDate(o.created_at)}</span></h1></div>
+        <h1>Заказ-наряд №${o.id} <span class="muted h-sub">от ${fmtDate(o.created_at)}</span></h1>
+        <div class="order-car">${plateHtml(car?.plate, 'plate-lg')}<div><b>${esc(carName(car) || 'Автомобиль не указан')}</b>${car?.year ? ` <span class="muted">${car.year}</span>` : ''}<div class="muted small">${esc(o.client?.name || '')}</div></div></div></div>
       <div class="actions">
         <span class="dirty-flag" hidden>● не сохранено</span>
-        <select class="status-select" data-status>${opts(Object.entries(ORDER_STATUS).map(([k, [t]]) => [k, t]), o.status)}</select>
         <button class="btn" data-act="print" title="Печать">${icon('printer')}<span class="hide-sm">Печать</span></button>
         ${isAdmin() ? `<button class="btn danger" data-act="delete" title="Удалить">${icon('trash')}</button>` : ''}
         <button class="btn primary" data-act="save">${icon('save')} Сохранить</button>
       </div>
     </div>
+    <section class="card stage-card">${stepper()}</section>
     <div class="order-grid">
       <div class="order-main">
         <section class="card">
           <div class="info-line">
             <div><div class="lbl">Клиент</div><div class="val"><a href="#/clients/${o.client_id}">${esc(o.client?.name)}</a></div><div class="small">${phoneLink(o.client?.phone)}</div></div>
             <div><div class="lbl">Автомобиль</div><div class="val">${esc(carName(car) || '—')} ${car?.year ? `<span class="muted">${car.year}</span>` : ''}</div>
-              <div class="small muted">${esc(car?.plate || '')}${car?.vin ? ' · VIN ' + esc(car.vin) : ''}</div></div>
+              <div class="small muted">${car?.vin ? 'VIN ' + esc(car.vin) : ''}</div></div>
             ${o.closed_at ? `<div><div class="lbl">Выдан</div><div class="val">${fmtDT(o.closed_at)}</div></div>` : ''}
           </div>
           <div class="form-grid">
@@ -2130,10 +3291,14 @@ function renderOrder(v, o, emps) {
           <div class="add-line"><input class="add-work" placeholder="+ Добавить работу — начните вводить название из прайса" autocomplete="off"></div>
         </section>
         <section class="card">
-          <div class="card-head"><h2>Запчасти и материалы</h2><span class="sum parts-sum"></span></div>
+          <div class="card-head"><h2>Запчасти и материалы</h2><div class="head-actions"><button type="button" class="btn sm" data-act="find-part">${icon('tag')} Подобрать</button><span class="sum parts-sum"></span></div></div>
           <table class="lines"><thead><tr><th>Наименование</th><th>Артикул</th><th>Кол-во</th><th>Цена</th><th class="right">Сумма</th><th></th></tr></thead>
           <tbody class="parts-body" data-line="parts"></tbody></table>
           <div class="add-line"><input class="add-part" placeholder="+ Добавить запчасть — поиск по складу: название или артикул" autocomplete="off"></div>
+          ${o.purchases?.length ? `<div class="pur-list"><div class="pur-title">${icon('truck')} Заказано у поставщиков</div>${o.purchases.map((p) => `
+            <div class="pur-row"><div class="pur-main"><b>${esc(p.name)}</b><div class="muted small">${esc(p.supplier)} · ${fmtNum(p.qty)} шт · ${money(p.qty * p.price)}</div></div>
+            <div class="pur-when ${arrivalClass(p)}">${esc(arrivalText(p))}</div>
+            <div class="pur-act">${p.status === 'ordered' ? `<button type="button" class="btn sm primary" data-receive="${p.id}">Получено</button>` : purchaseBadge(p.status)}</div></div>`).join('')}</div>` : ''}
         </section>
         <section class="card">
           <h2 style="margin-bottom:12px">Рекомендации клиенту</h2>
@@ -2146,7 +3311,7 @@ function renderOrder(v, o, emps) {
         </section>
       </div>
       <aside class="order-side">
-        <section class="card totals"></section>
+        <section class="card totals receipt"></section>
         <section class="card payments"></section>
       </aside>
     </div>`;
@@ -2193,6 +3358,7 @@ function renderOrder(v, o, emps) {
     $('.works-sum', root).textContent = money(t.works);
     $('.parts-sum', root).textContent = money(t.parts);
     $('.totals', root).innerHTML = `
+      <div class="receipt-head"><span>Итог</span><span>№${o.id}</span></div>
       <div class="row"><span>Работы</span><span>${money(t.works)}</span></div>
       <div class="row"><span>Запчасти</span><span>${money(t.parts)}</span></div>
       <div class="row"><span class="disc">Скидка <input data-o="discount" inputmode="decimal" value="${esc(st.discount)}"> %</span><span>${t.discSum ? '−' + money(t.discSum) : '—'}</span></div>
@@ -2209,12 +3375,12 @@ function renderOrder(v, o, emps) {
   }
   function markDirty() { dirty = true; $('.dirty-flag', root).hidden = false; }
 
-  async function save() {
+  async function save(message = 'Сохранено') {
     const body = { ...st };
     delete body.payments;
     const fresh = await api(`/orders/${o.id}`, { method: 'PUT', body });
     dirty = false;
-    toast('Сохранено');
+    toast(message);
     const y = window.scrollY;
     renderOrder(v, fresh, emps);
     window.scrollTo(0, y);
@@ -2251,17 +3417,42 @@ function renderOrder(v, o, emps) {
   });
   on(root, 'change', '[data-o="discount"]', () => drawTotals());
 
-  $('[data-status]', root).onchange = async (e) => {
-    const next = e.target.value;
-    if (next === 'done' && calc().debt > 0.009 && !await askConfirm(`Остаток к оплате ${money(calc().debt)}. Всё равно отметить как «Выдан»?`)) {
-      e.target.value = st.status;
-      return;
-    }
-    if (next === 'cancelled' && !await askConfirm('Отменить заказ-наряд? Запчасти вернутся на склад.')) { e.target.value = st.status; return; }
+  async function setStatus(next) {
+    if (next === st.status) return;
+    if (next === 'done' && calc().debt > 0.009 && !await askConfirm(`Остаток к оплате ${money(calc().debt)}. Всё равно отметить как «Выдан»?`, { ok: 'Выдать' })) return;
+    if (next === 'cancelled' && !await askConfirm('Отменить заказ-наряд? Запчасти вернутся на склад.', { ok: 'Отменить заказ-наряд' })) return;
     st.status = next;
-    await save();
-  };
+    await save(`Сохранено: ${next === 'cancelled' ? 'заказ-наряд отменён' : `«${STEPS.find(([k]) => k === next)[1]}»`}`);
+  }
+  on(root, 'click', '[data-step]', (e, el) => setStatus(el.dataset.step));
   $('[data-act=save]', root).onclick = () => save();
+  on(root, 'click', '[data-receive]', async (e, el) => {
+    const p = o.purchases.find((x) => x.id === +el.dataset.receive);
+    if (dirty) {
+      const body = { ...st };
+      delete body.payments;
+      await api(`/orders/${o.id}`, { method: 'PUT', body });
+      dirty = false;
+    }
+    await receivePurchase(p);
+    const fresh = await api(`/orders/${o.id}`);
+    const y = window.scrollY;
+    renderOrder(v, fresh, emps);
+    window.scrollTo(0, y);
+  });
+  $('[data-act=find-part]', root).onclick = () => {
+    const m = openModal({ title: 'Подбор запчастей', size: 'xl', cancel: 'Закрыть', body: '<div class="pf-host"></div>' });
+    partsFinder($('.pf-host', m.body), {
+      car: o.car, clientId: o.client_id, carId: o.car_id, orderId: o.id,
+      onAdd: async ({ part, work, waiting, ordered }) => {
+        st.parts.push(part);
+        if (work) st.works.push(work);
+        if (waiting && ['new', 'in_progress'].includes(st.status)) st.status = 'waiting_parts';
+        m.close();
+        await save(ordered ? 'Деталь заказана и добавлена в заказ-наряд' : 'Деталь добавлена в заказ-наряд');
+      },
+    });
+  };
   $('[data-act=print]', root).onclick = async () => {
     if (dirty) await save();
     if (DEMO) go(`#/print/order/${o.id}`);
@@ -2388,7 +3579,7 @@ async function viewCalendar(v, params) {
         const h = Math.max((a.duration / SLOT) * ROW - 3, 24);
         html += `<div class="cal-appt ${a.status}" data-id="${a.id}" style="top:${top + 1}px;height:${h}px" title="${esc(`${a.client_name || ''}\n${carLine(a)}\n${a.description || ''}`)}">
           <div class="t">${a.start.slice(11, 16)}–${fromMin(s + a.duration)} ${esc(a.client_name || '')}</div>
-          <div>${esc(carLine(a))}</div>
+          <div class="cal-car">${carHtml(a)}</div>
           ${a.description ? `<div class="muted">${esc(a.description)}</div>` : ''}
           ${a.order_id ? `<div style="margin-top:2px">${badge(a.order_status)} <span class="small">№${a.order_id}</span></div>` : ''}</div>`;
       }
@@ -2452,7 +3643,7 @@ async function viewClient(v, params, id) {
     <section class="card">
       <div class="card-head"><h2>Автомобили</h2><button class="btn sm" data-act="add-car">${icon('plus')} Добавить</button></div>
       ${c.cars.length ? `<div class="table-wrap"><table class="tbl"><thead><tr><th>Автомобиль</th><th>Госномер</th><th>VIN</th><th class="right">Пробег</th><th>Следующее ТО</th><th></th></tr></thead><tbody>
-        ${c.cars.map((x) => `<tr><td class="title">${esc(carName(x) || '—')} ${x.year ? `<span class="muted">${x.year}</span>` : ''}</td><td class="nowrap">${esc(x.plate)}</td>
+        ${c.cars.map((x) => `<tr><td class="title">${esc(carName(x) || '—')} ${x.year ? `<span class="muted">${x.year}</span>` : ''}</td><td class="nowrap">${plateHtml(x.plate)}</td>
           <td class="small">${esc(x.vin)}</td><td class="num-cell">${x.mileage ? fmtNum(x.mileage) + ' км' : ''}</td>
           <td class="nowrap">${fmtDate(x.next_service_date)}${x.next_service_km ? ` · ${fmtNum(x.next_service_km)} км` : ''}</td>
           <td class="right nowrap"><button class="btn sm" data-car-order="${x.id}">Заказ-наряд</button> <button class="icon-btn" data-car-edit="${x.id}" title="Изменить">${icon('edit')}</button></td></tr>`).join('')}
@@ -2687,6 +3878,7 @@ async function viewSettings(v, params) {
       ${fInput('Адрес', 'company_address', s.company_address, { cls: 'wide' })}
       ${fInput('ИНН', 'company_inn', s.company_inn)}
       ${fNum('Стоимость нормо-часа, ₽', 'hour_price', s.hour_price)}
+      ${fNum('Наценка на запчасти от поставщиков, %', 'parts_markup', s.parts_markup)}
       ${fInput('Начало рабочего дня', 'work_start', s.work_start, { type: 'time' })}
       ${fInput('Конец рабочего дня', 'work_end', s.work_end, { type: 'time' })}
       ${fText('Реквизиты для документов', 'company_requisites', s.company_requisites, { rows: 3, ph: 'ОГРН, р/с, банк, БИК…' })}
