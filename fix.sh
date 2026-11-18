@@ -37,6 +37,6 @@ done
 
 say "Запускаю установку CRM"
 MK_BG=1 bash ~/mk-service/ops/install.sh
-dpkg --audit >/dev/null 2>&1 || { say "Довожу прерванные обновления Ubuntu"; timeout 900 dpkg --configure -a; }
+[ -z "$(dpkg --audit 2>/dev/null)" ] || { say "Довожу прерванные обновления Ubuntu"; timeout 900 dpkg --configure -a; }
 say "Итог $(date '+%F %T'): нагрузка $(cut -d' ' -f1-3 /proc/loadavg)"
 docker ps --format '{{.Names}}: {{.Status}}'
