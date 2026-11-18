@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Чинит зависший Docker и доустанавливает CRM. Журнал: ~/mk-fix.log
-exec > >(tee -a ~/mk-fix.log) 2>&1
+exec > >(tee -a /root/mk-fix.log) 2>&1
+# после перезагрузки запускается один раз и выключает себя
+systemctl disable mk-fix.service >/dev/null 2>&1
 say() { printf '\n\033[1;32m▸ %s\033[0m\n' "$*"; }
 warn() { printf '\n\033[1;33m! %s\033[0m\n' "$*"; }
 say "Старт $(date '+%F %T'), нагрузка: $(cut -d' ' -f1-3 /proc/loadavg), ядер: $(nproc)"
@@ -17,10 +19,12 @@ mkdir -p /etc/systemd/system/docker.service.d
 printf '[Service]\nTimeoutStartSec=15min\n' > /etc/systemd/system/docker.service.d/mk-timeout.conf
 systemctl daemon-reload
 systemctl reset-failed docker 2>/dev/null
-systemctl restart containerd
-timeout 1000 systemctl restart docker
-for i in $(seq 1 60); do docker info >/dev/null 2>&1 && break; sleep 10; done
-if ! docker info >/dev/null 2>&1; then
+if ! timeout 20 docker info >/dev/null 2>&1; then
+  timeout 600 systemctl restart containerd
+  timeout 1000 systemctl restart docker
+fi
+for i in $(seq 1 60); do timeout 20 docker info >/dev/null 2>&1 && break; sleep 10; done
+if ! timeout 20 docker info >/dev/null 2>&1; then
   warn "Docker так и не запустился. Журнал Docker:"; journalctl -u docker -n 25 --no-pager | cut -c1-200; exit 1
 fi
 say "Docker работает. Контейнеры:"; docker ps --format '{{.Names}}: {{.Status}}'
@@ -36,7 +40,7 @@ for img in postgres:16 python:3.13-slim; do
 done
 
 say "Запускаю установку CRM"
-MK_BG=1 bash ~/mk-service/ops/install.sh
+MK_BG=1 bash /root/mk-service/ops/install.sh
 [ -z "$(dpkg --audit 2>/dev/null)" ] || { say "Довожу прерванные обновления Ubuntu"; timeout 900 dpkg --configure -a; }
 say "Итог $(date '+%F %T'): нагрузка $(cut -d' ' -f1-3 /proc/loadavg)"
 docker ps --format '{{.Names}}: {{.Status}}'
