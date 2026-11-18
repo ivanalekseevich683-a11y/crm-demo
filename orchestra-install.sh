@@ -56,6 +56,7 @@ for pkg in @anthropic-ai/claude-code @openai/codex @google/gemini-cli; do
     warn "$pkg: попытка $t не удалась, повторяю"
   done
 done
+FIX_BG=1 bash "$HERE"/bin/fix-agents | grep -v '^$' || true
 chmod -R a+rX $O/npm $O/node
 
 say "Grok Build (официальный установщик xAI) для пользователя agent-grok"
